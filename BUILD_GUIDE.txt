@@ -1,0 +1,88 @@
+MEDICAL IMAGING SOLUTIONS - SIMPLE BUILD GUIDE
+==============================================
+
+PREREQUISITES:
+- Node.js 18+ installed
+- npm package manager
+
+QUICK START:
+1. Clone or copy this repository
+2. Navigate to project folder: cd medical-imaging-solutions
+3. Install dependencies: npm install
+4. Start development server: npm run dev
+5. Open browser: http://localhost:8000
+
+THAT'S IT!
+
+TROUBLESHOOTING:
+- If port 8000 is busy, server will auto-use next available port
+- If npm install fails, try: npm cache clean --force
+- If build fails, check Node.js version: node --version
+
+PROJECT STRUCTURE:
+medical-imaging-solutions/
+├── app/                    (Next.js app router)
+├── components/             (React components)
+├── lib/                   (Data and utilities)
+├── public/                (Static assets)
+├── package.json           (Dependencies)
+└── README.md              (Project info)
+
+WHAT'S INCLUDED:
+✅ Professional medical imaging website
+✅ Two platforms: RadView (radiomics) + HRS (prostate cancer)
+✅ Desktop and Web versions of each platform
+✅ Modern blue theme with glass morphism
+✅ Responsive design (mobile + desktop)
+✅ Fixed header with dropdown navigation
+✅ Hero section with demo links
+✅ Features showcase
+✅ Product cards
+✅ Why choose us section
+✅ Professional footer
+✅ Custom 404 page
+✅ No FOUC (Flash of Unstyled Content)
+✅ All styles in global CSS
+
+TECH STACK:
+- Next.js 14 (App Router)
+- React 18
+- Pure CSS (no Tailwind)
+- Lucide React icons
+- TypeScript
+
+COMMANDS:
+npm install          (Install dependencies)
+npm run dev          (Start development server)
+npm run build        (Build for production)
+npm run start        (Start production server)
+npm run lint         (Run ESLint)
+
+PORT CONFIGURATION:
+Default port: 8000
+If busy, automatically uses next available port
+Manual port: npm run dev -- -p 3001
+
+DEPLOYMENT:
+Build: npm run build
+Start: npm run start
+Files ready in: .next/ folder
+
+NOTES:
+- No complex setup required
+- All dependencies included in package.json
+- All styles pre-configured in globals.css
+- Ready to run immediately after npm install
+- Professional medical imaging theme
+- Two separate platforms clearly showcased
+
+SUPPORT:
+If issues occur:
+1. Check Node.js version (18+ required)
+2. Clear npm cache: npm cache clean --force
+3. Delete node_modules and run npm install again
+4. Check console for specific error messages
+
+This is a complete, production-ready medical imaging website
+that showcases RadView and HRS platforms with professional
+styling and modern web standards.
