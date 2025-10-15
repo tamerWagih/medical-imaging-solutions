@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Download, FileText, Play, CheckCircle, FolderOpen, Settings, Cpu, Filter, Eye, Monitor, Zap, BarChart3 } from "lucide-react";
+import { ArrowRight, Download, FileText, Play, CheckCircle, FolderOpen, Settings, Cpu, Filter, Eye, Monitor, Zap, BarChart3, Globe, Activity } from "lucide-react";
 import { RADVIEW_DESKTOP } from "@/lib/radview-data";
 
 const iconMap = {
@@ -52,6 +52,14 @@ const videoData = [
     video: "/products/radview-desktop/videos/Visualization.mp4",
     thumbnail: "/products/radview-desktop/screenshots/Visualization.png",
     duration: "3:24"
+  },
+  {
+    id: "radview-cloud-experiment",
+    title: "RadView Cloud - Experiment Management",
+    description: "Cloud-based experiment management with collaborative workflows",
+    video: "/videos/radview-cloud-experiment-demo.mp4",
+    thumbnail: "/images/radview-cloud-experiment-thumbnail.png",
+    duration: "4:15"
   }
 ];
 
@@ -65,15 +73,15 @@ export default function RadViewPage() {
             <div className="hero-text">
               <div className="hero-badge">
                 <Monitor size={16} />
-                <span>Version {RADVIEW_DESKTOP.version} • Desktop Application</span>
+                <span>Version {RADVIEW_DESKTOP.version} • Desktop & Web</span>
               </div>
               
               <h1 className="hero-title">
-                {RADVIEW_DESKTOP.hero.name}
+                RadView - Radiomics Analysis Platform
               </h1>
               
               <p className="hero-description">
-                {RADVIEW_DESKTOP.hero.description}
+                Comprehensive radiomics feature extraction and visualization platform. Available as both a powerful desktop application and a flexible web-based solution. Extract 100+ features across 13 categories with advanced preprocessing and analysis tools.
               </p>
 
               <div className="hero-buttons">
@@ -153,17 +161,203 @@ export default function RadViewPage() {
           </div>
 
           <div className="features-grid">
-            {RADVIEW_DESKTOP.overview.keyFeatures.map((feature, index) => (
-              <div key={index} className="feature-card">
-                <div className="feature-icon-wrapper">
-                  <div className="feature-icon">
-                    <CheckCircle size={28} />
+            {RADVIEW_DESKTOP.overview.keyFeatures.map((feature, index) => {
+              const featureTitles = [
+                "Multi-Format Support",
+                "Advanced Preprocessing",
+                "Comprehensive Feature Extraction",
+                "Powerful Visualization",
+                "ROI Analysis Tools",
+                "Flexible Data Export"
+              ];
+              
+              return (
+                <div key={index} className="feature-card">
+                  <div className="feature-icon-wrapper">
+                    <div className="feature-icon">
+                      <CheckCircle size={28} />
+                    </div>
                   </div>
+                  <h3 className="feature-title">{featureTitles[index] || "Advanced Features"}</h3>
+                  <p className="feature-description">{feature}</p>
                 </div>
-                <h3 className="feature-title">Radiomics Analysis</h3>
-                <p className="feature-description">{feature}</p>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Platform Comparison - Desktop vs Web */}
+      <section className="why-choose-section">
+        <div className="why-choose-container">
+          <div className="why-choose-header">
+            <h2 className="why-choose-title">
+              Choose Your <span className="why-choose-highlight">Platform</span>
+            </h2>
+            <p className="why-choose-subtitle">
+              RadView is available as both a powerful desktop application and a flexible web-based platform
+            </p>
+          </div>
+
+          <div className="features-grid" style={{ maxWidth: '900px', margin: '0 auto' }}>
+            {/* Desktop Platform */}
+            <div className="feature-card" style={{ border: '2px solid rgba(59, 130, 246, 0.3)' }}>
+              <div className="feature-icon-wrapper">
+                <div className="feature-icon">
+                  <Monitor size={32} />
+                </div>
               </div>
-            ))}
+              <h3 className="feature-title">RadView Desktop</h3>
+              <p className="feature-description">
+                High-performance local processing with complete radiomics analysis capabilities
+              </p>
+              <ul className="product-card-features">
+                <li className="product-card-feature">
+                  <span className="product-card-feature-dot" />
+                  100+ radiomics features across 13 categories
+                </li>
+                <li className="product-card-feature">
+                  <span className="product-card-feature-dot" />
+                  12 advanced preprocessing algorithms
+                </li>
+                <li className="product-card-feature">
+                  <span className="product-card-feature-dot" />
+                  Multi-format support (DICOM, MHA, NIfTI, TIFF)
+                </li>
+                <li className="product-card-feature">
+                  <span className="product-card-feature-dot" />
+                  Local GPU acceleration for large datasets
+                </li>
+                <li className="product-card-feature">
+                  <span className="product-card-feature-dot" />
+                  Offline analysis with sensitive medical data
+                </li>
+              </ul>
+              <Link href="/contact" className="product-card-button" style={{ marginTop: '1.5rem' }}>
+                Request Desktop Version
+                <ArrowRight size={16} />
+              </Link>
+            </div>
+
+            {/* Web Platform */}
+            <div className="feature-card">
+              <div className="feature-icon-wrapper">
+                <div className="feature-icon">
+                  <Globe size={32} />
+                </div>
+              </div>
+              <h3 className="feature-title">RadView Cloud</h3>
+              <p className="feature-description">
+                Scalable cloud computing for large-scale radiomics research and multi-institutional studies
+              </p>
+              <ul className="product-card-features">
+                <li className="product-card-feature">
+                  <span className="product-card-feature-dot" />
+                  Same 100+ radiomics features with cloud processing
+                </li>
+                <li className="product-card-feature">
+                  <span className="product-card-feature-dot" />
+                  Parallel processing of multiple datasets
+                </li>
+                <li className="product-card-feature">
+                  <span className="product-card-feature-dot" />
+                  Automated statistical analysis (23 measures)
+                </li>
+                <li className="product-card-feature">
+                  <span className="product-card-feature-dot" />
+                  Feature selection algorithms (MRMR, T-Test, RankSum)
+                </li>
+                <li className="product-card-feature">
+                  <span className="product-card-feature-dot" />
+                  HIPAA-compliant data handling
+                </li>
+              </ul>
+              <Link href="/contact" className="product-card-button" style={{ marginTop: '1.5rem' }}>
+                Request Cloud Access
+                <ArrowRight size={16} />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* RadView Cloud Workflow Section */}
+      <section className="why-choose-section">
+        <div className="why-choose-container">
+          <div className="why-choose-header">
+            <h2 className="why-choose-title">
+              RadView Cloud <span className="why-choose-highlight">Processing Pipeline</span>
+            </h2>
+            <p className="why-choose-subtitle">
+              Complete radiomics analysis workflow from image preprocessing to feature extraction and statistical analysis
+            </p>
+          </div>
+
+          <div className="why-choose-grid">
+            <div className="why-choose-card radview-workflow-card">
+              <span className="why-choose-card-badge">Step 1</span>
+              <div className="why-choose-card-icon-wrapper">
+                <div className="why-choose-card-icon">
+                  <Monitor size={24} />
+                </div>
+              </div>
+              <h3 className="why-choose-card-title">Image Data Upload</h3>
+              <p className="why-choose-card-description">
+                Upload DICOM, MHA, NIfTI, and TIFF medical images with automatic format validation, metadata extraction, and Patient-Study-Series organization for radiomics analysis.
+              </p>
+            </div>
+
+            <div className="why-choose-card radview-workflow-card">
+              <span className="why-choose-card-badge">Step 2</span>
+              <div className="why-choose-card-icon-wrapper">
+                <div className="why-choose-card-icon">
+                  <Globe size={24} />
+                </div>
+              </div>
+              <h3 className="why-choose-card-title">Preprocessing Pipeline</h3>
+              <p className="why-choose-card-description">
+                Configure 12 preprocessing algorithms including normalization, bias correction, resampling, and filtering to prepare medical images for radiomics feature extraction.
+              </p>
+            </div>
+
+            <div className="why-choose-card radview-workflow-card">
+              <span className="why-choose-card-badge">Step 3</span>
+              <div className="why-choose-card-icon-wrapper">
+                <div className="why-choose-card-icon">
+                  <Activity size={24} />
+                </div>
+              </div>
+              <h3 className="why-choose-card-title">Feature Extraction Setup</h3>
+              <p className="why-choose-card-description">
+                Configure radiomics feature extraction across 13 categories including first-order, texture (GLCM, GLRLM, GLSZM), and higher-order features with customizable parameters.
+              </p>
+            </div>
+
+            <div className="why-choose-card radview-workflow-card">
+              <span className="why-choose-card-badge">Step 4</span>
+              <div className="why-choose-card-icon-wrapper">
+                <div className="why-choose-card-icon">
+                  <CheckCircle size={24} />
+                </div>
+              </div>
+              <h3 className="why-choose-card-title">Parallel Radiomics Processing</h3>
+              <p className="why-choose-card-description">
+                Execute radiomics analysis using scalable cloud computing with parallel processing of multiple patients, real-time progress monitoring, and automated quality control.
+              </p>
+            </div>
+
+            <div className="why-choose-card radview-workflow-card">
+              <span className="why-choose-card-badge">Step 5</span>
+              <div className="why-choose-card-icon-wrapper">
+                <div className="why-choose-card-icon">
+                  <Download size={24} />
+                </div>
+              </div>
+              <h3 className="why-choose-card-title">Statistical Analysis & Export</h3>
+              <p className="why-choose-card-description">
+                Generate comprehensive statistical analysis with 23 statistical measures, feature selection (MRMR, T-Test, RankSum), and export results to CSV, MHA, NIfTI, and PDF formats.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -291,66 +485,6 @@ export default function RadViewPage() {
                 </p>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* System Requirements */}
-      <section className="features-section">
-        <div className="features-container">
-          <div className="features-header">
-            <h2 className="features-title">System Requirements</h2>
-            <p className="features-subtitle">
-              Ensure your system meets these requirements for optimal performance
-            </p>
-          </div>
-
-          <div className="features-grid">
-            <div className="feature-card radview-requirements-card">
-              <div className="feature-icon-wrapper">
-                <div className="feature-icon">
-                  <Settings size={28} />
-                </div>
-              </div>
-              <h3 className="feature-title">Minimum Requirements</h3>
-              <div className="radview-requirements-content">
-                <div className="radview-requirements-item">
-                  <strong>OS:</strong> {RADVIEW_DESKTOP.systemRequirements.minimum.os}
-                </div>
-                <div className="radview-requirements-item">
-                  <strong>RAM:</strong> {RADVIEW_DESKTOP.systemRequirements.minimum.ram}
-                </div>
-                <div className="radview-requirements-item">
-                  <strong>Storage:</strong> {RADVIEW_DESKTOP.systemRequirements.minimum.storage}
-                </div>
-                <div className="radview-requirements-item">
-                  <strong>Graphics:</strong> {RADVIEW_DESKTOP.systemRequirements.minimum.graphics}
-                </div>
-              </div>
-            </div>
-
-            <div className="feature-card radview-requirements-card radview-requirements-card-recommended">
-              <div className="feature-icon-wrapper">
-                <div className="feature-icon">
-                  <CheckCircle size={28} />
-                </div>
-              </div>
-              <h3 className="feature-title">Recommended</h3>
-              <div className="radview-requirements-content">
-                <div className="radview-requirements-item">
-                  <strong>OS:</strong> {RADVIEW_DESKTOP.systemRequirements.recommended.os}
-                </div>
-                <div className="radview-requirements-item">
-                  <strong>RAM:</strong> {RADVIEW_DESKTOP.systemRequirements.recommended.ram}
-                </div>
-                <div className="radview-requirements-item">
-                  <strong>Storage:</strong> {RADVIEW_DESKTOP.systemRequirements.recommended.storage}
-                </div>
-                <div className="radview-requirements-item">
-                  <strong>Graphics:</strong> {RADVIEW_DESKTOP.systemRequirements.recommended.graphics}
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>

@@ -20,7 +20,7 @@ export function ProductShowcase() {
             Our <span className="products-title-gradient">Product Suite</span>
           </h2>
           <p className="products-subtitle">
-            Choose between powerful desktop applications or accessible web platforms for your medical imaging needs
+            Two specialized platforms, each available as desktop application and web solution
           </p>
         </div>
 
@@ -36,7 +36,7 @@ export function ProductShowcase() {
                       <Icon size={32} />
                     </div>
                   </div>
-                  <div className={`product-card-badge ${product.badge === "Desktop" ? "desktop" : "web"}`}>
+                  <div className="product-card-badge hybrid">
                     {product.badge}
                   </div>
                 </div>

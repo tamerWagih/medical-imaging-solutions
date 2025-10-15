@@ -1,7 +1,42 @@
+"use client";
+
 import { COMPANY } from "@/lib/constants";
-import { Mail, Activity } from "lucide-react";
+import { Activity } from "lucide-react";
+import { useState } from "react";
 
 export function Footer() {
+  const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!email.trim()) {
+      setMessage("Please enter your email address");
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setMessage("Please enter a valid email address");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setMessage("");
+
+    try {
+      // Simulate API call - replace with actual newsletter subscription logic
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      setMessage("Thank you for subscribing! We'll keep you updated.");
+      setEmail("");
+    } catch (error) {
+      setMessage("Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <footer className="medical-footer">
       <div className="medical-footer-container">
@@ -39,16 +74,28 @@ export function Footer() {
               <p className="medical-footer-newsletter-text">
                 Get the latest updates on our medical imaging solutions.
               </p>
-              <form className="medical-footer-form">
+              <form className="medical-footer-form" onSubmit={handleSubmit}>
                 <input
                   type="email"
                   placeholder="Enter your email"
                   className="medical-footer-input"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={isSubmitting}
                 />
-                <button type="submit" className="medical-footer-button">
-                  Subscribe
+                <button 
+                  type="submit" 
+                  className="medical-footer-button"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Subscribing..." : "Subscribe"}
                 </button>
               </form>
+              {message && (
+                <p className={`medical-footer-message ${message.includes("Thank you") ? "success" : "error"}`}>
+                  {message}
+                </p>
+              )}
             </div>
           </div>
         </div>
@@ -58,17 +105,6 @@ export function Footer() {
           <p className="medical-footer-copyright">
             © {new Date().getFullYear()} {COMPANY.name}. All rights reserved.
           </p>
-          <div className="medical-footer-contact">
-            <div className="medical-footer-contact-icon">
-              <Mail size={16} />
-            </div>
-            <a
-              href="mailto:dev@cstride.com"
-              className="medical-footer-contact-link"
-            >
-              dev@cstride.com
-            </a>
-          </div>
         </div>
       </div>
     </footer>

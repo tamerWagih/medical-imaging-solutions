@@ -10,12 +10,12 @@ QUICK START:
 2. Navigate to project folder: cd medical-imaging-solutions
 3. Install dependencies: npm install
 4. Start development server: npm run dev
-5. Open browser: http://localhost:8000
+5. Open browser: http://localhost:5000
 
 THAT'S IT!
 
 TROUBLESHOOTING:
-- If port 8000 is busy, server will auto-use next available port
+- If port 5000 is busy, server will auto-use next available port
 - If npm install fails, try: npm cache clean --force
 - If build fails, check Node.js version: node --version
 
@@ -27,22 +27,6 @@ medical-imaging-solutions/
 ├── public/                (Static assets)
 ├── package.json           (Dependencies)
 └── README.md              (Project info)
-
-WHAT'S INCLUDED:
-✅ Professional medical imaging website
-✅ Two platforms: RadView (radiomics) + HRS (prostate cancer)
-✅ Desktop and Web versions of each platform
-✅ Modern blue theme with glass morphism
-✅ Responsive design (mobile + desktop)
-✅ Fixed header with dropdown navigation
-✅ Hero section with demo links
-✅ Features showcase
-✅ Product cards
-✅ Why choose us section
-✅ Professional footer
-✅ Custom 404 page
-✅ No FOUC (Flash of Unstyled Content)
-✅ All styles in global CSS
 
 TECH STACK:
 - Next.js 14 (App Router)

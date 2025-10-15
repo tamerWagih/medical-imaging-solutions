@@ -86,7 +86,12 @@ export function Header() {
                           setDropdownOpen(false);
                         }}
                       >
-                        {subItem.label}
+                        <div className="medical-dropdown-item-content">
+                          <div className="medical-dropdown-item-label">{subItem.label}</div>
+                          {'description' in subItem && subItem.description && (
+                            <div className="medical-dropdown-item-description">{subItem.description}</div>
+                          )}
+                        </div>
                       </Link>
                     ))}
                   </div>
