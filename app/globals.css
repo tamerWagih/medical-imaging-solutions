@@ -3344,6 +3344,14 @@
   margin: 1rem 0;
 }
 
+.docs-content-body .info-box strong {
+  color: white;
+  background: rgba(59, 130, 246, 0.8);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-weight: 600;
+}
+
 .docs-content-body .highlight {
   background: rgba(245, 158, 11, 0.1);
   border: 1px solid rgba(245, 158, 11, 0.2);
