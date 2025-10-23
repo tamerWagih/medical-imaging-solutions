@@ -55,7 +55,7 @@ export function Hero() {
 
           {/* Right Column - Visual */}
           <div className="hero-visual">
-            <Link href="/products/radview#demo" className="hero-visual-card">
+            <div className="hero-visual-card" onClick={() => window.location.href = '/products/radview#demo'}>
               <div className="hero-visual-placeholder">
                 <div className="hero-visual-play">
                   <Play size={48} />
@@ -65,7 +65,7 @@ export function Hero() {
                   <p className="hero-visual-subtitle">See our solutions in action</p>
                 </div>
               </div>
-            </Link>
+            </div>
 
             {/* Floating Badges */}
             <div className="hero-floating-badge hero-floating-badge-1">

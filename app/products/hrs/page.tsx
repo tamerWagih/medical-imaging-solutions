@@ -364,65 +364,6 @@ export default function HRSPage() {
         </div>
       </section>
 
-      {/* System Requirements */}
-      <section className="features-section">
-        <div className="features-container">
-          <div className="features-header">
-            <h2 className="features-title">System Requirements</h2>
-            <p className="features-subtitle">
-              Ensure your system meets these requirements for optimal performance
-            </p>
-          </div>
-
-          <div className="features-grid">
-            <div className="feature-card radview-requirements-card">
-              <div className="feature-icon-wrapper">
-                <div className="feature-icon">
-                  <Monitor size={28} />
-                </div>
-              </div>
-              <h3 className="feature-title">Minimum Requirements</h3>
-              <div className="radview-requirements-content">
-                <div className="radview-requirements-item">
-                  <strong>OS:</strong> Windows 10 (64-bit)
-                </div>
-                <div className="radview-requirements-item">
-                  <strong>RAM:</strong> 8 GB
-                </div>
-                <div className="radview-requirements-item">
-                  <strong>Storage:</strong> 50 GB available space
-                </div>
-                <div className="radview-requirements-item">
-                  <strong>Graphics:</strong> DirectX 11 compatible
-                </div>
-              </div>
-            </div>
-
-            <div className="feature-card radview-requirements-card radview-requirements-card-recommended">
-              <div className="feature-icon-wrapper">
-                <div className="feature-icon">
-                  <CheckCircle size={28} />
-                </div>
-              </div>
-              <h3 className="feature-title">Recommended</h3>
-              <div className="radview-requirements-content">
-                <div className="radview-requirements-item">
-                  <strong>OS:</strong> Windows 11 (64-bit)
-                </div>
-                <div className="radview-requirements-item">
-                  <strong>RAM:</strong> 16 GB or more
-                </div>
-                <div className="radview-requirements-item">
-                  <strong>Storage:</strong> 100 GB SSD
-                </div>
-                <div className="radview-requirements-item">
-                  <strong>Graphics:</strong> Dedicated GPU with 2GB+ VRAM
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* CTA */}
       <section className="why-choose-section">

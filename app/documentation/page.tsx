@@ -1437,38 +1437,366 @@ const contentData = {
       </div>
     `
   },
-  // HRS placeholders
+  // HRS Desktop content
   "hrs-desktop-overview": {
-    title: "HRS Desktop Overview",
-    content: `<p>HRS Desktop documentation coming soon...</p>`
+    title: "Overview",
+    content: `
+      <div class="info-box">
+        <p><strong>Version:</strong> 2.0<br />
+        <strong>Date:</strong> October 2025<br />
+        <strong>Application:</strong> HRS Desktop<br />
+        <strong>Purpose:</strong> Advanced prostate MRI analysis with habitat risk scoring</p>
+      </div>
+
+      <p>Habitat Risk Scoring (HRS) is an advanced prostate MRI analysis system that provides comprehensive assessment of tumor spatial heterogeneity and habitat characterization through sophisticated multi-parametric imaging analysis.</p>
+      
+      <h3>Key Features</h3>
+      <ul>
+        <li><strong>Multi-Parametric Analysis</strong>: DCE, ADC, T2-weighted imaging integration</li>
+        <li><strong>Habitat-Based Risk Scoring</strong>: Advanced NMF algorithms for tumor habitat identification</li>
+        <li><strong>Zone-Specific Processing</strong>: Peripheral Zone (PZ) and Transition Zone (TZ) analysis</li>
+        <li><strong>Clinical Validation</strong>: Strong correlations with clinical outcomes (r=0.423-0.771)</li>
+        <li><strong>Superior Performance</strong>: AUC values of 0.852-0.952 in clinical studies</li>
+        <li><strong>Comprehensive Reporting</strong>: Risk maps, statistics, and 3D Slicer integration</li>
+      </ul>
+
+      <h3>System Requirements</h3>
+      
+      <h4>Minimum Requirements</h4>
+      <ul>
+        <li><strong>Operating System</strong>: Windows 10 (64-bit)</li>
+        <li><strong>Memory</strong>: 8GB RAM</li>
+        <li><strong>Storage</strong>: 50GB free space</li>
+        <li><strong>Graphics</strong>: DirectX 11 compatible graphics card</li>
+      </ul>
+
+      <h4>Recommended Requirements</h4>
+      <ul>
+        <li><strong>Operating System</strong>: Windows 11 (64-bit)</li>
+        <li><strong>Memory</strong>: 16GB RAM or more</li>
+        <li><strong>Storage</strong>: 100GB SSD</li>
+        <li><strong>Graphics</strong>: Dedicated graphics card with 2GB+ VRAM</li>
+      </ul>
+    `
   },
   "hrs-desktop-getting-started": {
-    title: "HRS Desktop Getting Started",
-    content: `<p>HRS Desktop getting started guide coming soon...</p>`
+    title: "Getting Started",
+    content: `
+      <h3>Installation</h3>
+      <ol>
+        <li>Download the HRS Desktop installer from the official website</li>
+        <li>Run the installer as administrator</li>
+        <li>Follow the installation wizard</li>
+        <li>Launch HRS from the desktop shortcut</li>
+      </ol>
+
+      <h3>First Launch</h3>
+      <ol>
+        <li>Enter your license key when prompted</li>
+        <li>The application will initialize the database</li>
+        <li>You'll see the main HRS interface</li>
+      </ol>
+
+      <h3>Data Organization Requirements</h3>
+      <p>Each case must be organized according to specific HRS requirements:</p>
+      
+      <h4>Required Data Structure</h4>
+      <ul>
+        <li><strong>Case Format</strong>: ZIP file named with patient/case ID (e.g., PatientID_12345.zip)</li>
+        <li><strong>ZIP File Structure</strong>: Extracted folder contains patient's main directory</li>
+        <li><strong>Directory Hierarchy</strong>: Main folder → studies folder → series-specific folders</li>
+        <li><strong>Required Series</strong>: ADC, DCE, T2, and <strong>RT structure files (required)</strong></li>
+      </ul>
+
+      <h4>Visual Folder Structure</h4>
+      <div class="highlight">
+        <strong>📦 PatientID.zip</strong><br />
+        └── 📁 PatientMainFolder/<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;└── 📁 studies/<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── 📁 ADC_Series/<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;└── 📄 *.dcm files (ADC images)<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── 📁 DCE_Series/<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;└── 📄 *.dcm files (DCE timepoints)<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── 📁 T2_Series/<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;└── 📄 *.dcm files (T2 images)<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── 📁 RT/<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── 📄 RT_Structure.dcm (Required)
+      </div>
+
+      <div class="highlight">
+        <strong>⚠️ Important:</strong> RT folder and RT_Structure.dcm file are <strong>required</strong> for HRS analysis
+      </div>
+    `
   },
   "hrs-desktop-troubleshooting": {
-    title: "HRS Desktop Troubleshooting",
-    content: `<p>HRS Desktop troubleshooting guide coming soon...</p>`
+    title: "Troubleshooting",
+    content: `
+      <p>Common issues and solutions for HRS Desktop application.</p>
+      
+      <h3>Installation Issues</h3>
+      
+      <h4>Installation Fails</h4>
+      <ul>
+        <li><strong>Issue</strong>: Installer fails to run or crashes</li>
+        <li><strong>Solution</strong>: Run installer as administrator, check system requirements</li>
+      </ul>
+      
+      <h4>License Key Issues</h4>
+      <ul>
+        <li><strong>Issue</strong>: License key not accepted</li>
+        <li><strong>Solution</strong>: Verify license key format, contact support if expired</li>
+      </ul>
+      
+      <h3>Data Issues</h3>
+      
+      <h4>Missing RT Structure Files</h4>
+      <ul>
+        <li><strong>Issue</strong>: HRS analysis fails due to missing RT structure</li>
+        <li><strong>Solution</strong>: Ensure RT_Structure.dcm file is present in RT folder</li>
+      </ul>
+      
+      <h4>Data Format Issues</h4>
+      <ul>
+        <li><strong>Issue</strong>: DICOM files not recognized</li>
+        <li><strong>Solution</strong>: Verify DICOM format compatibility, check file integrity</li>
+      </ul>
+      
+      <h3>Processing Issues</h3>
+      
+      <h4>NMF Processing Failures</h4>
+      <ul>
+        <li><strong>Issue</strong>: DCE analysis fails during NMF decomposition</li>
+        <li><strong>Solution</strong>: Check DCE time series completeness, verify temporal consistency</li>
+      </ul>
+      
+      <h4>Memory Errors</h4>
+      <ul>
+        <li><strong>Issue</strong>: Application crashes with memory errors</li>
+        <li><strong>Solution</strong>: Increase virtual memory, process smaller datasets</li>
+      </ul>
+    `
   },
   "hrs-desktop-reference": {
-    title: "HRS Desktop Reference",
-    content: `<p>HRS Desktop reference coming soon...</p>`
+    title: "Reference",
+    content: `
+      <p>Technical reference information for HRS Desktop.</p>
+      
+      <h3>HRS Parameters Reference</h3>
+      
+      <h4>DCE Parameters</h4>
+      <table>
+        <tr><th>Parameter</th><th>Default</th><th>Description</th></tr>
+        <tr><td>Use DCE</td><td>Enabled</td><td>Activates DCE time points in HRS algorithm</td></tr>
+        <tr><td>Number of Curves</td><td>3</td><td>NMF components for temporal decomposition</td></tr>
+        <tr><td>Contribution %</td><td>60</td><td>Minimum significance threshold for NMF</td></tr>
+        <tr><td>Wwp % in TZ</td><td>90</td><td>Well-perfused threshold in transition zone</td></tr>
+        <tr><td>W Percentile</td><td>95</td><td>Percentile for well-perfused selection</td></tr>
+      </table>
+
+      <h4>ADC Parameters</h4>
+      <table>
+        <tr><th>Parameter</th><th>Default</th><th>Zone</th><th>Description</th></tr>
+        <tr><td>Use ADC</td><td>Enabled</td><td>All</td><td>Activates ADC in HRS algorithm</td></tr>
+        <tr><td>ADC High PZ</td><td>850</td><td>Peripheral Zone</td><td>High threshold for PZ ADC values</td></tr>
+        <tr><td>ADC Medium PZ</td><td>1050</td><td>Peripheral Zone</td><td>Medium threshold for PZ ADC values</td></tr>
+        <tr><td>ADC Low PZ</td><td>1200</td><td>Peripheral Zone</td><td>Low threshold for PZ ADC values</td></tr>
+        <tr><td>ADC High TZ</td><td>600</td><td>Transition Zone</td><td>High threshold for TZ ADC values</td></tr>
+        <tr><td>ADC Medium TZ</td><td>750</td><td>Transition Zone</td><td>Medium threshold for TZ ADC values</td></tr>
+        <tr><td>ADC Low TZ</td><td>850</td><td>Transition Zone</td><td>Low threshold for TZ ADC values</td></tr>
+      </table>
+
+      <h4>Alpha Weighting Parameters</h4>
+      <table>
+        <tr><th>Parameter</th><th>Default</th><th>Zone</th><th>Description</th></tr>
+        <tr><td>Alpha DCE PZ</td><td>0.50</td><td>Peripheral Zone</td><td>DCE weighting in PZ</td></tr>
+        <tr><td>Alpha ADC PZ</td><td>0.25</td><td>Peripheral Zone</td><td>ADC weighting in PZ</td></tr>
+        <tr><td>Alpha T2 PZ</td><td>0.25</td><td>Peripheral Zone</td><td>T2 weighting in PZ</td></tr>
+        <tr><td>Alpha DCE TZ</td><td>0.20</td><td>Transition Zone</td><td>DCE weighting in TZ</td></tr>
+        <tr><td>Alpha ADC TZ</td><td>0.40</td><td>Transition Zone</td><td>ADC weighting in TZ</td></tr>
+        <tr><td>Alpha T2 TZ</td><td>0.40</td><td>Transition Zone</td><td>T2 weighting in TZ</td></tr>
+      </table>
+
+      <div class="highlight">
+        <strong>Note:</strong> Alpha weights must sum to 1.0 within each zone (PZ: 0.50 + 0.25 + 0.25 = 1.0; TZ: 0.20 + 0.40 + 0.40 = 1.0)
+      </div>
+    `
   },
+  // HRS Cloud content
   "hrs-cloud-overview": {
-    title: "HRS Cloud Overview",
-    content: `<p>HRS Cloud documentation coming soon...</p>`
+    title: "Overview",
+    content: `
+      <p>HRS Cloud is a comprehensive web-based Habitat Risk Scoring platform designed for multi-parametric prostate MRI analysis and tumor habitat characterization. The cloud application provides the same powerful HRS capabilities as the desktop version while offering enhanced accessibility, scalability, and collaboration through modern web technologies.</p>
+      
+      <h3>Key Features</h3>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h4>Habitat-Based Analysis</h4>
+          <p>Multi-parametric MRI characterization of tumor habitats</p>
+        </div>
+        <div class="feature-card">
+          <h4>Multi-modal Integration</h4>
+          <p>DCE, ADC, T2-weighted imaging with Alpha Weighting</p>
+        </div>
+        <div class="feature-card">
+          <h4>Zone-Specific Processing</h4>
+          <p>Peripheral Zone (PZ) and Transition Zone (TZ) analysis</p>
+        </div>
+        <div class="feature-card">
+          <h4>Advanced Features</h4>
+          <p>NMF decomposition, habitat risk stratification</p>
+        </div>
+        <div class="feature-card">
+          <h4>Cloud Data Management</h4>
+          <p>Secure patient/study/series management</p>
+        </div>
+        <div class="feature-card">
+          <h4>Simple Workflow</h4>
+          <p>Upload data, set parameters, run analysis</p>
+        </div>
+      </div>
+
+      <h3>Cloud Advantages</h3>
+      <ul>
+        <li><strong>Accessibility</strong>: Access from any device with a modern web browser</li>
+        <li><strong>Collaboration</strong>: Share datasets and results with team members</li>
+        <li><strong>Scalability</strong>: Process large datasets using cloud computing resources</li>
+        <li><strong>Security</strong>: Enterprise-grade security and compliance</li>
+        <li><strong>Updates</strong>: Automatic updates without manual installation</li>
+      </ul>
+    `
   },
   "hrs-cloud-getting-started": {
-    title: "HRS Cloud Getting Started",
-    content: `<p>HRS Cloud getting started guide coming soon...</p>`
+    title: "Getting Started",
+    content: `
+      <h3>System Requirements</h3>
+      <ul>
+        <li><strong>Web Browser</strong>: Chrome 90+, Firefox 88+, Safari 14+, Edge 90+</li>
+        <li><strong>Internet Connection</strong>: Stable broadband connection recommended</li>
+        <li><strong>Screen Resolution</strong>: Minimum 1280x720, recommended 1920x1080</li>
+        <li><strong>JavaScript</strong>: Must be enabled</li>
+      </ul>
+
+      <h3>Account Setup</h3>
+      <p>To access HRS Cloud, you need to contact support to obtain a license. The account creation process is handled through our support team to ensure proper licensing and security.</p>
+      
+      <div class="highlight">
+        <strong>Note:</strong> Account creation is currently handled by contacting support for a license. This ensures proper licensing and security compliance.
+      </div>
+
+      <h3>Data Organization</h3>
+      <p>Follow these steps to organize your patient data:</p>
+      
+      <h4>Step 1: Create Patient Folder</h4>
+      <p><strong>📁 PatientName</strong> - Main folder with patient identifier</p>
+      
+      <h4>Step 2: Add Study Folder(s)</h4>
+      <p><strong>📁 Study_001</strong> - Inside patient folder, create study folder</p>
+      
+      <h4>Step 3: Create Series and RT Folders</h4>
+      <ul>
+        <li><strong>📁 ADC_Series</strong> - Apparent Diffusion Coefficient images</li>
+        <li><strong>📁 DCE_Series</strong> - Dynamic Contrast Enhanced series (multiple timepoints)</li>
+        <li><strong>📁 T2_Series</strong> - T2-weighted anatomical images</li>
+        <li><strong>📁 RT</strong> - <strong>Required</strong> folder for RT structure file</li>
+      </ul>
+
+      <div class="highlight">
+        <strong>⚠️ Important:</strong> RT folder and RT_Structure.dcm file are <strong>required</strong> for HRS analysis
+      </div>
+    `
   },
   "hrs-cloud-troubleshooting": {
-    title: "HRS Cloud Troubleshooting",
-    content: `<p>HRS Cloud troubleshooting guide coming soon...</p>`
+    title: "Troubleshooting",
+    content: `
+      <h3>Common Issues</h3>
+      
+      <h4>Login Problems</h4>
+      <ul>
+        <li><strong>Invalid Credentials</strong>: Verify email and password with administrator</li>
+        <li><strong>Account Locked</strong>: Contact support to unlock account</li>
+        <li><strong>License Expired</strong>: Contact support for license renewal</li>
+      </ul>
+
+      <h4>Data Upload Issues</h4>
+      <ul>
+        <li><strong>Upload Failures</strong>: Check DICOM format and prostate MRI data structure</li>
+        <li><strong>Corrupted Files</strong>: Re-upload files and verify integrity</li>
+        <li><strong>Missing Series</strong>: Ensure DCE, ADC, and T2 series are present</li>
+        <li><strong>File Size Limits</strong>: Check maximum file size restrictions</li>
+      </ul>
+
+      <h4>HRS Processing Issues</h4>
+      <ul>
+        <li><strong>Processing Failures</strong>: Check system status and parameter validity</li>
+        <li><strong>Memory Errors</strong>: Reduce dataset size or contact support</li>
+        <li><strong>Timeout Errors</strong>: Check network connection and try again</li>
+        <li><strong>DCE Processing Failures</strong>: Verify temporal series completeness</li>
+        <li><strong>ADC Threshold Errors</strong>: Check zone-specific parameter ranges</li>
+        <li><strong>Parameter Validation Errors</strong>: Ensure alpha weights sum to 1.0</li>
+      </ul>
+
+      <h3>Performance Optimization</h3>
+      <ul>
+        <li><strong>Browser Cache</strong>: Clear cache and cookies regularly</li>
+        <li><strong>Network Speed</strong>: Use stable, high-speed internet connection</li>
+        <li><strong>Dataset Size</strong>: Consider processing large datasets in batches</li>
+        <li><strong>Parameter Optimization</strong>: Use validated parameter presets for optimal performance</li>
+      </ul>
+    `
   },
   "hrs-cloud-reference": {
-    title: "HRS Cloud Reference",
-    content: `<p>HRS Cloud reference coming soon...</p>`
+    title: "Reference",
+    content: `
+      <h3>Browser Requirements</h3>
+      <h4>Supported Browsers</h4>
+      <ul>
+        <li><strong>Chrome</strong>: Version 90+ (recommended)</li>
+        <li><strong>Firefox</strong>: Version 88+</li>
+        <li><strong>Safari</strong>: Version 14+</li>
+        <li><strong>Edge</strong>: Version 90+</li>
+      </ul>
+
+      <h3>File Formats</h3>
+      <h4>Supported Input Formats</h4>
+      <ul>
+        <li><strong>DICOM</strong>: .dcm, .dicom (primary format for prostate MRI)</li>
+        <li><strong>NIfTI</strong>: .nii, .nii.gz</li>
+        <li><strong>MHA</strong>: .mha, .mhd</li>
+      </ul>
+
+      <h3>HRS Parameters Reference</h3>
+      
+      <h4>DCE Parameters</h4>
+      <table>
+        <tr><th>Parameter</th><th>Default</th><th>Description</th></tr>
+        <tr><td>Use DCE</td><td>Enabled</td><td>Activates DCE time points in HRS algorithm</td></tr>
+        <tr><td>Number of Curves</td><td>3</td><td>NMF components for temporal decomposition</td></tr>
+        <tr><td>Contribution %</td><td>60</td><td>Minimum significance threshold for NMF</td></tr>
+        <tr><td>Wwp % in TZ</td><td>90</td><td>Well-perfused threshold in transition zone</td></tr>
+        <tr><td>W Percentile</td><td>95</td><td>Percentile for well-perfused selection</td></tr>
+      </table>
+
+      <h4>ADC Parameters</h4>
+      <table>
+        <tr><th>Parameter</th><th>Default</th><th>Zone</th></tr>
+        <tr><td>Use ADC</td><td>Enabled</td><td>All zones</td></tr>
+        <tr><td>ADC High PZ</td><td>850</td><td>Peripheral Zone</td></tr>
+        <tr><td>ADC Medium PZ</td><td>1050</td><td>Peripheral Zone</td></tr>
+        <tr><td>ADC Low PZ</td><td>1200</td><td>Peripheral Zone</td></tr>
+        <tr><td>ADC High TZ</td><td>600</td><td>Transition Zone</td></tr>
+        <tr><td>ADC Medium TZ</td><td>750</td><td>Transition Zone</td></tr>
+        <tr><td>ADC Low TZ</td><td>850</td><td>Transition Zone</td></tr>
+      </table>
+
+      <h3>Security</h3>
+      <h4>Data Protection</h4>
+      <ul>
+        <li><strong>Encryption</strong>: AES-256 encryption for patient data</li>
+        <li><strong>Transmission</strong>: TLS 1.3 for data in transit</li>
+        <li><strong>Storage</strong>: Encrypted cloud storage for prostate imaging data</li>
+        <li><strong>Access</strong>: Role-based access control for HRS results</li>
+      </ul>
+    `
   }
 };
 
