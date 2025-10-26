@@ -11,6 +11,14 @@ const videoData = [
     video: "/products/hrs-desktop/videos/HRS_Desktop.mp4",
     thumbnail: null, // No thumbnail available
     duration: "5:30"
+  },
+  {
+    id: "hrs-cloud-demo",
+    title: "HRS Cloud Demo",
+    description: "Web-based HRS platform demonstration with cloud processing and collaborative features",
+    video: "/products/hrs-cloud/videos/HRS_Cloud.mp4",
+    thumbnail: null, // No thumbnail available
+    duration: "4:15"
   }
 ];
 
