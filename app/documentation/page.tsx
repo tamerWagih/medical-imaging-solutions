@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import "./documentation.css";
 import { 
   ChevronDown, 
@@ -4024,6 +4024,9 @@ export default function DocumentationPage() {
     "hrs-cloud": false
   });
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchResults, setSearchResults] = useState<any[]>([]);
 
   const toggleSection = (section: string) => {
     setExpandedSections(prev => ({
@@ -4041,6 +4044,78 @@ export default function DocumentationPage() {
 
   const getCurrentContent = () => {
     return contentData[activeSection as keyof typeof contentData] || { title: "Not Found", content: "<p>Content not found.</p>" };
+  };
+
+  // Search functionality
+  const searchContent = useMemo(() => {
+    if (!searchQuery.trim()) return [];
+    
+    const results: any[] = [];
+    const query = searchQuery.toLowerCase();
+    
+    // Search through all content
+    Object.entries(contentData).forEach(([key, content]) => {
+      const title = content.title.toLowerCase();
+      const contentText = content.content.toLowerCase();
+      
+      if (title.includes(query) || contentText.includes(query)) {
+        results.push({
+          id: key,
+          title: content.title,
+          content: content.content,
+          section: key.split('-')[0],
+          subsection: key.split('-').slice(1).join('-'),
+          matchType: title.includes(query) ? 'title' : 'content'
+        });
+      }
+    });
+    
+    return results;
+  }, [searchQuery]);
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+    setSearchResults(searchContent);
+  };
+
+  const handleSearchResultClick = (result: any) => {
+    console.log('Search result clicked:', result);
+    
+    // Extract section and subsection from the result ID
+    const [sectionKey, ...subsectionParts] = result.id.split('-');
+    const subsectionKey = subsectionParts.join('-');
+    
+    console.log('Section key:', sectionKey, 'Subsection key:', subsectionKey);
+    
+    // Expand the main section if it's not already expanded
+    setExpandedSections(prev => {
+      const newSections = {
+        ...prev,
+        [sectionKey]: true
+      };
+      console.log('Updated sections:', newSections);
+      return newSections;
+    });
+    
+    // Expand the subsection if it's not already expanded
+    setExpandedSubsections(prev => {
+      const newSubsections = {
+        ...prev,
+        [subsectionKey]: true
+      };
+      console.log('Updated subsections:', newSubsections);
+      return newSubsections;
+    });
+    
+    // Set the active section
+    setActiveSection(result.id);
+    console.log('Set active section to:', result.id);
+    
+    // Close search and sidebar
+    setIsSearchOpen(false);
+    setSearchQuery("");
+    setSearchResults([]);
+    setSidebarOpen(false);
   };
 
   const handleContentClick = (sectionKey: string, contentId: string) => {
@@ -4065,16 +4140,85 @@ export default function DocumentationPage() {
           {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
         <h1 className="docs-mobile-title">Documentation</h1>
-        <div className="docs-search-icon">
+        <div className="docs-search-icon" onClick={() => setIsSearchOpen(!isSearchOpen)}>
           <Search size={20} />
         </div>
       </div>
+
+      {/* Search Overlay */}
+      {isSearchOpen && (
+        <div 
+          className="docs-search-overlay"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setIsSearchOpen(false);
+            }
+          }}
+        >
+          <div className="docs-search-container">
+            <div className="docs-search-header">
+              <h3>Search Documentation</h3>
+              <button 
+                className="docs-search-close"
+                onClick={() => setIsSearchOpen(false)}
+              >
+                <X size={20} />
+              </button>
+            </div>
+            <div className="docs-search-input-container">
+              <Search size={20} className="docs-search-input-icon" />
+              <input
+                type="text"
+                placeholder="Search documentation..."
+                value={searchQuery}
+                onChange={(e) => handleSearch(e.target.value)}
+                className="docs-search-input"
+                autoFocus
+              />
+            </div>
+            {searchResults.length > 0 && (
+              <div className="docs-search-results">
+                {searchResults.map((result, index) => (
+                  <div
+                    key={index}
+                    className="docs-search-result"
+                    onClick={() => handleSearchResultClick(result)}
+                  >
+                    <div className="docs-search-result-title">
+                      {result.title}
+                    </div>
+                    <div className="docs-search-result-section">
+                      {result.section} - {result.subsection}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+            {searchQuery && searchResults.length === 0 && (
+              <div className="docs-search-no-results">
+                No results found for "{searchQuery}"
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Mobile sidebar overlay */}
+      {sidebarOpen && (
+        <div 
+          className="docs-mobile-overlay"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
 
       <div className="docs-container">
         {/* Left Sidebar - Integrated Navigation with TOC */}
         <aside className={`docs-main-sidebar ${sidebarOpen ? 'docs-sidebar-open' : ''}`}>
           <div className="docs-sidebar-header">
             <h2 className="docs-sidebar-title">Documentation</h2>
+            <div className="docs-search-icon" onClick={() => setIsSearchOpen(!isSearchOpen)}>
+              <Search size={20} />
+            </div>
           </div>
           
           <nav className="docs-nav">

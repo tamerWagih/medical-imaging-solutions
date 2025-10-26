@@ -3395,3 +3395,74 @@
 }
 
 /* End of HRS Page Styles */
+
+/* HRS Demo Video Section */
+.hrs-demo-card {
+  overflow: hidden;
+  position: relative;
+}
+
+.hrs-demo-video-container {
+  width: 100%;
+  height: 200px;
+  background: #000;
+  border-radius: 1rem 1rem 0 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.hrs-demo-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: none;
+  outline: none;
+}
+
+.hrs-demo-duration {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #3b82f6;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .hrs-demo-video-container {
+    height: 180px;
+  }
+}
+/* Mobile centering fixes for Link components in CTA sections */
+@media (max-width: 768px) {
+  .why-choose-cta-buttons {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+  }
+  
+  .why-choose-cta-button {
+    display: flex !important;
+    width: 100% !important;
+    max-width: 300px !important;
+    justify-content: center !important;
+    margin: 0 auto !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+  
+  /* Ensure Link elements behave like buttons for centering */
+  .why-choose-cta-buttons a.why-choose-cta-button {
+    display: flex !important;
+    width: 100% !important;
+    justify-content: center !important;
+    margin: 0 auto !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+}
+

@@ -3,6 +3,17 @@
 import Link from "next/link";
 import { ArrowRight, Download, FileText, Play, CheckCircle, Monitor, Globe, Zap, BarChart3, Activity, Brain, Target, Layers } from "lucide-react";
 
+const videoData = [
+  {
+    id: "hrs-desktop-demo",
+    title: "HRS Desktop Demo",
+    description: "Complete walkthrough of HRS Desktop application with multi-parametric prostate MRI analysis",
+    video: "/products/hrs-desktop/videos/HRS_Desktop.mp4",
+    thumbnail: "/products/hrs-desktop/screenshots/HRS_Desktop.png",
+    duration: "5:30"
+  }
+];
+
 export default function HRSPage() {
   return (
     <div className="hrs-page">
@@ -25,9 +36,9 @@ export default function HRSPage() {
               </p>
 
               <div className="hero-buttons">
-                <Link href="#platforms" className="hero-button primary">
+                <Link href="#demo" className="hero-button primary">
                   <Play size={20} />
-                  Explore Platforms
+                  Watch Demo Video
                 </Link>
                 <Link href="/contact" className="hero-button secondary">
                   <Download size={20} />
@@ -364,6 +375,49 @@ export default function HRSPage() {
         </div>
       </section>
 
+      {/* Demo Videos Section */}
+      <section id="demo" className="features-section">
+        <div className="features-container">
+          <div className="features-header">
+            <h2 className="features-title">
+              Watch <span className="features-title-gradient">HRS in Action</span>
+            </h2>
+            <p className="features-subtitle">
+              See how HRS works with real prostate MRI data
+            </p>
+          </div>
+
+          <div className="features-grid">
+            {videoData.map((video, index) => (
+              <div key={video.id} className="feature-card hrs-demo-card">
+                <div className="hrs-demo-video-container">
+                  <video 
+                    controls 
+                    poster={video.thumbnail}
+                    className="hrs-demo-video"
+                    preload="metadata"
+                  >
+                    <source src={video.video} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+                
+                <div className="feature-icon-wrapper">
+                  <div className="feature-icon">
+                    <Play size={28} />
+                  </div>
+                </div>
+                <h3 className="feature-title">{video.title}</h3>
+                <p className="feature-description">{video.description}</p>
+                <div className="hrs-demo-duration">
+                  <Play size={16} />
+                  <span>{video.duration}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* CTA */}
       <section className="why-choose-section">
