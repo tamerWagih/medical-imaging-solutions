@@ -9,7 +9,7 @@ const videoData = [
     title: "HRS Desktop Demo",
     description: "Complete walkthrough of HRS Desktop application with multi-parametric prostate MRI analysis",
     video: "/products/hrs-desktop/videos/HRS_Desktop.mp4",
-    thumbnail: "/products/hrs-desktop/screenshots/HRS_Desktop.png",
+    thumbnail: null, // No thumbnail available
     duration: "5:30"
   }
 ];
@@ -393,7 +393,7 @@ export default function HRSPage() {
                 <div className="hrs-demo-video-container">
                   <video 
                     controls 
-                    poster={video.thumbnail}
+                    poster={video.thumbnail || undefined}
                     className="hrs-demo-video"
                     preload="metadata"
                   >
@@ -431,16 +431,20 @@ export default function HRSPage() {
                 Request a demo or contact our team to learn more about HRS Desktop and Web platforms
               </p>
               <div className="why-choose-cta-buttons">
-                <Link href="/contact" className="why-choose-cta-button primary">
-                  Request Demo
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                  </svg>
-                </Link>
-                <Link href="/documentation" className="why-choose-cta-button secondary">
-                  <FileText size={20} />
-                  View Documentation
-                </Link>
+                <div className="why-choose-cta-button-wrapper">
+                  <Link href="/contact" className="why-choose-cta-button primary">
+                    Request Demo
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                  </Link>
+                </div>
+                <div className="why-choose-cta-button-wrapper">
+                  <Link href="/documentation" className="why-choose-cta-button secondary">
+                    <FileText size={20} />
+                    View Documentation
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

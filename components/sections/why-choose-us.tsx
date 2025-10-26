@@ -82,15 +82,19 @@ export function WhyChooseUs() {
               Join leading medical institutions worldwide. Choose RadView for radiomics analysis or HRS for prostate cancer assessment - or both.
             </p>
             <div className="why-choose-cta-buttons">
-              <Link href="/products/radview" className="why-choose-cta-button primary">
-                Explore RadView
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-              </Link>
-              <Link href="/contact" className="why-choose-cta-button secondary">
-                Request Demo
-              </Link>
+              <div className="why-choose-cta-button-wrapper">
+                <Link href="/products/radview" className="why-choose-cta-button primary">
+                  Explore RadView
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </Link>
+              </div>
+              <div className="why-choose-cta-button-wrapper">
+                <Link href="/contact" className="why-choose-cta-button secondary">
+                  Request Demo
+                </Link>
+              </div>
             </div>
           </div>
         </div>

@@ -3443,24 +3443,24 @@
     justify-content: center !important;
     width: 100% !important;
     margin: 0 auto !important;
+    gap: 1rem !important;
   }
   
-  .why-choose-cta-button {
+  /* Target the wrapper divs for proper centering */
+  .why-choose-cta-button-wrapper {
     display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
     width: 100% !important;
     max-width: 300px !important;
-    justify-content: center !important;
     margin: 0 auto !important;
-    align-items: center !important;
-    text-align: center !important;
   }
   
-  /* Ensure Link elements behave like buttons for centering */
-  .why-choose-cta-buttons a.why-choose-cta-button {
+  /* Let the Link elements fill their wrapper */
+  .why-choose-cta-button-wrapper a {
     display: flex !important;
     width: 100% !important;
     justify-content: center !important;
-    margin: 0 auto !important;
     align-items: center !important;
     text-align: center !important;
   }

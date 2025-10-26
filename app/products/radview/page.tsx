@@ -501,16 +501,20 @@ export default function RadViewPage() {
                 Request a demo or contact our team to learn more about RadView Desktop
               </p>
               <div className="why-choose-cta-buttons">
-                <Link href="/contact" className="why-choose-cta-button primary">
-                  Request Demo
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                  </svg>
-                </Link>
-                <Link href="/documentation" className="why-choose-cta-button secondary">
-                  <FileText size={20} />
-                  View Documentation
-                </Link>
+                <div className="why-choose-cta-button-wrapper">
+                  <Link href="/contact" className="why-choose-cta-button primary">
+                    Request Demo
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                  </Link>
+                </div>
+                <div className="why-choose-cta-button-wrapper">
+                  <Link href="/documentation" className="why-choose-cta-button secondary">
+                    <FileText size={20} />
+                    View Documentation
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
