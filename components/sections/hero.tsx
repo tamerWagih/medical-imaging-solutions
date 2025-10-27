@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ArrowRight, CheckCircle, Play } from "lucide-react";
+import { COMPANY } from "@/lib/constants";
 
 export function Hero() {
   return (
@@ -12,12 +13,12 @@ export function Hero() {
           <div className="hero-text">
             <div className="hero-badge">
               <CheckCircle size={16} />
-              <span>Professional Medical Imaging Software</span>
+              <span>{COMPANY.tagline}</span>
             </div>
             
             <h1 className="hero-title">
-              Advanced Medical Imaging{" "}
-              <span className="hero-title-gradient">Software Solutions</span>
+              {COMPANY.name}{" "}
+              <span className="hero-title-gradient">Medical Imaging Platform</span>
             </h1>
             
             <p className="hero-description">

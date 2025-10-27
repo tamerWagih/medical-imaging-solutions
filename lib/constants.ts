@@ -1,10 +1,29 @@
 // Company Information
 export const COMPANY = {
-  name: "Medical Imaging Solutions",
-  tagline: "Advanced Software for Medical Image Analysis",
+  name: "CStride",
+  tagline: "Medical Imaging Solutions",
   description: "Professional-grade medical imaging software designed for researchers, radiologists, and healthcare institutions worldwide.",
-  email: "contact@medimaging.com",
-  phone: "+1 (555) 123-4567",
+  email: "dev@cstride.com",
+  phone: "To be provided",
+  
+  // Address Information
+  address: {
+    street: "To be provided",
+    city: "To be provided",
+    state: "To be provided",
+    zip: "To be provided",
+    country: "To be provided",
+  },
+  
+  // Business Information
+  businessHours: "To be provided",
+  
+  // Department Emails
+  departments: {
+    general: "dev@cstride.com",
+    sales: "To be provided",
+    support: "To be provided",
+  },
 };
 
 // Navigation

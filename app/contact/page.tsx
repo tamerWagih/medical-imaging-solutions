@@ -1,4 +1,5 @@
-import { Mail, MessageCircle, Clock, MapPin } from "lucide-react";
+import { Mail, MessageCircle, Clock, MapPin, Phone, Building } from "lucide-react";
+import { COMPANY } from "@/lib/constants";
 import "./contact.css";
 
 export default function ContactPage() {
@@ -45,13 +46,15 @@ export default function ContactPage() {
 
               <div className="contact-detail-item">
                 <div className="contact-detail-icon-wrapper">
-                  <Clock className="contact-detail-icon" size={24} />
+                  <Phone className="contact-detail-icon" size={24} />
                 </div>
                 <div className="contact-detail-content">
-                  <h3 className="contact-detail-label">Response Time</h3>
-                  <p className="contact-detail-value">Within 24 hours</p>
+                  <h3 className="contact-detail-label">Phone</h3>
+                  <p className="contact-detail-value" style={{ color: '#9ca3af', fontStyle: 'italic' }}>
+                    {COMPANY.phone}
+                  </p>
                   <p className="contact-detail-description">
-                    We typically respond to all inquiries within one business day
+                    Available during business hours
                   </p>
                 </div>
               </div>
@@ -61,10 +64,27 @@ export default function ContactPage() {
                   <MapPin className="contact-detail-icon" size={24} />
                 </div>
                 <div className="contact-detail-content">
-                  <h3 className="contact-detail-label">Global Reach</h3>
-                  <p className="contact-detail-value">Worldwide Support</p>
+                  <h3 className="contact-detail-label">Address</h3>
+                  <p className="contact-detail-value" style={{ color: '#9ca3af', fontStyle: 'italic' }}>
+                    Office address to be provided
+                  </p>
                   <p className="contact-detail-description">
-                    Serving healthcare professionals and researchers globally
+                    Visit our headquarters or send us mail
+                  </p>
+                </div>
+              </div>
+
+              <div className="contact-detail-item">
+                <div className="contact-detail-icon-wrapper">
+                  <Clock className="contact-detail-icon" size={24} />
+                </div>
+                <div className="contact-detail-content">
+                  <h3 className="contact-detail-label">Business Hours</h3>
+                  <p className="contact-detail-value" style={{ color: '#9ca3af', fontStyle: 'italic' }}>
+                    {COMPANY.businessHours}
+                  </p>
+                  <p className="contact-detail-description">
+                    Response time: Within 24 hours
                   </p>
                 </div>
               </div>
@@ -119,7 +139,7 @@ export default function ContactPage() {
               we're here to help you leverage the power of advanced medical imaging analysis.
             </p>
             <a 
-              href="mailto:dev@cstride.com" 
+              href={`mailto:${COMPANY.email}`} 
               className="contact-cta-button"
             >
               <Mail size={20} />

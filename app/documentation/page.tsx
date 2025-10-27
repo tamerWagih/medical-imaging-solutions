@@ -32,6 +32,7 @@ const documentationStructure = {
           { id: "feature-extraction-module", title: "Feature Extraction Module" },
           { id: "feature-selection-module", title: "Feature Selection Module" },
           { id: "visualization-module", title: "Visualization Module" },
+          { id: "ai-model-module", title: "AI Model Module (Coming Soon)" },
           { id: "advanced-features", title: "Advanced Features" },
           { id: "troubleshooting", title: "Troubleshooting" },
           { id: "reference", title: "Reference" }
@@ -663,6 +664,157 @@ const contentData = {
         <li><strong>Inferior-Superior</strong>: Flip along I-S axis</li>
         <li><strong>Reset Orientation</strong>: Restore original orientation</li>
       </ul>
+    `
+  },
+  "radview-desktop-ai-model-module": {
+    title: "AI Model Module",
+    content: `
+      <div class="highlight">
+        <strong>Development Status:</strong> This module is currently under active development. This documentation section provides a preview of the planned functionality.
+      </div>
+
+      <p>The AI Model Module is a powerful new addition to RadView that enables machine learning-based analysis and prediction on extracted radiomics features. This module integrates advanced AI algorithms to provide predictive insights and automated analysis capabilities.</p>
+      
+      <h3>Overview</h3>
+      <p>The AI Model Module will provide:</p>
+      <ul>
+        <li><strong>Machine Learning Training</strong>: Train predictive models using radiomics features</li>
+        <li><strong>Multiple Algorithm Support</strong>: Classification, regression, and survival analysis models</li>
+        <li><strong>Feature Integration</strong>: Direct integration with Feature Selection module</li>
+        <li><strong>Model Configuration</strong>: Configurable parameters for each algorithm type</li>
+        <li><strong>Cross-Validation</strong>: Built-in cross-validation for robust model evaluation</li>
+        <li><strong>Prediction Tools</strong>: Apply trained models to new data</li>
+        <li><strong>Model Comparison</strong>: Compare performance across different algorithms</li>
+      </ul>
+
+      <h3>Supported Algorithms</h3>
+      
+      <h4>1. Random Forest</h4>
+      <p><strong>Purpose:</strong> Ensemble learning for classification and regression tasks</p>
+      <p><strong>Key Features:</strong></p>
+      <ul>
+        <li>Robust to overfitting</li>
+        <li>Handles non-linear relationships</li>
+        <li>Feature importance scoring</li>
+      </ul>
+      
+      <h4>2. Support Vector Machine (SVM)</h4>
+      <p><strong>Purpose:</strong> Classification and regression with kernel methods</p>
+      <p><strong>Key Features:</strong></p>
+      <ul>
+        <li>Effective for high-dimensional data</li>
+        <li>Kernel trick for non-linear problems</li>
+        <li>Good generalization performance</li>
+      </ul>
+      
+      <h4>3. XGBoost</h4>
+      <p><strong>Purpose:</strong> Gradient boosting for superior predictive performance</p>
+      <p><strong>Key Features:</strong></p>
+      <ul>
+        <li>Regularization to reduce overfitting</li>
+        <li>Built-in cross-validation</li>
+        <li>Parallel tree construction</li>
+      </ul>
+      
+      <h4>4. Neural Networks</h4>
+      <p><strong>Purpose:</strong> Deep learning models for complex pattern recognition</p>
+      <p><strong>Key Features:</strong></p>
+      <ul>
+        <li>Multi-layer perceptrons</li>
+        <li>Automated feature learning</li>
+        <li>Flexible architecture configuration</li>
+      </ul>
+      
+      <h4>5. CNN (Convolutional Neural Networks)</h4>
+      <p><strong>Purpose:</strong> Deep learning for image-based analysis</p>
+      <p><strong>Key Features:</strong></p>
+      <ul>
+        <li>ResNet architecture</li>
+        <li>Transfer learning support</li>
+        <li>Direct image feature extraction</li>
+      </ul>
+
+      <h3>Workflow Integration</h3>
+      <p>The AI Model Module integrates seamlessly with the existing RadView workflow:</p>
+      
+      <h4>Complete Pipeline</h4>
+      <ol>
+        <li><strong>Data Loading</strong> - Import medical images via Scan Module</li>
+        <li><strong>Preprocessing</strong> - Enhance images using Preprocessing Module</li>
+        <li><strong>Feature Extraction</strong> - Calculate radiomics features</li>
+        <li><strong>Feature Selection</strong> - Identify relevant features using MRMR, RankSum, or T-Test</li>
+        <li><strong>AI Model Training</strong> - Train models using selected features (NEW)</li>
+        <li><strong>Prediction</strong> - Apply models to new data (NEW)</li>
+        <li><strong>Visualization</strong> - Display results and predictions</li>
+      </ol>
+
+      <h3>Model Configuration</h3>
+      <p>Each algorithm type will support configurable parameters for optimal performance:</p>
+      
+      <h4>Common Parameters</h4>
+      <ul>
+        <li><strong>Training Data Split</strong>: Train/validation/test set ratios</li>
+        <li><strong>Cross-Validation Folds</strong>: Number of CV folds for model evaluation</li>
+        <li><strong>Feature Standardization</strong>: Normalize features before training</li>
+      </ul>
+      
+      <h4>Algorithm-Specific Parameters</h4>
+      <ul>
+        <li><strong>Random Forest:</strong> Number of trees, max depth, min samples split</li>
+        <li><strong>SVM:</strong> Kernel type, regularization parameter, gamma</li>
+        <li><strong>XGBoost:</strong> Learning rate, max depth, number of estimators</li>
+        <li><strong>Neural Network:</strong> Hidden layers, neurons per layer, activation functions</li>
+        <li><strong>CNN:</strong> Architecture (ResNet), transfer learning options</li>
+      </ul>
+
+      <h3>Feature Integration</h3>
+      <p>The AI Model Module directly utilizes features selected in the Feature Selection Module:</p>
+      <ul>
+        <li><strong>Automatic Feature Import</strong>: Selected features automatically available</li>
+        <li><strong>Feature Validation</strong>: Ensure feature compatibility with algorithms</li>
+        <li><strong>Custom Feature Sets</strong>: Option to use all features or custom subset</li>
+      </ul>
+
+      <h3>Training and Evaluation</h3>
+      
+      <h4>Training Process</h4>
+      <ul>
+        <li>Automatic data splitting for training and testing</li>
+        <li>Hyperparameter optimization</li>
+        <li>Model performance metrics calculation</li>
+      </ul>
+      
+      <h4>Evaluation Metrics</h4>
+      <ul>
+        <li><strong>Classification:</strong> Accuracy, Precision, Recall, F1-Score, ROC-AUC</li>
+        <li><strong>Regression:</strong> RMSE, MAE, R² Score</li>
+        <li><strong>Cross-Validation:</strong> Mean and standard deviation across folds</li>
+      </ul>
+
+      <h3>Model Management</h3>
+      <p>The AI Model Module will provide comprehensive model management capabilities:</p>
+      <ul>
+        <li><strong>Model Saving</strong>: Save trained models for future use</li>
+        <li><strong>Model Loading</strong>: Load previously trained models</li>
+        <li><strong>Model Comparison</strong>: Compare multiple models side-by-side</li>
+        <li><strong>Model Deployment</strong>: Deploy models for batch prediction</li>
+      </ul>
+
+      <h3>Prediction Capabilities</h3>
+      <p>Once trained, models can be applied to new data:</p>
+      <ul>
+        <li><strong>Single Patient Prediction</strong>: Predict on individual cases</li>
+        <li><strong>Batch Prediction</strong>: Process multiple patients simultaneously</li>
+        <li><strong>Probability Scores</strong>: Provide prediction confidence levels</li>
+        <li><strong>Visualization</strong>: Display predictions in visualization module</li>
+      </ul>
+
+      <h3>Expected Release</h3>
+      <p>The AI Model Module is currently under active development. The development team is working to ensure robust performance, comprehensive validation, and seamless integration with existing RadView features.</p>
+      
+      <div class="info-box">
+        <p><strong>For Updates:</strong> Please contact CStride support at <strong>dev@cstride.com</strong> for information on release timelines and beta testing opportunities.</p>
+      </div>
     `
   },
   "radview-desktop-advanced-features": {

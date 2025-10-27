@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Download, FileText, Play, CheckCircle, FolderOpen, Settings, Cpu, Filter, Eye, Monitor, Zap, BarChart3, Globe, Activity } from "lucide-react";
+import { ArrowRight, Download, FileText, Play, CheckCircle, FolderOpen, Settings, Cpu, Filter, Eye, Monitor, Zap, BarChart3, Globe, Activity, Brain } from "lucide-react";
 import { RADVIEW_DESKTOP } from "@/lib/radview-data";
 
 const iconMap = {
@@ -10,6 +10,7 @@ const iconMap = {
   Cpu,
   Filter,
   Eye,
+  Brain,
 };
 
 const videoData = [
@@ -102,7 +103,7 @@ export default function RadViewPage() {
                   <div className="hero-stat-label">Radiomics Features</div>
                 </div>
                 <div className="hero-stat">
-                  <div className="hero-stat-number">5</div>
+                  <div className="hero-stat-number">6</div>
                   <div className="hero-stat-label">Analysis Modules</div>
                 </div>
                 <div className="hero-stat">
@@ -358,6 +359,32 @@ export default function RadViewPage() {
                 Generate comprehensive statistical analysis with 23 statistical measures, feature selection (MRMR, T-Test, RankSum), and export results to CSV, MHA, NIfTI, and PDF formats.
               </p>
             </div>
+
+            <div className="why-choose-card radview-workflow-card" style={{ position: 'relative' }}>
+              <span className="why-choose-card-badge">Step 6</span>
+              <div style={{ position: 'absolute', top: '1rem', right: '1rem' }}>
+                <span style={{
+                  backgroundColor: '#fef3c7',
+                  color: '#92400e',
+                  padding: '0.25rem 0.75rem',
+                  borderRadius: '9999px',
+                  fontSize: '0.75rem',
+                  fontWeight: '600',
+                  border: '1px solid #fcd34d',
+                }}>
+                  Coming Soon
+                </span>
+              </div>
+              <div className="why-choose-card-icon-wrapper">
+                <div className="why-choose-card-icon">
+                  <Activity size={24} />
+                </div>
+              </div>
+              <h3 className="why-choose-card-title">AI Model Training & Prediction</h3>
+              <p className="why-choose-card-description">
+                Train machine learning models using extracted radiomics features. Choose from multiple algorithms (Random Forest, SVM, XGBoost, Neural Networks, CNN, ResNet) for classification, regression, or survival analysis with model configuration settings.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -411,16 +438,17 @@ export default function RadViewPage() {
         <div className="products-container">
           <div className="products-header">
             <h2 className="products-title">
-              Five Powerful <span className="products-title-gradient">Modules</span>
+              Six Powerful <span className="products-title-gradient">Modules</span>
             </h2>
             <p className="products-subtitle">
-              Complete workflow from data loading to visualization
+              Complete workflow from data loading to AI model training
             </p>
           </div>
 
           <div className="products-grid">
             {RADVIEW_DESKTOP.modules.map((module, index) => {
               const Icon = iconMap[module.icon as keyof typeof iconMap];
+              const isComingSoon = (module as any).comingSoon;
 
               return (
                 <div key={module.id} className="product-card radview-module-card">
@@ -430,7 +458,22 @@ export default function RadViewPage() {
                         <Icon size={32} />
                       </div>
                     </div>
-                    <span className="product-card-badge">Module {index + 1}</span>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.5rem' }}>
+                      <span className="product-card-badge">Module {index + 1}</span>
+                      {isComingSoon && (
+                        <span style={{
+                          backgroundColor: '#fef3c7',
+                          color: '#92400e',
+                          padding: '0.25rem 0.75rem',
+                          borderRadius: '9999px',
+                          fontSize: '0.75rem',
+                          fontWeight: '600',
+                          border: '1px solid #fcd34d',
+                        }}>
+                          Coming Soon
+                        </span>
+                      )}
+                    </div>
                   </div>
                   <h3 className="product-card-title">{module.title}</h3>
                   <p className="product-card-tagline">Professional Analysis</p>
@@ -445,11 +488,26 @@ export default function RadViewPage() {
                     ))}
                   </ul>
 
-                  <Link href="#demo" className="product-card-button">
-                    <Play size={16} />
-                    Watch Demo
-                    <ArrowRight size={16} />
-                  </Link>
+                  {isComingSoon ? (
+                    <div style={{
+                      backgroundColor: '#f9fafb',
+                      color: '#6b7280',
+                      padding: '0.75rem 1.5rem',
+                      borderRadius: '0.75rem',
+                      textAlign: 'center',
+                      fontWeight: '500',
+                      border: '1px solid #e5e7eb',
+                      cursor: 'not-allowed',
+                    }}>
+                      Demo Coming Soon
+                    </div>
+                  ) : (
+                    <Link href="#demo" className="product-card-button">
+                      <Play size={16} />
+                      Watch Demo
+                      <ArrowRight size={16} />
+                    </Link>
+                  )}
                 </div>
               );
             })}
@@ -465,7 +523,7 @@ export default function RadViewPage() {
               Complete Analysis <span className="why-choose-highlight">Workflow</span>
             </h2>
             <p className="why-choose-subtitle">
-              Streamlined 5-step process for medical imaging analysis
+              Streamlined 6-step process for medical imaging analysis
             </p>
           </div>
 

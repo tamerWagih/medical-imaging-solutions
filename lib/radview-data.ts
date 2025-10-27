@@ -17,6 +17,7 @@ export const RADVIEW_DESKTOP = {
       "Advanced Visualization with Multi-planar Views",
       "Comprehensive ROI Analysis and Mask Drawing",
       "Export to CSV, MHA, NIfTI, PDF Reports",
+      "AI Model Training and Prediction with Multiple Algorithms",
     ],
     supportedFormats: {
       input: ["DICOM (.dcm, .dicom)", "MHA (.mha, .mhd)", "NIfTI (.nii, .nii.gz)"],
@@ -134,6 +135,22 @@ export const RADVIEW_DESKTOP = {
         "Shape features calculation (Volume and Slice-based)",
       ],
     },
+    {
+      id: "ai-model",
+      title: "AI Model Module",
+      description: "Machine learning model training and prediction using extracted radiomics features",
+      icon: "Brain",
+      screenshot: "/products/radview-desktop/screenshots/AI_Model.png",
+      video: "/products/radview-desktop/videos/AI_Model.mp4",
+      features: [
+        "Multiple machine learning algorithms (Random Forest, SVM, XGBoost, Neural Networks, CNN, ResNet)",
+        "Support for Classification, Regression, and Survival Analysis problems",
+        "Configurable model parameters for each algorithm type",
+        "Selected features integration from Feature Selection module",
+        "Save and load trained model configurations",
+      ],
+      comingSoon: true,
+    },
   ],
 
   workflow: {
@@ -168,6 +185,12 @@ export const RADVIEW_DESKTOP = {
         module: "Visualization",
         action: "Visualize images, features, create ROIs, analyze statistics",
         outcome: "Comprehensive visual analysis with measurements and exports",
+      },
+      {
+        step: 6,
+        module: "AI Model",
+        action: "Train and evaluate AI models for prediction tasks",
+        outcome: "Trained models for classification, regression, or survival analysis with performance metrics",
       },
     ],
   },

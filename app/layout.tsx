@@ -20,7 +20,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Medical Imaging Solutions - Advanced Medical Image Analysis Software",
+  title: "CStride - Medical Imaging Solutions",
   description: "Professional-grade medical imaging software designed for researchers, radiologists, and healthcare institutions worldwide.",
 };
 

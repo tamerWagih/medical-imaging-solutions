@@ -30,6 +30,7 @@ export function Header() {
             </div>
             <div className="medical-logo-text">
               <span className="medical-logo-title">{COMPANY.name}</span>
+              <span className="medical-logo-tagline">{COMPANY.tagline}</span>
             </div>
           </Link>
 

@@ -369,6 +369,11 @@
     flex-direction: column;
     text-align: center;
     gap: 1rem;
+    align-items: center;
+  }
+  
+  .contact-detail-icon-wrapper {
+    margin: 0 auto;
   }
 
   .contact-section-title {

@@ -1371,13 +1371,31 @@
   margin: 0;
 }
 
+.medical-logo-tagline {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 0.75rem;
+  color: #6b7280;
+  letter-spacing: -0.01em;
+  transition: color 0.3s ease;
+  margin: 0;
+  line-height: 1;
+}
+
 .medical-logo-link:hover .medical-logo-title {
   color: #3b82f6;
+}
+
+.medical-logo-link:hover .medical-logo-tagline {
+  color: #9ca3af;
 }
 
 @media (max-width: 640px) {
   .medical-logo-title {
     font-size: 1rem;
+  }
+  .medical-logo-tagline {
+    font-size: 0.7rem;
   }
   .medical-logo-icon {
     height: 36px;
