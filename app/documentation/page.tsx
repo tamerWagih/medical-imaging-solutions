@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import "./documentation.css";
 import { 
@@ -4164,7 +4164,7 @@ Where:
   }
 };
 
-export default function DocumentationPage() {
+function DocumentationContent() {
   const [activeSection, setActiveSection] = useState<string>("radview-desktop-overview");
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
     radview: true,
@@ -4504,5 +4504,13 @@ export default function DocumentationPage() {
         </main>
       </div>
     </>
+  );
+}
+
+export default function DocumentationPage() {
+  return (
+    <Suspense fallback={<div className="docs-container">Loading documentation...</div>}>
+      <DocumentationContent />
+    </Suspense>
   );
 }
