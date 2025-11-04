@@ -36,7 +36,14 @@ export const NAV_ITEMS = [
       { label: "HRS", href: "/products/hrs", description: "Habitat Risk Scoring" },
     ],
   },
-  { label: "Documentation", href: "/documentation" },
+  {
+    label: "Documentation",
+    items: [
+      { label: "RadView", href: "/documentation/radview", description: "RadView Documentation" },
+      { label: "HRS", href: "/documentation/hrs", description: "HRS Documentation" },
+      { label: "Research Papers", href: "/documentation/research-papers", description: "Scientific Publications" },
+    ],
+  },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
+import { useSearchParams } from "next/navigation";
 import "./documentation.css";
 import { 
   ChevronDown, 
@@ -4179,6 +4180,58 @@ export default function DocumentationPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchResults, setSearchResults] = useState<any[]>([]);
+  const searchParams = useSearchParams();
+  const only = searchParams.get("only");
+
+  // Limit navigation to a single product when ?only=radview|hrs is present
+  const navStructure = useMemo(() => {
+    if (only === "hrs" || only === "radview") {
+      return { [only]: (documentationStructure as any)[only] } as typeof documentationStructure;
+    }
+    return documentationStructure;
+  }, [only]);
+
+  // Deep-link support: allow selecting a specific section via ?section=<id>
+  useEffect(() => {
+    const sectionParam = searchParams.get("section");
+    if (sectionParam && contentData[sectionParam as keyof typeof contentData]) {
+      setActiveSection(sectionParam);
+
+      // Expand the corresponding main section and subsection
+      const parts = sectionParam.split("-"); // e.g., ["hrs","desktop","overview"]
+      if (parts.length >= 2) {
+        const mainKey = parts[0];
+        const subKey = `${parts[0]}-${parts[1]}`;
+        setExpandedSections(prev => ({ ...prev, [mainKey]: true }));
+        setExpandedSubsections(prev => ({ ...prev, [subKey]: true }));
+      }
+    }
+  }, [searchParams]);
+
+  // Product filter support: auto-expand and default active section for ?only=radview|hrs
+  useEffect(() => {
+    if (only === "hrs") {
+      setExpandedSections({ radview: false, hrs: true });
+      setExpandedSubsections(prev => ({
+        ...prev,
+        "radview-desktop": false,
+        "radview-cloud": false,
+        "hrs-desktop": true,
+        "hrs-cloud": false
+      }));
+      setActiveSection(prev => (prev && prev.startsWith("hrs-") ? prev : "hrs-desktop-overview"));
+    } else if (only === "radview") {
+      setExpandedSections({ radview: true, hrs: false });
+      setExpandedSubsections(prev => ({
+        ...prev,
+        "radview-desktop": true,
+        "radview-cloud": false,
+        "hrs-desktop": false,
+        "hrs-cloud": false
+      }));
+      setActiveSection(prev => (prev && prev.startsWith("radview-") ? prev : "radview-desktop-overview"));
+    }
+  }, [only]);
 
   const toggleSection = (section: string) => {
     setExpandedSections(prev => ({
@@ -4207,6 +4260,7 @@ export default function DocumentationPage() {
     
     // Search through all content
     Object.entries(contentData).forEach(([key, content]) => {
+      if (only && !key.startsWith(`${only}-`)) return; // restrict search to selected product
       const title = content.title.toLowerCase();
       const contentText = content.content.toLowerCase();
       
@@ -4223,7 +4277,7 @@ export default function DocumentationPage() {
     });
     
     return results;
-  }, [searchQuery]);
+  }, [searchQuery, only]);
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
@@ -4374,7 +4428,7 @@ export default function DocumentationPage() {
           </div>
           
           <nav className="docs-nav">
-            {Object.entries(documentationStructure).map(([sectionKey, section]) => {
+            {Object.entries(navStructure).map(([sectionKey, section]) => {
               const isExpanded = expandedSections[sectionKey];
               const Icon = section.icon;
               

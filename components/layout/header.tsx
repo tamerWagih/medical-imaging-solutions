@@ -7,8 +7,8 @@ import { NAV_ITEMS, COMPANY } from "@/lib/constants";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [mobileOpenDropdown, setMobileOpenDropdown] = useState<string | null>(null);
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -45,46 +45,54 @@ export function Header() {
                     if (dropdownTimeoutRef.current) {
                       clearTimeout(dropdownTimeoutRef.current);
                     }
-                    setDropdownOpen(true);
+                    setOpenDropdown(item.label);
                   }}
                   onMouseLeave={() => {
                     dropdownTimeoutRef.current = setTimeout(() => {
-                      setDropdownOpen(false);
+                      setOpenDropdown(null);
                     }, 800);
                   }}
                 >
-                  <button className="medical-nav-link">
+                  <button
+                    className="medical-nav-link"
+                    aria-haspopup="menu"
+                    aria-expanded={openDropdown === item.label}
+                    aria-label={`${item.label} menu`}
+                  >
                     {item.label}
                     <ChevronDown size={16} />
                   </button>
                   <div
                     className="medical-dropdown"
+                    role="menu"
                     style={{
-                      opacity: dropdownOpen ? 1 : 0,
-                      visibility: dropdownOpen ? 'visible' : 'hidden',
-                      transform: dropdownOpen ? 'translateY(0)' : 'translateY(-10px)',
+                      opacity: openDropdown === item.label ? 1 : 0,
+                      visibility: openDropdown === item.label ? 'visible' : 'hidden',
+                      transform: openDropdown === item.label ? 'translateY(0)' : 'translateY(-10px)',
                     }}
                     onMouseEnter={() => {
                       if (dropdownTimeoutRef.current) {
                         clearTimeout(dropdownTimeoutRef.current);
                       }
+                      setOpenDropdown(item.label);
                     }}
                     onMouseLeave={() => {
                       dropdownTimeoutRef.current = setTimeout(() => {
-                        setDropdownOpen(false);
+                        setOpenDropdown(null);
                       }, 300);
                     }}
                   >
                     {item.items.map((subItem) => (
                       <Link
-                        key={subItem.href}
+                        key={`${item.label}-${subItem.label}`}
                         href={subItem.href}
                         className="medical-dropdown-item"
+                        role="menuitem"
                         onClick={() => {
                           if (dropdownTimeoutRef.current) {
                             clearTimeout(dropdownTimeoutRef.current);
                           }
-                          setDropdownOpen(false);
+                          setOpenDropdown(null);
                         }}
                       >
                         <div className="medical-dropdown-item-content">
@@ -123,15 +131,17 @@ export function Header() {
                   <div key={item.label} className="medical-mobile-nav-group">
                     <div
                       className="medical-mobile-nav-title"
-                      onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
+                      onClick={() =>
+                        setMobileOpenDropdown((prev) => (prev === item.label ? null : item.label))
+                      }
                     >
                       {item.label}
                       <ChevronDown size={16} />
                     </div>
-                    <div className={`medical-mobile-dropdown ${mobileDropdownOpen ? "open" : ""}`}>
+                    <div className={`medical-mobile-dropdown ${mobileOpenDropdown === item.label ? "open" : ""}`}>
                       {item.items.map((subItem) => (
                         <Link
-                          key={subItem.href}
+                          key={`${item.label}-${subItem.label}`}
                           href={subItem.href}
                           className="medical-mobile-dropdown-item"
                           onClick={() => setMobileMenuOpen(false)}
