@@ -1,0 +1,1594 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Developer_Documentation.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="radview-developer-documentation">RadView Developer Documentation</h1>
+<h2 id="complete-developer-guide-for-medical-imaging-analysis-application">Complete Developer Guide for Medical Imaging Analysis Application</h2>
+<hr>
+<p><strong>Version:</strong> 3.4<br>
+<strong>Date:</strong> November 2025<br>
+<strong>Application:</strong> RadView (FeatureViewer)<br>
+<strong>Purpose:</strong> Developer documentation for medical imaging analysis and radiomics feature extraction software</p>
+<hr>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#architecture-overview">Architecture Overview</a></li>
+<li><a href="#project-structure">Project Structure</a></li>
+<li><a href="#build-system">Build System</a></li>
+<li><a href="#core-modules">Core Modules</a></li>
+<li><a href="#database-schema">Database Schema</a></li>
+<li><a href="#processing-architecture">Processing Architecture</a></li>
+<li><a href="#api-reference">API Reference</a></li>
+<li><a href="#development-guidelines">Development Guidelines</a></li>
+<li><a href="#testing">Testing</a></li>
+<li><a href="#deployment">Deployment</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+</ol>
+<hr>
+<h2 id="introduction">Introduction</h2>
+<h3 id="overview">Overview</h3>
+<p>RadView (also known as FeatureViewer) is a comprehensive medical imaging analysis application designed for radiomics feature extraction, preprocessing, feature selection, AI model training, and visualization. The application is built using Qt (C++) and follows a modular architecture pattern.</p>
+<h3 id="key-technologies">Key Technologies</h3>
+<ul>
+<li><strong>Framework</strong>: Qt 6.x (C++)</li>
+<li><strong>Database</strong>: SQLite</li>
+<li><strong>Image Processing</strong>: ITK, OpenCV, VTK, ...</li>
+<li><strong>Build System</strong>: Visual Studio (MSBuild)</li>
+<li><strong>Architecture</strong>: MVC-like with separate processing executables</li>
+<li><strong>Cloud Support</strong>: RadViewPipelineDriver for batch/cloud processing</li>
+</ul>
+<h3 id="application-components">Application Components</h3>
+<ol>
+<li><strong>Desktop Application</strong>: Main GUI application (RadView.exe)</li>
+<li><strong>Processing Executables</strong>: Separate processes for heavy computation</li>
+<li><strong>Pipeline Driver</strong>: Cloud/batch processing system</li>
+<li><strong>File Watcher</strong>: C# service for monitoring file changes</li>
+</ol>
+<hr>
+<h2 id="architecture-overview">Architecture Overview</h2>
+<h3 id="high-level-architecture">High-Level Architecture</h3>
+<p>RadView follows a <strong>Model-View-Controller (MVC)</strong> pattern with the following layers:</p>
+<pre class="hljs"><code><div>┌─────────────────────────────────────────────────────────┐
+│                    GUI Layer (Qt)                        │
+│  (MainWin, DropAreas, Reports, Visualization Widgets)   │
+└────────────────────┬────────────────────────────────────┘
+                     │
+┌────────────────────▼────────────────────────────────────┐
+│              FVController (Mediator)                     │
+│  Coordinates communication between GUI and Drivers       │
+└────┬──────┬──────┬──────┬──────┬──────┬──────┬──────────┘
+     │      │      │      │      │      │      │
+┌────▼──┐ ┌─▼───┐ ┌─▼──┐ ┌─▼──┐ ┌─▼──┐ ┌─▼──┐ ┌─▼────┐
+│ Scan  │ │Pre- │ │Feat│ │Feat│ │AI  │ │Viz │ │DB    │
+│Driver │ │proc │ │ure │ │Sel │ │Mod │ │Drv │ │Driver│
+└───────┘ └─────┘ └────┘ └────┘ └────┘ └────┘ └──────┘
+     │      │      │      │      │      │      │
+┌────▼──────▼──────▼──────▼──────▼──────▼──────▼──────┐
+│              SQLite Database                         │
+│  (Patients, Studies, Series, Features, Statistics)   │
+└──────────────────────────────────────────────────────┘
+</div></code></pre>
+<h3 id="processing-architecture">Processing Architecture</h3>
+<p>Heavy computational tasks are offloaded to separate executable processes:</p>
+<pre class="hljs"><code><div>Main Application
+    │
+    ├── FeatureWriter.exe      (Feature extraction)
+    ├── PreprocessWriter.exe   (Image preprocessing)
+    ├── SelectionWriter.exe    (Feature selection)
+    ├── ScanWriter.exe         (Image scanning)
+    ├── AIModelWriter.exe      (AI model training)
+    └── RadViewPipelineWriter.exe (Cloud pipeline)
+</div></code></pre>
+<h3 id="design-patterns">Design Patterns</h3>
+<ol>
+<li><strong>Mediator Pattern</strong>: <code>FVController</code> mediates between GUI and drivers</li>
+<li><strong>Strategy Pattern</strong>: Different feature extraction algorithms</li>
+<li><strong>Factory Pattern</strong>: Creation of processing executables</li>
+<li><strong>Observer Pattern</strong>: Qt signals/slots for event handling</li>
+<li><strong>Repository Pattern</strong>: DatabaseDriver abstracts data access</li>
+</ol>
+<hr>
+<h2 id="project-structure">Project Structure</h2>
+<h3 id="solution-organization">Solution Organization</h3>
+<p>The solution (<code>FeatureVIewer.sln</code>) contains the following projects:</p>
+<h4 id="core-projects">Core Projects</h4>
+<ol>
+<li>
+<p><strong>GUI</strong> (<code>GUI/GUI.vcxproj</code>)</p>
+<ul>
+<li>Main application window and UI components</li>
+<li>Location: <code>GUI/</code></li>
+<li>Output: <code>RadView.exe</code></li>
+</ul>
+</li>
+<li>
+<p><strong>ModuleDrivers</strong> (<code>ModuleDrivers/ModuleDrivers.vcxproj</code>)</p>
+<ul>
+<li>Business logic and core functionality</li>
+<li>Location: <code>ModuleDrivers/</code></li>
+<li>Output: <code>ModuleDrivers.lib</code></li>
+</ul>
+</li>
+<li>
+<p><strong>DataModeler</strong> (<code>DataModeler/DataModeler.vcxproj</code>)</p>
+<ul>
+<li>Data structures and JSON management</li>
+<li>Location: <code>DataModeler/</code></li>
+<li>Output: <code>DataModeler.lib</code></li>
+</ul>
+</li>
+</ol>
+<h4 id="processing-executables">Processing Executables</h4>
+<ol start="4">
+<li>
+<p><strong>FeatureWriter</strong> (<code>FeatureWriter/FeatureWriter.vcxproj</code>)</p>
+<ul>
+<li>Feature extraction processing</li>
+<li>Output: <code>FeatureWriter.exe</code></li>
+</ul>
+</li>
+<li>
+<p><strong>PreprocessWriter</strong> (<code>PreProcessWriter/PreProcessWriter.vcxproj</code>)</p>
+<ul>
+<li>Image preprocessing processing</li>
+<li>Output: <code>PreprocessWriter.exe</code></li>
+</ul>
+</li>
+<li>
+<p><strong>SelectionWriter</strong> (<code>SelectionWriter/SelectionWriter.vcxproj</code>)</p>
+<ul>
+<li>Feature selection processing</li>
+<li>Output: <code>SelectionWriter.exe</code></li>
+</ul>
+</li>
+<li>
+<p><strong>ScanWriter</strong> (<code>ScanWriter/ScanWriter.vcxproj</code>)</p>
+<ul>
+<li>Image scanning processing</li>
+<li>Output: <code>ScanWriter.exe</code></li>
+</ul>
+</li>
+<li>
+<p><strong>AIModelWriter</strong> (<code>AIModelWriter/AIModelWriter.vcxproj</code>)</p>
+<ul>
+<li>AI model training processing</li>
+<li>Output: <code>AIModelWriter.exe</code></li>
+</ul>
+</li>
+</ol>
+<h4 id="pipeline-and-cloud">Pipeline and Cloud</h4>
+<ol start="9">
+<li>
+<p><strong>RadViewPipelineDriver</strong> (<code>RadViewPipelineDriver/RadViewPipelineDriver.vcxproj</code>)</p>
+<ul>
+<li>Pipeline processing library</li>
+<li>Output: <code>RadViewPipelineDriver.lib</code></li>
+</ul>
+</li>
+<li>
+<p><strong>RadViewPipelineWriter</strong> (<code>RadViewPipelineWriter/RadViewPipelineWriter.vcxproj</code>)</p>
+<ul>
+<li>Pipeline processing executable</li>
+<li>Output: <code>RadViewPipelineWriter.exe</code></li>
+</ul>
+</li>
+</ol>
+<h4 id="utilities">Utilities</h4>
+<ol start="11">
+<li>
+<p><strong>GitCommands</strong> (<code>GitCommands/GitCommands.vcxproj</code>)</p>
+<ul>
+<li>Git integration utilities</li>
+</ul>
+</li>
+<li>
+<p><strong>FileWatcher</strong> (<code>FileWatcher/FileWatcher.csproj</code>)</p>
+<ul>
+<li>C# file monitoring service</li>
+<li>Output: <code>FileWatcher.exe</code></li>
+</ul>
+</li>
+</ol>
+<h4 id="testing">Testing</h4>
+<ol start="13">
+<li>
+<p><strong>UnitTests</strong> (<code>UnitTests/UnitTests.vcxproj</code>)</p>
+<ul>
+<li>Unit test suite</li>
+</ul>
+</li>
+<li>
+<p><strong>IntegrationTests</strong> (<code>IntegrationTests/IntegrationTests.vcxproj</code>)</p>
+<ul>
+<li>Integration test suite</li>
+</ul>
+</li>
+</ol>
+<h3 id="directory-structure">Directory Structure</h3>
+<pre class="hljs"><code><div>FeatureViewer/
+├── GUI/                    # Main application UI
+│   ├── MainWin.*          # Main window
+│   ├── *DropArea.*        # Drag-and-drop areas
+│   ├── *Report.*           # Report dialogs
+│   └── Resources/         # UI resources
+├── ModuleDrivers/          # Core business logic
+│   ├── FVController.*    # Main controller
+│   ├── ScanDriver.*       # Image scanning
+│   ├── PreprocessingDriver.*
+│   ├── FeatureDriver.*    # Feature extraction
+│   ├── FeatureSelectionDriver.*
+│   ├── AIModelDriver.*    # AI model training
+│   ├── VisualizationDriver.*
+│   ├── DatabaseDriver.*   # Database operations
+│   └── SettingsDriver.*  # Settings management
+├── DataModeler/           # Data structures
+│   ├── SessionData.*
+│   ├── FeatureData.*
+│   ├── AIModelData.*
+│   └── JsonManager.*
+├── FeatureWriter/         # Feature extraction executable
+├── PreProcessWriter/      # Preprocessing executable
+├── SelectionWriter/       # Feature selection executable
+├── ScanWriter/            # Scanning executable
+├── AIModelWriter/         # AI model training executable
+├── RadViewPipelineDriver/ # Pipeline processing
+├── RadViewPipelineWriter/ # Pipeline executable
+├── FileWatcher/           # File monitoring service
+├── UnitTests/             # Unit tests
+├── IntegrationTests/      # Integration tests
+├── Data/                  # Test data
+├── Documentation/         # Documentation files
+└── PreRequisites/         # Required dependencies
+</div></code></pre>
+<hr>
+<h2 id="build-system">Build System</h2>
+<h3 id="prerequisites">Prerequisites</h3>
+<ol>
+<li>
+<p><strong>Visual Studio 2022</strong></p>
+<ul>
+<li>C++ Desktop Development workload</li>
+<li>Windows 10/11 SDK</li>
+</ul>
+</li>
+<li>
+<p><strong>Qt Framework</strong></p>
+<ul>
+<li>Qt 6.x</li>
+<li>Qt Visual Studio Tools extension</li>
+</ul>
+</li>
+<li>
+<p><strong>Third-Party Libraries</strong></p>
+<ul>
+<li>ITK (Insight Toolkit)</li>
+<li>OpenCV</li>
+<li>VTK</li>
+<li>SQLite</li>
+</ul>
+</li>
+<li>
+<p><strong>Additional Tools</strong></p>
+<ul>
+<li>.NET Framework (for FileWatcher)</li>
+<li>Git (for GitCommands)</li>
+</ul>
+</li>
+</ol>
+<h3 id="build-configuration">Build Configuration</h3>
+<h4 id="debug-configuration">Debug Configuration</h4>
+<ul>
+<li>Optimizations: Disabled</li>
+<li>Runtime Library: Multi-threaded Debug DLL</li>
+<li>Symbols: Full debug information</li>
+</ul>
+<h4 id="release-configuration">Release Configuration</h4>
+<ul>
+<li>Optimizations: Maximum Speed (/O2)</li>
+<li>Runtime Library: Multi-threaded DLL</li>
+<li>Symbols: Minimal</li>
+</ul>
+<h3 id="building-the-solution">Building the Solution</h3>
+<ol>
+<li>
+<p><strong>Open Solution</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Open FeatureVIewer.sln in Visual Studio</span>
+</div></code></pre>
+</li>
+<li>
+<p><strong>Configure Qt</strong></p>
+<ul>
+<li>Set Qt installation path in project properties</li>
+<li>Ensure Qt version matches project requirements</li>
+</ul>
+</li>
+<li>
+<p><strong>Set Build Configuration</strong></p>
+<ul>
+<li>Select Debug or Release</li>
+<li>Select platform (x64 recommended)</li>
+</ul>
+</li>
+<li>
+<p><strong>Build</strong></p>
+<ul>
+<li>Build Solution (Ctrl+Shift+B)</li>
+<li>Or build individual projects</li>
+</ul>
+</li>
+<li>
+<p><strong>Output Locations</strong></p>
+<ul>
+<li>Executables: <code>x64/Debug/</code> or <code>x64/Release/</code></li>
+<li>Libraries: <code>x64/Debug/</code> or <code>x64/Release/</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="dependencies">Dependencies</h3>
+<p>Projects have the following dependencies:</p>
+<pre class="hljs"><code><div>GUI
+  └── ModuleDrivers
+      └── DataModeler
+      └── (Third-party libraries)
+
+FeatureWriter
+  └── ModuleDrivers
+
+PreprocessWriter
+  └── ModuleDrivers
+
+SelectionWriter
+  └── ModuleDrivers
+
+AIModelWriter
+  └── ModuleDrivers
+
+RadViewPipelineWriter
+  └── RadViewPipelineDriver
+      └── ModuleDrivers
+</div></code></pre>
+<h3 id="environment-setup">Environment Setup</h3>
+<h4 id="setupvarsbat">setup_vars.bat</h4>
+<p>Sets up environment variables for build:</p>
+<ul>
+<li>Qt paths</li>
+<li>ITK paths</li>
+<li>OpenCV paths</li>
+<li>Library paths</li>
+</ul>
+<hr>
+<h2 id="core-modules">Core Modules</h2>
+<h3 id="fvcontroller">FVController</h3>
+<p><strong>Purpose</strong>: Central mediator coordinating all module drivers and GUI communication.</p>
+<p><strong>Location</strong>: <code>ModuleDrivers/FVController.h</code>, <code>ModuleDrivers/FVController.cpp</code></p>
+<p><strong>Key Responsibilities</strong>:</p>
+<ul>
+<li>Initialize and manage all drivers</li>
+<li>Coordinate operations between modules</li>
+<li>Handle cross-module communication via signals/slots</li>
+<li>Manage session loading/saving</li>
+</ul>
+<p><strong>Key Methods</strong>:</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Driver access</span>
+<span class="hljs-function">ScanDriver* <span class="hljs-title">getScanDriver</span><span class="hljs-params">()</span></span>;
+<span class="hljs-function">FeatureDriver* <span class="hljs-title">getFeatureDriver</span><span class="hljs-params">()</span></span>;
+<span class="hljs-function">PreprocessingDriver* <span class="hljs-title">getPreprocessingDriver</span><span class="hljs-params">()</span></span>;
+<span class="hljs-function">FeatureSelectionDriver* <span class="hljs-title">getSelectionDriver</span><span class="hljs-params">()</span></span>;
+<span class="hljs-function">AIModelDriver* <span class="hljs-title">getAIModelDriver</span><span class="hljs-params">()</span></span>;
+<span class="hljs-function">VisualizationDriver* <span class="hljs-title">getVisualizationDriver</span><span class="hljs-params">()</span></span>;
+<span class="hljs-function">DatabaseDriver* <span class="hljs-title">getDatabaseDriver</span><span class="hljs-params">()</span></span>;
+
+<span class="hljs-comment">// Operations</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">extractFeatures</span><span class="hljs-params">(...)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">extractPreprocess</span><span class="hljs-params">(...)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">applySelection</span><span class="hljs-params">(...)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">prepareAIModelTraining</span><span class="hljs-params">()</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">startAIModelProcess</span><span class="hljs-params">(...)</span></span>;
+</div></code></pre>
+<h3 id="scandriver">ScanDriver</h3>
+<p><strong>Purpose</strong>: Manages medical image loading, scanning, and organization.</p>
+<p><strong>Location</strong>: <code>ModuleDrivers/ScanDriver.h</code>, <code>ModuleDrivers/ScanDriver.cpp</code></p>
+<p><strong>Key Responsibilities</strong>:</p>
+<ul>
+<li>Scan directories for medical images (DICOM, MHA, NIfTI)</li>
+<li>Organize images into Patient → Study → Series hierarchy</li>
+<li>Load images from database</li>
+<li>Manage image metadata</li>
+<li>Handle cloud directory scanning</li>
+</ul>
+<p><strong>Key Methods</strong>:</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">scan</span><span class="hljs-params">(QString dir, <span class="hljs-keyword">bool</span> bLoadFromDB, QString&amp; msg, 
+         <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;Patient*&gt;&amp; outputPatients, 
+         QStringList&amp; Duplication_Warnings)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">loadPatientsFromDatabase</span><span class="hljs-params">(QString&amp; msg, 
+                             <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;Patient*&gt;&amp; outputPatients, 
+                             QStringList&amp; Duplication_Warnings)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">ScanCloudDirectory</span><span class="hljs-params">(QStringList urlList, <span class="hljs-keyword">const</span> QString&amp; datasetId, 
+                       <span class="hljs-keyword">const</span> QString&amp; connectionName = <span class="hljs-string">"RadView"</span>)</span></span>;
+</div></code></pre>
+<p><strong>Data Model</strong>:</p>
+<ul>
+<li><code>Patient</code>: Top-level container</li>
+<li><code>Study</code>: Imaging study within patient</li>
+<li><code>Series</code>: Image series within study</li>
+</ul>
+<h3 id="preprocessingdriver">PreprocessingDriver</h3>
+<p><strong>Purpose</strong>: Manages image preprocessing operations.</p>
+<p><strong>Location</strong>: <code>ModuleDrivers/PreprocessingDriver.h</code>, <code>ModuleDrivers/PreprocessingDriver.cpp</code></p>
+<p><strong>Key Responsibilities</strong>:</p>
+<ul>
+<li>Manage preprocessing pipeline configuration</li>
+<li>Execute preprocessing operations</li>
+<li>Handle preprocessing workflow (drag-and-drop interface)</li>
+<li>Save/load preprocessing definitions</li>
+</ul>
+<p><strong>Supported Preprocessing Modules</strong>:</p>
+<ol>
+<li>Normalization</li>
+<li>Histogram Equalization</li>
+<li>Flipping</li>
+<li>Scaling</li>
+<li>Cropping by Size</li>
+<li>Cropping by Bounding Box</li>
+<li>Resampling by Size</li>
+<li>Resampling by Template</li>
+<li>Anisotropic Diffusion</li>
+<li>N4 Bias Field Correction</li>
+<li>Legendre Bias Field Correction</li>
+<li>Threshold Clipping</li>
+</ol>
+<p><strong>Key Methods</strong>:</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">extractPreprocess</span><span class="hljs-params">(QVector&lt;QPair&lt;QProcess*, QString&gt;&gt;&amp; process)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">loadAllScannedSeriesPreprocesses</span><span class="hljs-params">()</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">updatePreprocessesHashCodes</span><span class="hljs-params">()</span></span>;
+</div></code></pre>
+<h3 id="featuredriver">FeatureDriver</h3>
+<p><strong>Purpose</strong>: Manages radiomics feature extraction.</p>
+<p><strong>Location</strong>: <code>ModuleDrivers/FeatureDriver.h</code>, <code>ModuleDrivers/FeatureDriver.cpp</code></p>
+<p><strong>Key Responsibilities</strong>:</p>
+<ul>
+<li>Manage feature extraction configuration</li>
+<li>Execute feature extraction via FeatureWriter.exe</li>
+<li>Calculate summary statistics (23 statistical measures)</li>
+<li>Export features to CSV</li>
+<li>Handle feature metadata</li>
+</ul>
+<p><strong>Feature Categories</strong>:</p>
+<ol>
+<li><strong>First-Order Features</strong>: Intensity-based statistics</li>
+<li><strong>Second-Order Features</strong>: Texture features (GLCM, GLRLM, GLDM, GLSZM, NGTDM, Collage)</li>
+<li><strong>Higher-Order Features</strong>: Advanced filtering (Laws, Tamura, Canny, Sobel, LoG, Gabor)</li>
+</ol>
+<p><strong>Summary Statistics</strong> (23 measures):</p>
+<ul>
+<li>Max, Min, Mean, Median, Mode</li>
+<li>Variance, Standard Deviation, Moment</li>
+<li>Skewness, Entropy, Kurtosis</li>
+<li>Range, Energy, Total Energy</li>
+<li>Percentiles (10th, 90th with different coefficients)</li>
+<li>Interquartile Range, Uniformity</li>
+<li>MAD, RMS, rMAD</li>
+</ul>
+<p><strong>Key Methods</strong>:</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">extractFeatures</span><span class="hljs-params">(<span class="hljs-keyword">const</span> QString&amp; defDirPath, <span class="hljs-keyword">const</span> QString&amp; seriesId, 
+                     QString outputDirPath, <span class="hljs-keyword">int</span> ProcessId, 
+                     <span class="hljs-keyword">bool</span> extractFromPreprocessing, <span class="hljs-keyword">const</span> QString&amp; seriesIds)</span></span>;
+<span class="hljs-function">QVector&lt;<span class="hljs-keyword">double</span>&gt; <span class="hljs-title">getSummaryStats</span><span class="hljs-params">(<span class="hljs-keyword">const</span> QString&amp; featurePath, 
+                                <span class="hljs-keyword">const</span> QSet&lt;QString&gt;&amp; requestedStats = QSet&lt;QString&gt;())</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">exportSummaryStatsAsCSV</span><span class="hljs-params">(...)</span></span>;
+</div></code></pre>
+<h3 id="featureselectiondriver">FeatureSelectionDriver</h3>
+<p><strong>Purpose</strong>: Manages feature selection algorithms.</p>
+<p><strong>Location</strong>: <code>ModuleDrivers/FeatureSelectionDriver.h</code>, <code>ModuleDrivers/FeatureSelectionDriver.cpp</code></p>
+<p><strong>Key Responsibilities</strong>:</p>
+<ul>
+<li>Manage feature selection configuration</li>
+<li>Execute selection algorithms via SelectionWriter.exe</li>
+<li>Support multiple selection methods</li>
+<li>Export selected features</li>
+</ul>
+<p><strong>Selection Methods</strong>:</p>
+<ol>
+<li><strong>MRMR</strong> (Minimum Redundancy Maximum Relevance)</li>
+<li><strong>T-Test</strong> (Parametric statistical test)</li>
+<li><strong>RankSum</strong> (Wilcoxon Rank-Sum Test)</li>
+</ol>
+<p><strong>Key Methods</strong>:</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">applySelection</span><span class="hljs-params">(QVector&lt;QPair&lt;QProcess*, QString&gt;&gt;&amp; processes)</span></span>;
+</div></code></pre>
+<h3 id="aimodeldriver">AIModelDriver</h3>
+<p><strong>Purpose</strong>: Manages AI model training and configuration.</p>
+<p><strong>Location</strong>: <code>ModuleDrivers/AIModelDriver.h</code>, <code>ModuleDrivers/AIModelDriver.cpp</code></p>
+<p><strong>Key Responsibilities</strong>:</p>
+<ul>
+<li>Manage AI model definitions</li>
+<li>Build training datasets from selected features</li>
+<li>Execute model training via AIModelWriter.exe</li>
+<li>Support multiple models per training session</li>
+<li>Handle model parameters and feature pools</li>
+</ul>
+<p><strong>Key Methods</strong>:</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">trainModel</span><span class="hljs-params">(<span class="hljs-keyword">const</span> QString&amp; seriesIds, <span class="hljs-keyword">const</span> QString&amp; defDirPath, 
+                QString outputPath, QString experimentID = <span class="hljs-string">""</span>, 
+                <span class="hljs-keyword">int</span> processIndex = <span class="hljs-number">-1</span>)</span></span>;
+<span class="hljs-function">csTable <span class="hljs-title">buildTrainingDataset</span><span class="hljs-params">(QVector&lt;Series*&gt; series, 
+                             <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&gt; selectedFeaturePool, 
+                             QString connectionName)</span></span>;
+<span class="hljs-function"><span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;CS::AIModel*&gt; <span class="hljs-title">loadModelDefsFromIni</span><span class="hljs-params">(<span class="hljs-keyword">const</span> QString&amp; filePath)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">saveModelToIniFile</span><span class="hljs-params">(QSettings* modelDefs)</span></span>;
+</div></code></pre>
+<p><strong>Training Workflow</strong>:</p>
+<ol>
+<li>Load model definitions from INI file</li>
+<li>For each model:
+<ul>
+<li>Get model's required feature pool</li>
+<li>Build training dataset with only those features</li>
+<li>Execute training via backend</li>
+<li>Save model artifacts</li>
+</ul>
+</li>
+</ol>
+<p><strong>Model Definition Format</strong> (INI):</p>
+<pre class="hljs"><code><div><span class="hljs-section">[Model1]</span>
+<span class="hljs-attr">Model_Name</span>=Random Forest Classifier
+<span class="hljs-attr">Model_Type</span>=Classifier
+<span class="hljs-attr">Number_Of_Parameters</span>=<span class="hljs-number">3</span>
+<span class="hljs-attr">Parameter0</span>=<span class="hljs-number">100</span>
+<span class="hljs-attr">Parameter1</span>=<span class="hljs-number">10</span>
+<span class="hljs-attr">Parameter2</span>=<span class="hljs-number">42</span>
+<span class="hljs-attr">Selected_Features</span>=Feature1_Stat1,Feature2_Stat2,...
+</div></code></pre>
+<h3 id="visualizationdriver">VisualizationDriver</h3>
+<p><strong>Purpose</strong>: Manages image visualization and display.</p>
+<p><strong>Location</strong>: <code>ModuleDrivers/VisualizationDriver.h</code>, <code>ModuleDrivers/VisualizationDriver.cpp</code></p>
+<p><strong>Key Responsibilities</strong>:</p>
+<ul>
+<li>Multi-planar image display (Axial, Coronal, Sagittal)</li>
+<li>Feature overlay visualization</li>
+<li>Measurement tools (Distance, Area, Angle)</li>
+<li>Mask/ROI drawing and management</li>
+<li>Statistical analysis (Histograms, Box plots, Shape features)</li>
+<li>Window/Level adjustment</li>
+<li>Color map management</li>
+</ul>
+<p><strong>Key Methods</strong>:</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">loadVisualiztionSettings</span><span class="hljs-params">()</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">updateViewersSeriesPointers</span><span class="hljs-params">()</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">resetAllViewes</span><span class="hljs-params">()</span></span>;
+</div></code></pre>
+<h3 id="databasedriver">DatabaseDriver</h3>
+<p><strong>Purpose</strong>: Manages database operations and schema.</p>
+<p><strong>Location</strong>: <code>ModuleDrivers/DatabaseDriver.h</code>, <code>ModuleDrivers/DatabaseDriver.cpp</code></p>
+<p><strong>Key Responsibilities</strong>:</p>
+<ul>
+<li>Database connection management</li>
+<li>Schema creation and versioning</li>
+<li>Data persistence operations</li>
+<li>Query execution</li>
+</ul>
+<p><strong>Key Methods</strong>:</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">createScanningDatabase</span><span class="hljs-params">()</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">connectToDatabase</span><span class="hljs-params">(QString connectionName = <span class="hljs-string">"scan"</span>)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">disconnectFromDatabase</span><span class="hljs-params">(<span class="hljs-keyword">const</span> QString&amp; connectionName = <span class="hljs-string">"scan"</span>)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">resetDatabase</span><span class="hljs-params">()</span></span>;
+<span class="hljs-function">QString <span class="hljs-title">getDatabaseVersion</span><span class="hljs-params">()</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">checkDatabaseVersion</span><span class="hljs-params">(<span class="hljs-keyword">const</span> QString&amp; connectionName, 
+                         <span class="hljs-keyword">const</span> QString&amp; softwareVersion)</span></span>;
+</div></code></pre>
+<h3 id="settingsdriver">SettingsDriver</h3>
+<p><strong>Purpose</strong>: Manages application settings and configuration.</p>
+<p><strong>Location</strong>: <code>ModuleDrivers/SettingsDriver.h</code>, <code>ModuleDrivers/SettingsDriver.cpp</code></p>
+<p><strong>Key Responsibilities</strong>:</p>
+<ul>
+<li>Load/save settings from INI files</li>
+<li>Manage user preferences</li>
+<li>Handle default configurations</li>
+</ul>
+<hr>
+<h2 id="database-schema">Database Schema</h2>
+<h3 id="core-tables">Core Tables</h3>
+<h4 id="version">Version</h4>
+<p>Stores database version information.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-keyword">Version</span> (
+    <span class="hljs-keyword">Name</span> <span class="hljs-built_in">TEXT</span> PRIMARY <span class="hljs-keyword">KEY</span>  <span class="hljs-comment">-- Database version string</span>
+);
+</div></code></pre>
+<h4 id="patient">Patient</h4>
+<p>Stores patient information.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> Patient (
+    PK_PatientID <span class="hljs-built_in">INTEGER</span> PRIMARY <span class="hljs-keyword">KEY</span> AUTOINCREMENT,
+    PatientID <span class="hljs-built_in">TEXT</span>,
+    PatientName <span class="hljs-built_in">TEXT</span>,
+    DateOfBirth <span class="hljs-built_in">TEXT</span>,
+    Gender <span class="hljs-built_in">TEXT</span>,
+    <span class="hljs-comment">-- Additional fields...</span>
+);
+</div></code></pre>
+<h4 id="study">Study</h4>
+<p>Stores study information linked to patients.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> Study (
+    PK_StudyID <span class="hljs-built_in">INTEGER</span> PRIMARY <span class="hljs-keyword">KEY</span> AUTOINCREMENT,
+    FK_PatientID <span class="hljs-built_in">INTEGER</span>,
+    StudyDate <span class="hljs-built_in">TEXT</span>,
+    StudyDescription <span class="hljs-built_in">TEXT</span>,
+    Label <span class="hljs-built_in">TEXT</span>,  <span class="hljs-comment">-- For training labels</span>
+    <span class="hljs-keyword">FOREIGN</span> <span class="hljs-keyword">KEY</span> (FK_PatientID) <span class="hljs-keyword">REFERENCES</span> Patient(PK_PatientID)
+);
+</div></code></pre>
+<h4 id="series">Series</h4>
+<p>Stores image series information.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> Series (
+    PK_SeriesID <span class="hljs-built_in">INTEGER</span> PRIMARY <span class="hljs-keyword">KEY</span> AUTOINCREMENT,
+    FK_StudyID <span class="hljs-built_in">INTEGER</span>,
+    SeriesDescription <span class="hljs-built_in">TEXT</span>,
+    Modality <span class="hljs-built_in">TEXT</span>,
+    Protocol <span class="hljs-built_in">TEXT</span>,
+    NumberOfImages <span class="hljs-built_in">INTEGER</span>,
+    ImageDimensions <span class="hljs-built_in">TEXT</span>,
+    PixelSpacing <span class="hljs-built_in">TEXT</span>,
+    <span class="hljs-comment">-- Additional fields...</span>
+    <span class="hljs-keyword">FOREIGN</span> <span class="hljs-keyword">KEY</span> (FK_StudyID) <span class="hljs-keyword">REFERENCES</span> Study(PK_StudyID)
+);
+</div></code></pre>
+<h4 id="imagefile">ImageFile</h4>
+<p>Stores image file paths and metadata.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> ImageFile (
+    PK_ImageFileID <span class="hljs-built_in">INTEGER</span> PRIMARY <span class="hljs-keyword">KEY</span> AUTOINCREMENT,
+    FK_SeriesID <span class="hljs-built_in">INTEGER</span>,
+    FilePath <span class="hljs-built_in">TEXT</span>,
+    IsMask <span class="hljs-built_in">INTEGER</span>,  <span class="hljs-comment">-- 0 = image, 1 = mask</span>
+    <span class="hljs-comment">-- Additional fields...</span>
+    <span class="hljs-keyword">FOREIGN</span> <span class="hljs-keyword">KEY</span> (FK_SeriesID) <span class="hljs-keyword">REFERENCES</span> Series(PK_SeriesID)
+);
+</div></code></pre>
+<h4 id="features">Features</h4>
+<p>Stores extracted feature information.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> Features (
+    PK_FeatureID <span class="hljs-built_in">INTEGER</span> PRIMARY <span class="hljs-keyword">KEY</span> AUTOINCREMENT,
+    FK_SeriesID <span class="hljs-built_in">INTEGER</span>,
+    FeatureName <span class="hljs-built_in">TEXT</span>,
+    FeaturePath <span class="hljs-built_in">TEXT</span>,
+    FeatureType <span class="hljs-built_in">TEXT</span>,
+    <span class="hljs-keyword">Parameters</span> <span class="hljs-built_in">TEXT</span>,
+    HashCode <span class="hljs-built_in">TEXT</span>,
+    <span class="hljs-keyword">FOREIGN</span> <span class="hljs-keyword">KEY</span> (FK_SeriesID) <span class="hljs-keyword">REFERENCES</span> Series(PK_SeriesID)
+);
+</div></code></pre>
+<h4 id="summarizedfeatures">SummarizedFeatures</h4>
+<p>Stores statistical summaries of features.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> SummarizedFeatures (
+    PK_SummarizedFeatureID <span class="hljs-built_in">INTEGER</span> PRIMARY <span class="hljs-keyword">KEY</span> AUTOINCREMENT,
+    FK_SeriesID <span class="hljs-built_in">INTEGER</span>,
+    FeatureName <span class="hljs-built_in">TEXT</span>,
+    FeaturePath <span class="hljs-built_in">TEXT</span>,
+    <span class="hljs-keyword">Max</span> <span class="hljs-built_in">REAL</span>,
+    <span class="hljs-keyword">Min</span> <span class="hljs-built_in">REAL</span>,
+    Mean <span class="hljs-built_in">REAL</span>,
+    <span class="hljs-keyword">Median</span> <span class="hljs-built_in">REAL</span>,
+    <span class="hljs-comment">-- ... 23 statistical measures</span>
+    <span class="hljs-keyword">FOREIGN</span> <span class="hljs-keyword">KEY</span> (FK_SeriesID) <span class="hljs-keyword">REFERENCES</span> Series(PK_SeriesID)
+);
+</div></code></pre>
+<h4 id="summarystatisticstypes">SummaryStatisticsTypes</h4>
+<p>Defines available statistical measure types.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> SummaryStatisticsTypes (
+    PK_SummaryStatisticsTypeID <span class="hljs-built_in">INTEGER</span> PRIMARY <span class="hljs-keyword">KEY</span> AUTOINCREMENT,
+    SummaryStatisticsNames <span class="hljs-built_in">TEXT</span>
+);
+</div></code></pre>
+<h3 id="connection-management">Connection Management</h3>
+<p>The application uses <strong>named database connections</strong> for thread safety:</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Main connection</span>
+QString connectionName = <span class="hljs-string">"scan"</span>;
+
+<span class="hljs-comment">// Thread-specific connections</span>
+QString connectionName = <span class="hljs-string">"aimodel_"</span> + QString::number((quint64)QThread::currentThread(), <span class="hljs-number">16</span>);
+</div></code></pre>
+<p>Each thread/process should use its own connection name to avoid conflicts.</p>
+<hr>
+<h2 id="processing-architecture">Processing Architecture</h2>
+<h3 id="process-based-processing">Process-Based Processing</h3>
+<p>Heavy computational tasks are executed in separate processes to:</p>
+<ul>
+<li>Prevent UI freezing</li>
+<li>Enable parallel processing</li>
+<li>Improve stability (crashes don't affect main app)</li>
+<li>Allow resource management</li>
+</ul>
+<h3 id="process-communication">Process Communication</h3>
+<p>Processes communicate via:</p>
+<ol>
+<li><strong>Command-line arguments</strong>: Input parameters</li>
+<li><strong>Database</strong>: Shared state and results</li>
+<li><strong>File system</strong>: Input/output files</li>
+<li><strong>Logging</strong>: Status updates via logger</li>
+</ol>
+<h3 id="featurewriter-process">FeatureWriter Process</h3>
+<p><strong>Purpose</strong>: Extract radiomics features from images.</p>
+<p><strong>Arguments</strong>:</p>
+<pre class="hljs"><code><div>databasePath defDirPath outputDirPath seriesId typeOfExtraction currTime
+</div></code></pre>
+<p><strong>Workflow</strong>:</p>
+<ol>
+<li>Load feature definitions from INI file</li>
+<li>Load series data from database</li>
+<li>Extract features using ITK/OpenCV</li>
+<li>Calculate summary statistics</li>
+<li>Save features to disk</li>
+<li>Update database with results</li>
+</ol>
+<h3 id="preprocesswriter-process">PreprocessWriter Process</h3>
+<p><strong>Purpose</strong>: Apply preprocessing operations to images.</p>
+<p><strong>Arguments</strong>:</p>
+<pre class="hljs"><code><div>databasePath defDirPath outputDirPath seriesId typeOfExtraction currTime
+</div></code></pre>
+<p><strong>Workflow</strong>:</p>
+<ol>
+<li>Load preprocessing definitions from INI file</li>
+<li>Load series data from database</li>
+<li>Apply preprocessing pipeline</li>
+<li>Save preprocessed images</li>
+<li>Update database</li>
+</ol>
+<h3 id="selectionwriter-process">SelectionWriter Process</h3>
+<p><strong>Purpose</strong>: Execute feature selection algorithms.</p>
+<p><strong>Arguments</strong>:</p>
+<pre class="hljs"><code><div>databasePath defDirPath outputDirPath seriesIds experimentID
+</div></code></pre>
+<p><strong>Workflow</strong>:</p>
+<ol>
+<li>Load feature selection configuration</li>
+<li>Load features from database</li>
+<li>Build feature matrix</li>
+<li>Execute selection algorithm (MRMR/T-Test/RankSum)</li>
+<li>Save selected features</li>
+<li>Update database</li>
+</ol>
+<h3 id="aimodelwriter-process">AIModelWriter Process</h3>
+<p><strong>Purpose</strong>: Train AI models.</p>
+<p><strong>Arguments</strong>:</p>
+<pre class="hljs"><code><div>databasePath defDirPath outputDirPath seriesIds experimentID processIndex
+</div></code></pre>
+<p><strong>Workflow</strong>:</p>
+<ol>
+<li>Load model definitions from INI file</li>
+<li>Build training dataset from selected features</li>
+<li>Execute model training (via backend API)</li>
+<li>Save model artifacts</li>
+<li>Update database</li>
+</ol>
+<p><strong>Parallel Training</strong>:</p>
+<ul>
+<li><code>processIndex = -1</code>: Train all models sequentially</li>
+<li><code>processIndex &gt;= 0</code>: Train only model at that index (for parallel execution)</li>
+</ul>
+<h3 id="radviewpipelinewriter-process">RadViewPipelineWriter Process</h3>
+<p><strong>Purpose</strong>: Execute complete processing pipelines (cloud/batch mode).</p>
+<p><strong>Arguments</strong>:</p>
+<pre class="hljs"><code><div>experimentID [userID]
+</div></code></pre>
+<p><strong>Workflow</strong>:</p>
+<ol>
+<li>Load experiment configuration from database</li>
+<li>Download data from cloud storage (if applicable)</li>
+<li>Execute workflow steps:
+<ul>
+<li>Preprocessing steps</li>
+<li>Feature extraction steps</li>
+<li>Summary statistics steps</li>
+<li>Feature selection steps</li>
+</ul>
+</li>
+<li>Upload results to cloud storage</li>
+<li>Update experiment status</li>
+</ol>
+<hr>
+<h2 id="api-reference">API Reference</h2>
+<h3 id="fvcontroller-api">FVController API</h3>
+<h4 id="driver-access">Driver Access</h4>
+<pre class="hljs"><code><div><span class="hljs-comment">// Get driver instances</span>
+<span class="hljs-function">ScanDriver* <span class="hljs-title">getScanDriver</span><span class="hljs-params">()</span></span>;
+<span class="hljs-function">FeatureDriver* <span class="hljs-title">getFeatureDriver</span><span class="hljs-params">()</span></span>;
+<span class="hljs-function">PreprocessingDriver* <span class="hljs-title">getPreprocessingDriver</span><span class="hljs-params">()</span></span>;
+<span class="hljs-function">FeatureSelectionDriver* <span class="hljs-title">getSelectionDriver</span><span class="hljs-params">()</span></span>;
+<span class="hljs-function">AIModelDriver* <span class="hljs-title">getAIModelDriver</span><span class="hljs-params">()</span></span>;
+<span class="hljs-function">VisualizationDriver* <span class="hljs-title">getVisualizationDriver</span><span class="hljs-params">()</span></span>;
+<span class="hljs-function">DatabaseDriver* <span class="hljs-title">getDatabaseDriver</span><span class="hljs-params">()</span></span>;
+<span class="hljs-function">SettingsDriver* <span class="hljs-title">getSettingsDriver</span><span class="hljs-params">()</span></span>;
+</div></code></pre>
+<h4 id="feature-operations">Feature Operations</h4>
+<pre class="hljs"><code><div><span class="hljs-comment">// Extract features</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">extractFeatures</span><span class="hljs-params">(QVector&lt;QPair&lt;QProcess*, QString&gt;&gt;&amp; processes, 
+                     <span class="hljs-keyword">bool</span> extractFromPreprocess)</span></span>;
+
+<span class="hljs-comment">// Load features</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">loadAllScannedSeriesFeatures</span><span class="hljs-params">()</span></span>;
+
+<span class="hljs-comment">// Export features</span>
+<span class="hljs-function">QVector&lt;QPair&lt;QString, <span class="hljs-keyword">int</span>&gt;&gt; <span class="hljs-title">exportFeatureAsCSV</span><span class="hljs-params">(QString exportDir)</span></span>;
+</div></code></pre>
+<h4 id="preprocessing-operations">Preprocessing Operations</h4>
+<pre class="hljs"><code><div><span class="hljs-comment">// Extract preprocessing</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">extractPreprocess</span><span class="hljs-params">(QVector&lt;QPair&lt;QProcess*, QString&gt;&gt;&amp; process)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">extractPreprocess</span><span class="hljs-params">(QPair&lt;QProcess*, QString&gt;&amp; process)</span></span>;
+
+<span class="hljs-comment">// Load preprocessing</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">loadAllScannedSeriesPreprocesses</span><span class="hljs-params">()</span></span>;
+</div></code></pre>
+<h4 id="feature-selection-operations">Feature Selection Operations</h4>
+<pre class="hljs"><code><div><span class="hljs-comment">// Apply selection</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">applySelection</span><span class="hljs-params">(QVector&lt;QPair&lt;QProcess*, QString&gt;&gt;&amp; processes)</span></span>;
+</div></code></pre>
+<h4 id="ai-model-operations">AI Model Operations</h4>
+<pre class="hljs"><code><div><span class="hljs-comment">// Prepare training</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">prepareAIModelTraining</span><span class="hljs-params">()</span></span>;
+
+<span class="hljs-comment">// Start training process</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">startAIModelProcess</span><span class="hljs-params">(QProcess* process, <span class="hljs-keyword">int</span> modelIndex, 
+                        <span class="hljs-keyword">const</span> QString&amp; experimentID)</span></span>;
+</div></code></pre>
+<h4 id="data-management">Data Management</h4>
+<pre class="hljs"><code><div><span class="hljs-comment">// Remove data</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">removeSeries</span><span class="hljs-params">(Series* series)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">removeSeriesAndDeleteFromDB</span><span class="hljs-params">(Series* series)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">removeStudy</span><span class="hljs-params">(Study* study)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">removePatient</span><span class="hljs-params">(Patient* patient)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">removeAllPatients</span><span class="hljs-params">()</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">resetDatabase</span><span class="hljs-params">()</span></span>;
+</div></code></pre>
+<h4 id="session-management">Session Management</h4>
+<pre class="hljs"><code><div><span class="hljs-comment">// Load session from JSON</span>
+<span class="hljs-function">SessionData <span class="hljs-title">loadSessionsFromJson</span><span class="hljs-params">(<span class="hljs-keyword">const</span> QString&amp; path, 
+                                 <span class="hljs-keyword">bool</span>&amp; patientKeys, 
+                                 <span class="hljs-keyword">bool</span>&amp; featureExtractionKeys, 
+                                 <span class="hljs-keyword">bool</span>&amp; featureSelectionKeys, 
+                                 <span class="hljs-keyword">bool</span>&amp; preprocessingKeys)</span></span>;
+</div></code></pre>
+<h3 id="databasedriver-api">DatabaseDriver API</h3>
+<h4 id="connection-management">Connection Management</h4>
+<pre class="hljs"><code><div><span class="hljs-comment">// Connect/disconnect</span>
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">connectToDatabase</span><span class="hljs-params">(QString connectionName = <span class="hljs-string">"scan"</span>)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">disconnectFromDatabase</span><span class="hljs-params">(<span class="hljs-keyword">const</span> QString&amp; connectionName = <span class="hljs-string">"scan"</span>)</span></span>;
+
+<span class="hljs-comment">// Database operations</span>
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">createScanningDatabase</span><span class="hljs-params">()</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">resetDatabase</span><span class="hljs-params">()</span></span>;
+<span class="hljs-function">QString <span class="hljs-title">getDatabaseVersion</span><span class="hljs-params">()</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">checkDatabaseVersion</span><span class="hljs-params">(<span class="hljs-keyword">const</span> QString&amp; connectionName, 
+                         <span class="hljs-keyword">const</span> QString&amp; softwareVersion)</span></span>;
+</div></code></pre>
+<h4 id="data-operations">Data Operations</h4>
+<pre class="hljs"><code><div><span class="hljs-comment">// Upload types</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">uploadTypesToDB</span><span class="hljs-params">(QStringList modalities, QStringList protocols)</span></span>;
+
+<span class="hljs-comment">// Get masks</span>
+<span class="hljs-function">QMap&lt;QString, QStringList&gt; <span class="hljs-title">getAllMasksSavedToDatabase</span><span class="hljs-params">()</span></span>;
+</div></code></pre>
+<h3 id="featuredriver-api">FeatureDriver API</h3>
+<h4 id="feature-management">Feature Management</h4>
+<pre class="hljs"><code><div><span class="hljs-comment">// Add/remove features</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">appendFeature</span><span class="hljs-params">(Feature* feature)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">appendFeatures</span><span class="hljs-params">(<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;Feature*&gt; features)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">removeFeature</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Feature* feature)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">clearAllFeatures</span><span class="hljs-params">()</span></span>;
+<span class="hljs-function"><span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;Feature*&gt; <span class="hljs-title">getFeatures</span><span class="hljs-params">()</span></span>;
+</div></code></pre>
+<h4 id="feature-extraction">Feature Extraction</h4>
+<pre class="hljs"><code><div><span class="hljs-comment">// Extract features</span>
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">extractFeatures</span><span class="hljs-params">(<span class="hljs-keyword">const</span> QString&amp; defDirPath, <span class="hljs-keyword">const</span> QString&amp; seriesId, 
+                     QString outputDirPath, <span class="hljs-keyword">int</span> ProcessId, 
+                     <span class="hljs-keyword">bool</span> extractFromPreprocessing, <span class="hljs-keyword">const</span> QString&amp; seriesIds)</span></span>;
+
+<span class="hljs-comment">// Cloud extraction</span>
+<span class="hljs-function">QMap&lt;QString, <span class="hljs-keyword">bool</span>&gt; <span class="hljs-title">extractFeatures</span><span class="hljs-params">(<span class="hljs-keyword">const</span> QVector&lt;Filter&gt; filters, 
+                                    <span class="hljs-keyword">const</span> QString&amp; seriesId, 
+                                    QString outputDirPath, 
+                                    QString inputDirPath, 
+                                    QString workFlowID, 
+                                    <span class="hljs-keyword">const</span> QString stepID, 
+                                    QVector&lt;ExtractedFilters&gt;&amp; extractedFilters, 
+                                    QString connectionName)</span></span>;
+</div></code></pre>
+<h4 id="summary-statistics">Summary Statistics</h4>
+<pre class="hljs"><code><div><span class="hljs-comment">// Get statistics</span>
+<span class="hljs-function">QVector&lt;<span class="hljs-keyword">double</span>&gt; <span class="hljs-title">getSummaryStats</span><span class="hljs-params">(<span class="hljs-keyword">const</span> QString&amp; featurePath, 
+                                <span class="hljs-keyword">const</span> QSet&lt;QString&gt;&amp; requestedStats = QSet&lt;QString&gt;())</span></span>;
+<span class="hljs-function">QVector&lt;QVector&lt;<span class="hljs-keyword">double</span>&gt;&gt; <span class="hljs-title">getSummaryStatsOnROI</span><span class="hljs-params">(<span class="hljs-keyword">const</span> QString&amp; featurePath, 
+                                               QVector&lt;VolumeMaskImagePointer&gt; Masks, 
+                                               <span class="hljs-keyword">const</span> QSet&lt;QString&gt;&amp; requestedStats = QSet&lt;QString&gt;())</span></span>;
+
+<span class="hljs-comment">// Export statistics</span>
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">exportSummaryStatsAsCSV</span><span class="hljs-params">(QString selectedSeriesID, QString sumStatsPath, ...)</span></span>;
+</div></code></pre>
+<h3 id="aimodeldriver-api">AIModelDriver API</h3>
+<h4 id="model-management">Model Management</h4>
+<pre class="hljs"><code><div><span class="hljs-comment">// Add/remove models</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">appendModel</span><span class="hljs-params">(CS::AIModel* model)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">appendModelData</span><span class="hljs-params">(<span class="hljs-keyword">const</span> QString&amp; name, <span class="hljs-keyword">const</span> QStringList&amp; params, 
+                     <span class="hljs-keyword">const</span> QStringList&amp; features)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">removeModel</span><span class="hljs-params">(<span class="hljs-keyword">const</span> CS::AIModel* model)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">removeLastModel</span><span class="hljs-params">()</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">clearAllModels</span><span class="hljs-params">()</span></span>;
+<span class="hljs-function"><span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;CS::AIModel*&gt; <span class="hljs-title">getModels</span><span class="hljs-params">()</span></span>;
+<span class="hljs-function">QStringList <span class="hljs-title">getModelNames</span><span class="hljs-params">()</span></span>;
+</div></code></pre>
+<h4 id="training">Training</h4>
+<pre class="hljs"><code><div><span class="hljs-comment">// Train model</span>
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">trainModel</span><span class="hljs-params">(<span class="hljs-keyword">const</span> QString&amp; seriesIds, <span class="hljs-keyword">const</span> QString&amp; defDirPath, 
+                QString outputPath, QString experimentID = <span class="hljs-string">""</span>, 
+                <span class="hljs-keyword">int</span> processIndex = <span class="hljs-number">-1</span>)</span></span>;
+
+<span class="hljs-comment">// Build training dataset</span>
+<span class="hljs-function">csTable <span class="hljs-title">buildTrainingDataset</span><span class="hljs-params">(QVector&lt;Series*&gt; series, 
+                             <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&gt; selectedFeaturePool, 
+                             QString connectionName)</span></span>;
+</div></code></pre>
+<h4 id="configuration">Configuration</h4>
+<pre class="hljs"><code><div><span class="hljs-comment">// Load/save model definitions</span>
+<span class="hljs-function"><span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;CS::AIModel*&gt; <span class="hljs-title">loadModelDefsFromIni</span><span class="hljs-params">(<span class="hljs-keyword">const</span> QString&amp; filePath)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">saveModelToIniFile</span><span class="hljs-params">(QSettings* modelDefs)</span></span>;
+</div></code></pre>
+<hr>
+<h2 id="development-guidelines">Development Guidelines</h2>
+<h3 id="code-style">Code Style</h3>
+<h4 id="naming-conventions">Naming Conventions</h4>
+<ul>
+<li><strong>Classes</strong>: PascalCase (<code>FeatureDriver</code>, <code>AIModelDriver</code>)</li>
+<li><strong>Methods</strong>: camelCase (<code>extractFeatures</code>, <code>buildTrainingDataset</code>)</li>
+<li><strong>Variables</strong>: camelCase with prefix (<code>m_vecModels</code>, <code>pSeries</code>)</li>
+<li><strong>Constants</strong>: UPPER_CASE (<code>DATABASE_VERSION</code>)</li>
+<li><strong>Private members</strong>: <code>m_</code> prefix (<code>m_databaseDriver</code>)</li>
+<li><strong>Pointers</strong>: <code>p</code> prefix (<code>pSeries</code>, <code>pPatient</code>)</li>
+</ul>
+<h4 id="file-organization">File Organization</h4>
+<ul>
+<li>Header files: <code>.h</code></li>
+<li>Implementation files: <code>.cpp</code></li>
+<li>One class per file pair</li>
+<li>Include guards: <code>#pragma once</code></li>
+</ul>
+<h4 id="qt-conventions">Qt Conventions</h4>
+<ul>
+<li>Use Qt types: <code>QString</code>, <code>QVector</code>, <code>QMap</code></li>
+<li>Use Qt signals/slots for events</li>
+<li>Use <code>Q_OBJECT</code> macro for classes with signals/slots</li>
+<li>Use <code>QObject::connect()</code> for connections</li>
+</ul>
+<h3 id="error-handling">Error Handling</h3>
+<h4 id="logging">Logging</h4>
+<p>Use the logger system for all messages:</p>
+<pre class="hljs"><code><div><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"csLogger.h"</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> logger;
+
+sendLoggerMessage_std(Info, Non, <span class="hljs-string">"Operation started"</span>);
+sendLoggerMessage_std(Error, Non, <span class="hljs-string">"Operation failed: "</span> + errorMessage);
+sendLoggerMessage_std(Warning, Non, <span class="hljs-string">"Warning message"</span>);
+</div></code></pre>
+<h4 id="exception-handling">Exception Handling</h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">try</span> {
+    <span class="hljs-comment">// Operation</span>
+} <span class="hljs-keyword">catch</span> (<span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::exception&amp; e) {
+    sendLoggerMessage_std(Error, Non, <span class="hljs-string">"Exception: "</span> + QString::fromStdString(e.what()));
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+} <span class="hljs-keyword">catch</span> (...) {
+    sendLoggerMessage_std(Error, Non, <span class="hljs-string">"Unknown exception occurred"</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+}
+</div></code></pre>
+<h3 id="database-access">Database Access</h3>
+<h4 id="connection-management">Connection Management</h4>
+<p>Always use named connections for thread safety:</p>
+<pre class="hljs"><code><div>QString connectionName = <span class="hljs-string">"unique_connection_name"</span>;
+m_databaseDriver.connectToDatabase(connectionName);
+<span class="hljs-comment">// ... database operations ...</span>
+m_databaseDriver.disconnectFromDatabase(connectionName);
+</div></code></pre>
+<h4 id="query-execution">Query Execution</h4>
+<p>Use prepared statements and check for errors:</p>
+<pre class="hljs"><code><div><span class="hljs-function">QSqlQuery <span class="hljs-title">query</span><span class="hljs-params">(QSqlDatabase::database(connectionName))</span></span>;
+query.prepare(<span class="hljs-string">"SELECT * FROM Series WHERE FK_StudyID = ?"</span>);
+query.addBindValue(studyID);
+<span class="hljs-keyword">if</span> (!query.exec()) {
+    sendLoggerMessage_std(Error, Non, <span class="hljs-string">"Query failed: "</span> + query.lastError().text());
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+}
+</div></code></pre>
+<h3 id="memory-management">Memory Management</h3>
+<h4 id="qt-parent-child">Qt Parent-Child</h4>
+<p>Use Qt's parent-child mechanism for automatic cleanup:</p>
+<pre class="hljs"><code><div>QObject* parent = <span class="hljs-keyword">this</span>;
+FeatureDriver* driver = <span class="hljs-keyword">new</span> FeatureDriver(parent);  <span class="hljs-comment">// Auto-deleted when parent is deleted</span>
+</div></code></pre>
+<h4 id="smart-pointers">Smart Pointers</h4>
+<p>Consider using smart pointers for complex ownership:</p>
+<pre class="hljs"><code><div><span class="hljs-built_in">std</span>::<span class="hljs-built_in">unique_ptr</span>&lt;Feature&gt; feature = <span class="hljs-built_in">std</span>::make_unique&lt;Feature&gt;(...);
+</div></code></pre>
+<h3 id="thread-safety">Thread Safety</h3>
+<h4 id="database-connections">Database Connections</h4>
+<ul>
+<li>Each thread must use its own database connection</li>
+<li>Never share connections between threads</li>
+</ul>
+<h4 id="gui-updates">GUI Updates</h4>
+<ul>
+<li>Only update GUI from main thread</li>
+<li>Use signals/slots for cross-thread communication</li>
+</ul>
+<h3 id="adding-new-features">Adding New Features</h3>
+<h4 id="1-create-driver-class">1. Create Driver Class</h4>
+<pre class="hljs"><code><div><span class="hljs-comment">// NewDriver.h</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> once</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;QObject&gt;</span></span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NewDriver</span> :</span> <span class="hljs-keyword">public</span> QObject {
+    Q_OBJECT
+<span class="hljs-keyword">public</span>:
+    NewDriver(QObject* parent = <span class="hljs-literal">nullptr</span>);
+    <span class="hljs-comment">// Methods...</span>
+};
+</div></code></pre>
+<h4 id="2-add-to-fvcontroller">2. Add to FVController</h4>
+<pre class="hljs"><code><div><span class="hljs-comment">// FVController.h</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"NewDriver.h"</span></span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FVController</span> {</span>
+    <span class="hljs-comment">// ...</span>
+    NewDriver* m_pNewDriver;
+    <span class="hljs-function">NewDriver* <span class="hljs-title">getNewDriver</span><span class="hljs-params">()</span></span>;
+};
+</div></code></pre>
+<h4 id="3-initialize-in-fvcontroller">3. Initialize in FVController</h4>
+<pre class="hljs"><code><div><span class="hljs-comment">// FVController.cpp</span>
+m_pNewDriver = <span class="hljs-keyword">new</span> NewDriver(<span class="hljs-keyword">this</span>);
+</div></code></pre>
+<h4 id="4-add-to-gui">4. Add to GUI</h4>
+<ul>
+<li>Create UI components in <code>GUI/</code></li>
+<li>Connect to driver via FVController</li>
+<li>Add to MainWin if needed</li>
+</ul>
+<hr>
+<h2 id="testing">Testing</h2>
+<h3 id="unit-tests">Unit Tests</h3>
+<p><strong>Location</strong>: <code>UnitTests/</code></p>
+<p><strong>Structure</strong>:</p>
+<ul>
+<li>Test files: <code>*_test.cpp</code></li>
+<li>Test framework: Google Test</li>
+</ul>
+<p><strong>Running Tests</strong>:</p>
+<ol>
+<li>Build UnitTests project</li>
+<li>Run executable</li>
+<li>Review test results</li>
+</ol>
+<h3 id="integration-tests">Integration Tests</h3>
+<p><strong>Location</strong>: <code>IntegrationTests/</code></p>
+<p><strong>Purpose</strong>: Test complete workflows end-to-end.</p>
+<p><strong>Test Data</strong>: <code>Data/Integration Tests/</code></p>
+<p><strong>Running Tests</strong>:</p>
+<ol>
+<li>Build IntegrationTests project</li>
+<li>Ensure test data is available</li>
+<li>Run executable</li>
+<li>Review results</li>
+</ol>
+<h3 id="test-data">Test Data</h3>
+<p><strong>Location</strong>: <code>Data/</code></p>
+<p><strong>Structure</strong>:</p>
+<ul>
+<li><code>UnitTests/</code>: Unit test data</li>
+<li><code>Integration Tests/</code>: Integration test data</li>
+<li><code>RanorexTests/</code>: Automated UI test data</li>
+</ul>
+<hr>
+<h2 id="deployment">Deployment</h2>
+<h3 id="build-requirements">Build Requirements</h3>
+<ol>
+<li>
+<p><strong>Release Configuration</strong></p>
+<ul>
+<li>Build all projects in Release mode</li>
+<li>Ensure all dependencies are included</li>
+</ul>
+</li>
+<li>
+<p><strong>Dependencies</strong></p>
+<ul>
+<li>Qt DLLs</li>
+<li>ITK libraries</li>
+<li>OpenCV libraries</li>
+<li>SQLite DLL</li>
+<li>Visual C++ Runtime</li>
+</ul>
+</li>
+</ol>
+<h3 id="installation-package">Installation Package</h3>
+<p><strong>Location</strong>: <code>Pack.nsi</code> (NSIS installer script)</p>
+<p><strong>Components</strong>:</p>
+<ul>
+<li>Main executable (<code>RadView.exe</code>)</li>
+<li>Processing executables</li>
+<li>Required DLLs</li>
+<li>Database template</li>
+<li>Documentation</li>
+</ul>
+<h3 id="cloud-deployment">Cloud Deployment</h3>
+<p><strong>Docker Support</strong>:</p>
+<ul>
+<li><code>PipelineDockerfile</code>: Pipeline processing container</li>
+<li><code>ScannerDockerfile</code>: Scanning service container</li>
+</ul>
+<p><strong>Deployment Steps</strong>:</p>
+<ol>
+<li>Build Docker images</li>
+<li>Push to container registry</li>
+<li>Deploy to cloud platform</li>
+<li>Configure database and storage</li>
+</ol>
+<hr>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="common-build-issues">Common Build Issues</h3>
+<h4 id="qt-not-found">Qt Not Found</h4>
+<p><strong>Problem</strong>: Qt paths not configured
+<strong>Solution</strong>:</p>
+<ul>
+<li>Set Qt installation path in project properties</li>
+<li>Run <code>setup_vars.bat</code></li>
+<li>Check Qt version compatibility</li>
+</ul>
+<h4 id="missing-dependencies">Missing Dependencies</h4>
+<p><strong>Problem</strong>: Third-party libraries not found
+<strong>Solution</strong>:</p>
+<ul>
+<li>Verify library paths in project properties</li>
+<li>Check include/library directories</li>
+<li>Ensure DLLs are in PATH or executable directory</li>
+</ul>
+<h4 id="linker-errors">Linker Errors</h4>
+<p><strong>Problem</strong>: Unresolved symbols
+<strong>Solution</strong>:</p>
+<ul>
+<li>Check project dependencies</li>
+<li>Verify library order</li>
+<li>Ensure all required libraries are linked</li>
+</ul>
+<h3 id="runtime-issues">Runtime Issues</h3>
+<h4 id="database-errors">Database Errors</h4>
+<p><strong>Problem</strong>: Database connection failures
+<strong>Solution</strong>:</p>
+<ul>
+<li>Check database file permissions</li>
+<li>Verify database version compatibility</li>
+<li>Check connection name uniqueness (thread safety)</li>
+</ul>
+<h4 id="process-execution-failures">Process Execution Failures</h4>
+<p><strong>Problem</strong>: Processing executables fail to start
+<strong>Solution</strong>:</p>
+<ul>
+<li>Verify executable paths</li>
+<li>Check command-line arguments</li>
+<li>Review process logs</li>
+<li>Ensure required DLLs are present</li>
+</ul>
+<h4 id="memory-issues">Memory Issues</h4>
+<p><strong>Problem</strong>: Out of memory errors
+<strong>Solution</strong>:</p>
+<ul>
+<li>Process large datasets in batches</li>
+<li>Close unused features/volumes</li>
+<li>Increase system memory</li>
+<li>Optimize feature extraction parameters</li>
+</ul>
+<h3 id="debugging">Debugging</h3>
+<h4 id="enable-debug-logging">Enable Debug Logging</h4>
+<pre class="hljs"><code><div><span class="hljs-comment">// Set log level</span>
+logger::setLogLevel(LogLevel::Debug);
+
+<span class="hljs-comment">// Add detailed logging</span>
+sendLoggerMessage_std(Debug, Non, <span class="hljs-string">"Variable value: "</span> + QString::number(value));
+</div></code></pre>
+<h4 id="use-debugger">Use Debugger</h4>
+<ul>
+<li>Set breakpoints in Visual Studio</li>
+<li>Use conditional breakpoints</li>
+<li>Inspect variables and call stack</li>
+<li>Use watch windows</li>
+</ul>
+<h4 id="database-inspection">Database Inspection</h4>
+<ul>
+<li>Use SQLite browser to inspect database</li>
+<li>Check table contents</li>
+<li>Verify foreign key relationships</li>
+<li>Review transaction logs</li>
+</ul>
+<hr>
+<h2 id="additional-resources">Additional Resources</h2>
+<h3 id="documentation-files">Documentation Files</h3>
+<ul>
+<li><code>Documentation/RadView_Documentation.md</code>: User documentation</li>
+<li><code>Documentation/RadView_Cloud_Documentation.md</code>: Cloud documentation</li>
+<li><code>Documentation/Policy-Updates.md</code>: Policy updates</li>
+</ul>
+<h3 id="code-references">Code References</h3>
+<ul>
+<li>Qt Documentation: https://doc.qt.io/</li>
+<li>ITK Documentation: https://itk.org/Documentation/</li>
+<li>OpenCV Documentation: https://docs.opencv.org/</li>
+</ul>
+<h3 id="support">Support</h3>
+<ul>
+<li>Review existing documentation</li>
+<li>Check code comments</li>
+<li>Examine test cases</li>
+<li>Contact development team</li>
+</ul>
+<hr>
+<p><strong>End of Developer Documentation</strong></p>
+<p><em>This document provides comprehensive guidance for developers working on the RadView medical imaging analysis application. For additional support or questions, please contact the development team.</em></p>
+
+</body>
+</html>

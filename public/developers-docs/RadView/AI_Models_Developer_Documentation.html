@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AI_Models_Developer_Documentation.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="ai-models-developer-documentation">AI Models Developer Documentation</h1>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#system-architecture">System Architecture</a></li>
+<li><a href="#code-structure">Code Structure</a></li>
+<li><a href="#training-workflow">Training Workflow</a></li>
+<li><a href="#supported-models">Supported Models</a></li>
+<li><a href="#gui-components">GUI Components</a></li>
+<li><a href="#backend-implementation">Backend Implementation</a></li>
+<li><a href="#data-flow">Data Flow</a></li>
+<li><a href="#testing">Testing</a></li>
+<li><a href="#integration-points">Integration Points</a></li>
+<li><a href="#future-development">Future Development</a></li>
+</ol>
+<hr>
+<h2 id="overview">Overview</h2>
+<p>The AI Models system in FeatureViewer enables users to train machine and deep learning models on radiomics features extracted from medical images. The system supports multiple model types including classifiers, regressors, and deep learning models.</p>
+<h3 id="key-features">Key Features</h3>
+<ul>
+<li><strong>Multiple Model Types</strong>: Classification, Regression, and Deep Learning models</li>
+<li><strong>Parallel Training</strong>: Multiple models can be trained concurrently</li>
+<li><strong>Feature Selection Integration</strong>: Uses selected features from the feature selection module</li>
+<li><strong>Problem-Based Model Selection</strong>: Models are recommended based on the selected problem type</li>
+<li><strong>Parameter Configuration</strong>: Each model has configurable hyperparameters</li>
+<li><strong>Training Artifacts</strong>: Saves model files, metrics, and training summaries</li>
+</ul>
+<h3 id="system-components">System Components</h3>
+<ol>
+<li><strong>GUI Layer</strong> (FeatureViewer): User interface for model selection, configuration, and training</li>
+<li><strong>Driver Layer</strong> (FeatureViewer): Orchestrates training workflow and process management</li>
+<li><strong>Backend Layer</strong> (CSMain): Core model training implementations</li>
+<li><strong>Data Layer</strong>: Database integration for features and series management</li>
+</ol>
+<hr>
+<h2 id="system-architecture">System Architecture</h2>
+<h3 id="high-level-architecture">High-Level Architecture</h3>
+<pre class="hljs"><code><div>┌─────────────────────────────────────────────────────────────┐
+│                    GUI Layer (FeatureViewer)                 │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐     │
+│  │ MainWin      │  │ AIModelDrop   │  │ AIModelItem  │     │
+│  │ _AIModels    │  │ Area          │  │              │     │
+│  └──────┬───────┘  └──────┬───────┘  └──────┬───────┘     │
+│         │                  │                  │              │
+└─────────┼──────────────────┼──────────────────┼──────────────┘
+          │                  │                  │
+          ▼                  ▼                  ▼
+┌─────────────────────────────────────────────────────────────┐
+│              Driver Layer (FeatureViewer)                    │
+│  ┌──────────────────────────────────────────────────────┐   │
+│  │              AIModelDriver                            │   │
+│  │  - trainModel()                                       │   │
+│  │  - buildTrainingDataset()                            │   │
+│  │  - loadModelDefsFromIni()                           │   │
+│  └──────────────────┬───────────────────────────────────┘   │
+│                     │                                        │
+│  ┌──────────────────▼───────────────────────────────────┐   │
+│  │          AIModelWriter.exe (Process)                 │   │
+│  │  Standalone executable for parallel training         │   │
+│  └──────────────────┬───────────────────────────────────┘   │
+└─────────────────────┼────────────────────────────────────────┘
+                      │
+                      ▼
+┌─────────────────────────────────────────────────────────────┐
+│            Backend Layer (CSMain/Radiomics/AI)              │
+│  ┌──────────────────────────────────────────────────────┐ │
+│  │         csAIModelFeatures.hxx                          │ │
+│  │  - ExecuteAIModel()                                    │ │
+│  │  - Model registry and routing                          │ │
+│  └──────────────────┬─────────────────────────────────────┘ │
+│                     │                                        │
+│  ┌──────────────────▼───────────────────────────────────┐   │
+│  │         Individual Model Implementations              │   │
+│  │  - TrainLinearRegression()                            │   │
+│  │  - TrainRandomForestClassifier() (stub)              │   │
+│  │  - TrainXGBoostClassifier() (stub)                    │   │
+│  │  - ... (other models)                                 │   │
+│  └───────────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────┘
+</div></code></pre>
+<hr>
+<h2 id="code-structure">Code Structure</h2>
+<h3 id="featureviewer-project">FeatureViewer Project</h3>
+<h4 id="moduledrivers">ModuleDrivers/</h4>
+<p><strong>AIModelDriver.h / AIModelDriver.cpp</strong></p>
+<ul>
+<li>Main driver class for AI model training orchestration</li>
+<li>Key responsibilities:
+<ul>
+<li>Loading model definitions from INI files</li>
+<li>Building training datasets from selected series</li>
+<li>Managing model collections</li>
+<li>Coordinating with backend training functions</li>
+</ul>
+</li>
+</ul>
+<p><strong>Key Methods:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">trainModel</span><span class="hljs-params">(<span class="hljs-keyword">const</span> QString&amp; seriesIds, <span class="hljs-keyword">const</span> QString&amp; defDirPath, 
+                QString outputPath, QString experimentID = <span class="hljs-string">""</span>, 
+                <span class="hljs-keyword">int</span> processIndex = <span class="hljs-number">-1</span>)</span></span>;
+</div></code></pre>
+<ul>
+<li>Main training entry point</li>
+<li><code>processIndex</code>: -1 trains all models, &gt;=0 trains specific model index</li>
+<li>Creates training dataset, loads model definitions, executes training</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-function">csTable <span class="hljs-title">buildTrainingDataset</span><span class="hljs-params">(QVector&lt;Series*&gt; series, 
+                             <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&gt; selectedFeaturePool, 
+                             QString connectionName)</span></span>;
+</div></code></pre>
+<ul>
+<li>Builds feature matrix from selected series</li>
+<li>Handles multiple masks per series</li>
+<li>Returns <code>csTable</code> with features and labels</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;CS::AIModel*&gt; <span class="hljs-title">loadModelDefsFromIni</span><span class="hljs-params">(<span class="hljs-keyword">const</span> QString&amp; filePath)</span></span>;
+</div></code></pre>
+<ul>
+<li>Parses INI file with model definitions</li>
+<li>Creates <code>AIModel</code> objects for each model</li>
+<li>Format: <code>AIModelDefs.ini</code></li>
+</ul>
+<h4 id="gui">GUI/</h4>
+<p><strong>MainWin_AIModels.cpp</strong></p>
+<ul>
+<li>Main UI controller for AI Models tab</li>
+<li>Key functions:
+<ul>
+<li><code>initializeAIModels()</code>: Sets up AI Models tab</li>
+<li><code>populateAIProblems()</code>: Loads problems from database</li>
+<li><code>populateAIModels()</code>: Shows available models for selected problem</li>
+<li><code>on_runAIModelButton_clicked()</code>: Starts training workflow</li>
+<li><code>validateAIModels()</code>: Checks for duplicate models</li>
+<li><code>validateAIModelFeaturesPool()</code>: Ensures all models have features</li>
+</ul>
+</li>
+</ul>
+<p><strong>FVAIModelItem.h / FVAIModelItem.cpp</strong></p>
+<ul>
+<li>Graphics item representing a dropped AI model</li>
+<li>Stores:
+<ul>
+<li>Model name and type</li>
+<li>Problem type</li>
+<li>Parameters</li>
+<li>Selected features pool</li>
+<li>Settings dialog reference</li>
+</ul>
+</li>
+</ul>
+<p><strong>AIModelDropArea.h / AIModelDropArea.cpp</strong></p>
+<ul>
+<li>Drop area for AI model items</li>
+<li>Handles drag-and-drop operations</li>
+<li>Manages context menu actions (Clear, Remove, Settings, Save, Load)</li>
+<li>Validates model compatibility with problem type</li>
+</ul>
+<p><strong>AIModelReport.h / AIModelReport.cpp</strong></p>
+<ul>
+<li>Report generation for training results</li>
+<li>Tracks training duration and metrics</li>
+</ul>
+<h4 id="datamodeler">DataModeler/</h4>
+<p><strong>AIModelData.h</strong></p>
+<ul>
+<li>Data structure for serializing AI models to JSON</li>
+<li>Contains: name, position, parameters, model type</li>
+<li>Note: Feature pool and problem type are reconstructed at runtime</li>
+</ul>
+<h4 id="aimodelwriter">AIModelWriter/</h4>
+<p><strong>AIModelWriter.cpp</strong></p>
+<ul>
+<li>Standalone executable for parallel model training</li>
+<li>Command-line arguments:<pre class="hljs"><code><div>AIModelWriter.exe [databasePath] [seriesIDs] [modelDefDirPath] 
+                  [outputDirPath] [experimentID] [processIndex]
+</div></code></pre>
+</li>
+<li>Runs in separate process for parallelization</li>
+</ul>
+<h3 id="csmain-project">CSMain Project</h3>
+<h4 id="radiomicsai">Radiomics/AI/</h4>
+<p><strong>csAIModelFeatures.hxx</strong></p>
+<ul>
+<li>Core backend implementation for AI model training</li>
+<li>Key functions:</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-function">AIModelTrainingArtifacts <span class="hljs-title">ExecuteAIModel</span><span class="hljs-params">(
+    AIModelName modelName,
+    AIModelSubtypeName modelSubtype,
+    AIModelParamSList paramStrVals,
+    AIModelTrainingRequest baseRequest)</span></span>;
+</div></code></pre>
+<ul>
+<li>Main entry point for model training</li>
+<li>Normalizes model names</li>
+<li>Validates parameters</li>
+<li>Routes to appropriate training function</li>
+</ul>
+<p><strong>Model Registry:</strong></p>
+<ul>
+<li><code>GetSupportedAIModelNames()</code>: Returns list of supported models</li>
+<li><code>GetAIModelParamNamesAndTypes()</code>: Returns parameter definitions</li>
+<li><code>GetAIModelType()</code>: Returns model type (Classification/Regression/DeepLearning)</li>
+<li><code>ResolveTrainingFunction()</code>: Maps model name to training function</li>
+</ul>
+<p><strong>Model Name Normalization:</strong></p>
+<ul>
+<li>Handles aliases (e.g., &quot;RF&quot; → &quot;RandomForestClassifier&quot;)</li>
+<li>Case-insensitive matching</li>
+<li>Removes spaces and special characters</li>
+</ul>
+<p><strong>csLinearRegression.hxx</strong></p>
+<ul>
+<li>Fully implemented Linear Regression model</li>
+<li>Uses QR decomposition for numerical stability</li>
+<li>Calculates metrics: R², MSE, RMSE, MAE</li>
+<li>Saves model coefficients and metrics to file</li>
+</ul>
+<p><strong>csAIModelTypes.h</strong></p>
+<ul>
+<li>Type definitions for AI model system</li>
+<li>Key types:
+<ul>
+<li><code>AIModelName</code>: Model identifier string</li>
+<li><code>AIModelTrainingRequest</code>: Input structure for training</li>
+<li><code>AIModelTrainingArtifacts</code>: Output structure with results</li>
+<li><code>AIModelParamCollectionType</code>: Typed parameter collection</li>
+</ul>
+</li>
+</ul>
+<h4 id="scannercore">Scanner/Core/</h4>
+<p><strong>csAIModel.h / csAIModel.cpp</strong></p>
+<ul>
+<li>Data class representing an AI model</li>
+<li>Properties:
+<ul>
+<li>Model name and type</li>
+<li>Parameters</li>
+<li>Feature pool</li>
+<li>Output directory</li>
+<li>Model file path</li>
+<li>Training status</li>
+</ul>
+</li>
+</ul>
+<h4 id="guiqt">GUI/Qt/</h4>
+<p><strong>csAIModelSettingsGUI.h / csAIModelSettingsGUI.cpp</strong></p>
+<ul>
+<li>Settings dialog for configuring model parameters</li>
+<li>Features:
+<ul>
+<li>Dynamic parameter UI generation</li>
+<li>Feature pool management</li>
+<li>Feature removal from training set</li>
+<li>Parameter validation</li>
+</ul>
+</li>
+</ul>
+<p><strong>Key Methods:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-function">QVector&lt;QStringList&gt; <span class="hljs-title">CollectModelParameters</span><span class="hljs-params">()</span></span>;
+</div></code></pre>
+<ul>
+<li>Collects parameter values from UI</li>
+<li>Format: [DialogTitle, ModelType, Param1, Param2, ...]</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setSelectedFeaturePool</span><span class="hljs-params">(<span class="hljs-keyword">const</span> QStringList&amp; selectedFeatures)</span></span>;
+<span class="hljs-function">QStringList <span class="hljs-title">getSelectedFeaturesForTraining</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+</div></code></pre>
+<ul>
+<li>Manages feature pool for model</li>
+<li>Supports removing features from training</li>
+</ul>
+<hr>
+<h2 id="training-workflow">Training Workflow</h2>
+<h3 id="step-by-step-process">Step-by-Step Process</h3>
+<ol>
+<li>
+<p><strong>User Selection</strong></p>
+<ul>
+<li>User selects problem type from dropdown</li>
+<li>Available models are shown based on problem type</li>
+<li>User drags models to drop area</li>
+</ul>
+</li>
+<li>
+<p><strong>Model Configuration</strong></p>
+<ul>
+<li>User double-clicks model item to open settings</li>
+<li>Configures hyperparameters</li>
+<li>Optionally removes features from training set</li>
+<li>Settings are saved to model item</li>
+</ul>
+</li>
+<li>
+<p><strong>Validation</strong></p>
+<ul>
+<li>System validates:
+<ul>
+<li>No duplicate models (same name + parameters)</li>
+<li>All models have non-empty feature pools</li>
+<li>Series are selected</li>
+<li>No other processes running</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Preparation</strong></p>
+<ul>
+<li>Models are collected from drop area</li>
+<li>Model definitions saved to <code>AIModelDefs.ini</code></li>
+<li>Training dataset built from selected series</li>
+<li>Output directory created with timestamp</li>
+</ul>
+</li>
+<li>
+<p><strong>Parallel Training</strong></p>
+<ul>
+<li>Queue of model indices created</li>
+<li>Worker processes spawned (up to <code>MaxNumberOfExtactionProcess</code>)</li>
+<li>Each process trains one model at a time</li>
+<li>Processes are reused for next model in queue</li>
+</ul>
+</li>
+<li>
+<p><strong>Training Execution</strong> (per model)</p>
+<ul>
+<li>
+<p><code>AIModelWriter.exe</code> launched with:</p>
+<ul>
+<li>Database path</li>
+<li>Series IDs</li>
+<li>Model definition file path</li>
+<li>Output directory</li>
+<li>Experiment ID</li>
+<li>Process index (which model to train)</li>
+</ul>
+</li>
+<li>
+<p><code>AIModelDriver::trainModel()</code>:</p>
+<ul>
+<li>Loads series from database</li>
+<li>Loads model definitions from INI</li>
+<li>Gets selected features pool</li>
+<li>Builds training dataset</li>
+<li>Filters features for model (if model has specific feature pool)</li>
+<li>Calls <code>CS::ExecuteAIModel()</code></li>
+<li>Saves training summary</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Backend Training</strong> (<code>CS::ExecuteAIModel()</code>)</p>
+<ul>
+<li>Normalizes model name</li>
+<li>Validates parameters</li>
+<li>Routes to model-specific training function</li>
+<li>Returns training artifacts</li>
+</ul>
+</li>
+<li>
+<p><strong>Progress Tracking</strong></p>
+<ul>
+<li>Progress messages sent via logger</li>
+<li>Model completion identified by identifier string</li>
+<li>Progress bar updated</li>
+<li>Model items turn green on completion</li>
+</ul>
+</li>
+<li>
+<p><strong>Finalization</strong></p>
+<ul>
+<li>All models complete</li>
+<li>Training report generated</li>
+<li>UI re-enabled</li>
+<li>Results available in output directory</li>
+</ul>
+</li>
+</ol>
+<h3 id="training-dataset-structure">Training Dataset Structure</h3>
+<p>The training dataset (<code>csTable</code>) contains:</p>
+<ul>
+<li><strong>denseMat</strong>: Eigen matrix (samples × features)</li>
+<li><strong>colNames</strong>: Feature names</li>
+<li><strong>rowNames</strong>: Sample identifiers (Patient_Study_Series)</li>
+<li><strong>m_labels</strong>: Target values (from study labels)</li>
+</ul>
+<h3 id="model-definition-file-format">Model Definition File Format</h3>
+<p><strong>AIModelDefs.ini:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-attr">Number_Of_Models</span>=<span class="hljs-number">2</span>
+
+<span class="hljs-section">[Model1]</span>
+<span class="hljs-attr">Model_Name</span>=RandomForestClassifier
+<span class="hljs-attr">Model_Type</span>=Classifier
+<span class="hljs-attr">Number_Of_Parameters</span>=<span class="hljs-number">3</span>
+<span class="hljs-attr">Parameter0</span>=<span class="hljs-number">100</span>
+<span class="hljs-attr">Parameter1</span>=<span class="hljs-number">10</span>
+<span class="hljs-attr">Parameter2</span>=<span class="hljs-number">42</span>
+<span class="hljs-attr">Selected_Features</span>=feature1,feature2,feature3
+
+<span class="hljs-section">[Model2]</span>
+<span class="hljs-attr">Model_Name</span>=LinearRegression
+<span class="hljs-attr">Model_Type</span>=Regression
+<span class="hljs-attr">Number_Of_Parameters</span>=<span class="hljs-number">1</span>
+<span class="hljs-attr">Parameter0</span>=<span class="hljs-literal">true</span>
+<span class="hljs-attr">Selected_Features</span>=
+</div></code></pre>
+<hr>
+<h2 id="supported-models">Supported Models</h2>
+<h3 id="classification-models">Classification Models</h3>
+<ol>
+<li>
+<p><strong>Random Forest Classifier</strong></p>
+<ul>
+<li>Parameters:
+<ul>
+<li>Number of Trees (int, default: 100, range: 10-1000)</li>
+<li>Max Depth (int, default: 10, range: 1-100)</li>
+<li>Random State (int, default: 42, range: 0-999999)</li>
+</ul>
+</li>
+<li>Status: Stub (not implemented)</li>
+</ul>
+</li>
+<li>
+<p><strong>XGBoost Classifier</strong></p>
+<ul>
+<li>Parameters:
+<ul>
+<li>Number of Estimators (int, default: 100, range: 10-1000)</li>
+<li>Max Depth (int, default: 6, range: 1-20)</li>
+<li>Learning Rate (double, default: 0.1, range: 0.001-1.0)</li>
+</ul>
+</li>
+<li>Status: Stub (not implemented)</li>
+</ul>
+</li>
+<li>
+<p><strong>Support Vector Classifier (SVM)</strong></p>
+<ul>
+<li>Parameters:
+<ul>
+<li>Kernel (combo: rbf, linear, poly, sigmoid, default: rbf)</li>
+<li>Regularization (double, default: 1.0, range: 0.001-1000.0)</li>
+<li>Gamma (combo: scale, auto, default: scale)</li>
+</ul>
+</li>
+<li>Status: Stub (not implemented)</li>
+</ul>
+</li>
+<li>
+<p><strong>Logistic Regression</strong></p>
+<ul>
+<li>Parameters:
+<ul>
+<li>Regularization (double, default: 1.0, range: 0.001-1000.0)</li>
+<li>Penalty (combo: l2, l1, elasticnet, default: l2)</li>
+<li>Solver (combo: lbfgs, liblinear, newton-cg, sag, saga, default: lbfgs)</li>
+</ul>
+</li>
+<li>Status: Stub (not implemented)</li>
+</ul>
+</li>
+<li>
+<p><strong>Neural Network Classifier</strong></p>
+<ul>
+<li>Parameters:
+<ul>
+<li>Hidden Layer Sizes (string, default: &quot;100,50&quot;)</li>
+<li>Regularization (double, default: 0.01, range: 0.0001-10.0)</li>
+<li>Max Iterations (int, default: 1000, range: 10-10000)</li>
+</ul>
+</li>
+<li>Status: Stub (not implemented)</li>
+</ul>
+</li>
+<li>
+<p><strong>CNN Classifier</strong></p>
+<ul>
+<li>Parameters:
+<ul>
+<li>Epochs (int, default: 50, range: 1-1000)</li>
+<li>Batch Size (int, default: 32, range: 1-1024)</li>
+<li>Learning Rate (double, default: 0.001, range: 0.0001-1.0)</li>
+</ul>
+</li>
+<li>Status: Stub (not implemented)</li>
+</ul>
+</li>
+<li>
+<p><strong>ResNet Classifier</strong></p>
+<ul>
+<li>Parameters: Same as CNN Classifier</li>
+<li>Status: Stub (not implemented)</li>
+</ul>
+</li>
+</ol>
+<h3 id="regression-models">Regression Models</h3>
+<ol>
+<li>
+<p><strong>Random Forest Regressor</strong></p>
+<ul>
+<li>Parameters: Same as Random Forest Classifier</li>
+<li>Status: Stub (not implemented)</li>
+</ul>
+</li>
+<li>
+<p><strong>XGBoost Regressor</strong></p>
+<ul>
+<li>Parameters: Same as XGBoost Classifier</li>
+<li>Status: Stub (not implemented)</li>
+</ul>
+</li>
+<li>
+<p><strong>Support Vector Regressor (SVR)</strong></p>
+<ul>
+<li>Parameters: Same as Support Vector Classifier</li>
+<li>Status: Stub (not implemented)</li>
+</ul>
+</li>
+<li>
+<p><strong>Linear Regression</strong> ✅ <strong>IMPLEMENTED</strong></p>
+<ul>
+<li>Parameters:
+<ul>
+<li>Fit Intercept (bool, default: true)</li>
+</ul>
+</li>
+<li>Implementation: <code>csLinearRegression.hxx</code></li>
+<li>Uses QR decomposition</li>
+<li>Metrics: R², MSE, RMSE, MAE</li>
+<li>Saves coefficients and model file</li>
+</ul>
+</li>
+<li>
+<p><strong>Cox Regression</strong></p>
+<ul>
+<li>Parameters:
+<ul>
+<li>Regularization (double, default: 0.1, range: 0.0-10.0)</li>
+</ul>
+</li>
+<li>Status: Stub (not implemented)</li>
+</ul>
+</li>
+<li>
+<p><strong>Neural Network Regressor</strong></p>
+<ul>
+<li>Parameters: Same as Neural Network Classifier</li>
+<li>Status: Stub (not implemented)</li>
+</ul>
+</li>
+<li>
+<p><strong>CNN Regressor</strong></p>
+<ul>
+<li>Parameters: Same as CNN Classifier</li>
+<li>Status: Stub (not implemented)</li>
+</ul>
+</li>
+<li>
+<p><strong>ResNet Regressor</strong></p>
+<ul>
+<li>Parameters: Same as CNN Classifier</li>
+<li>Status: Stub (not implemented)</li>
+</ul>
+</li>
+</ol>
+<h3 id="model-name-aliases">Model Name Aliases</h3>
+<p>The system supports multiple aliases for model names:</p>
+<ul>
+<li>&quot;RF&quot; → &quot;RandomForestClassifier&quot;</li>
+<li>&quot;SVM&quot; → &quot;SupportVectorClassifier&quot;</li>
+<li>&quot;XGB&quot; → &quot;XGBoostClassifier&quot;</li>
+<li>&quot;LR&quot; → &quot;LogisticRegression&quot;</li>
+<li>&quot;CNN&quot; → &quot;CNNClassifier&quot;</li>
+<li>&quot;ResNet&quot; → &quot;ResNetClassifier&quot;</li>
+<li>And many more...</li>
+</ul>
+<hr>
+<h2 id="gui-components">GUI Components</h2>
+<h3 id="mainwinaimodels-tab">MainWin_AIModels Tab</h3>
+<p><strong>Problem Selection:</strong></p>
+<ul>
+<li>Dropdown populated from database (<code>getAIProblems()</code>)</li>
+<li>Problem types determine available models</li>
+<li>Examples: &quot;Tumor Classification&quot;, &quot;Survival Prediction&quot;, &quot;Treatment Response Prediction&quot;</li>
+</ul>
+<p><strong>Model Palette:</strong></p>
+<ul>
+<li>Draggable model labels</li>
+<li>Models shown/hidden based on problem type</li>
+<li>Models include: Random Forest, SVM, XGBoost, Logistic Regression, Linear Regression, Cox Regression, Neural Networks, CNN, ResNet</li>
+</ul>
+<p><strong>Drop Area:</strong></p>
+<ul>
+<li>Visual canvas for dropped models</li>
+<li>Context menu: Clear, Remove, Settings, Save, Load</li>
+<li>Validates model compatibility with problem type</li>
+<li>Shows processing state during training</li>
+</ul>
+<p><strong>Model Items:</strong></p>
+<ul>
+<li>Visual representation of configured model</li>
+<li>Color themes:
+<ul>
+<li>Default: Blue</li>
+<li>Processing: Yellow</li>
+<li>Complete: Green</li>
+<li>Error/Duplicate: Red</li>
+</ul>
+</li>
+<li>Double-click opens settings dialog</li>
+</ul>
+<p><strong>Settings Dialog:</strong></p>
+<ul>
+<li>Dynamic parameter UI based on model type</li>
+<li>Feature pool list with removal capability</li>
+<li>Parameter validation</li>
+<li>Model information display</li>
+</ul>
+<p><strong>Training Controls:</strong></p>
+<ul>
+<li>&quot;Run AI Model&quot; button: Starts training</li>
+<li>Progress bar: Shows training progress</li>
+<li>Cancel button: Stops training</li>
+<li>Results text area: Shows training status</li>
+</ul>
+<h3 id="data-flow-in-gui">Data Flow in GUI</h3>
+<ol>
+<li>
+<p><strong>Model Drop:</strong></p>
+<pre class="hljs"><code><div>User drags model → AIModelDropArea::dropEvent() 
+→ Creates FVAIModelItem → Emits modelDropped signal
+→ MainWin::slot_AIModelDropped() → Registers with AIModelDriver
+</div></code></pre>
+</li>
+<li>
+<p><strong>Settings Edit:</strong></p>
+<pre class="hljs"><code><div>Double-click model → AIModelDropArea::mouseDoubleClickEvent()
+→ Opens csAIModelSettingsGUI → User edits parameters
+→ CollectModelParameters() → Updates FVAIModelItem
+→ Emits modelUpdated signal
+</div></code></pre>
+</li>
+<li>
+<p><strong>Training Start:</strong></p>
+<pre class="hljs"><code><div>Click &quot;Run AI Model&quot; → MainWin::on_runAIModelButton_clicked()
+→ Validates models → Collects model data → Prepares INI file
+→ Spawns AIModelWriter.exe processes → Training begins
+</div></code></pre>
+</li>
+<li>
+<p><strong>Progress Updates:</strong></p>
+<pre class="hljs"><code><div>AIModelWriter.exe → Logger messages → Process output parsing
+→ MainWin::slot_AIModelProcess_readyReadStandardOutput()
+→ Updates progress bar → Changes model item color
+</div></code></pre>
+</li>
+</ol>
+<hr>
+<h2 id="backend-implementation">Backend Implementation</h2>
+<h3 id="training-function-signature">Training Function Signature</h3>
+<p>All training functions follow this signature:</p>
+<pre class="hljs"><code><div><span class="hljs-function">AIModelTrainingArtifacts <span class="hljs-title">TrainModelName</span><span class="hljs-params">(<span class="hljs-keyword">const</span> AIModelTrainingRequest&amp; request)</span></span>;
+</div></code></pre>
+<h3 id="training-request-structure">Training Request Structure</h3>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">AIModelTrainingRequest</span> {</span>
+    AIModelName modelName;
+    AIModelSubtypeName subtypeName;
+    AIModelParamCollectionType parameters;  <span class="hljs-comment">// (ints, doubles, strings, bools)</span>
+    EigenMatrixTypeD featureMatrix;          <span class="hljs-comment">// Samples × Features</span>
+    EigenLabelVector labels;                 <span class="hljs-comment">// Target values</span>
+    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&gt; featureNames;   <span class="hljs-comment">// Feature identifiers</span>
+    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&gt; excludedFeatureNames;
+    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> outputDirectory;             <span class="hljs-comment">// Where to save results</span>
+    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">map</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>, <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&gt; metadata;
+};
+</div></code></pre>
+<h3 id="training-artifacts-structure">Training Artifacts Structure</h3>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">AIModelTrainingArtifacts</span> {</span>
+    <span class="hljs-keyword">bool</span> success;                                    <span class="hljs-comment">// Training success flag</span>
+    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> modelFilePath;                       <span class="hljs-comment">// Path to saved model</span>
+    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">map</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>, <span class="hljs-keyword">double</span>&gt; metrics;          <span class="hljs-comment">// Evaluation metrics</span>
+    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">map</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>, <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&gt; metadata;    <span class="hljs-comment">// Additional metadata</span>
+    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&gt; generatedFiles;       <span class="hljs-comment">// All output files</span>
+    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&gt; warnings;              <span class="hljs-comment">// Warning messages</span>
+};
+</div></code></pre>
+<h3 id="parameter-parsing">Parameter Parsing</h3>
+<p>Parameters are parsed from strings based on type descriptors:</p>
+<ul>
+<li><strong>int</strong>: Parsed with <code>atoi()</code></li>
+<li><strong>double</strong>: Parsed with <code>atof()</code></li>
+<li><strong>bool</strong>: Parsed from &quot;true&quot;/&quot;false&quot; or &quot;1&quot;/&quot;0&quot;</li>
+<li><strong>string</strong>: Used as-is</li>
+<li><strong>combo</strong>: Selected from dropdown options</li>
+</ul>
+<h3 id="linear-regression-implementation-details">Linear Regression Implementation Details</h3>
+<p><strong>Location:</strong> <code>D:\MAIN\CSMain\Radiomics\AI\csLinearRegression.hxx</code></p>
+<p><strong>Algorithm:</strong></p>
+<ol>
+<li>Validates input data (non-empty, matching dimensions)</li>
+<li>Extracts <code>fitIntercept</code> parameter</li>
+<li>Converts labels to <code>Eigen::VectorXd</code></li>
+<li>Prepares feature matrix X (adds intercept column if needed)</li>
+<li>Checks for rank deficiency</li>
+<li>Solves using QR decomposition: <code>X.householderQr().solve(y)</code></li>
+<li>Calculates predictions: <code>X * coefficients</code></li>
+<li>Computes metrics:
+<ul>
+<li>R² = 1 - (SS_res / SS_tot)</li>
+<li>MSE = mean squared error</li>
+<li>RMSE = sqrt(MSE)</li>
+<li>MAE = mean absolute error</li>
+</ul>
+</li>
+<li>Saves model to text file and coefficients to binary file</li>
+</ol>
+<p><strong>Edge Cases Handled:</strong></p>
+<ul>
+<li>Rank deficiency warning</li>
+<li>Constant target values (R² = 0 or 1)</li>
+<li>Empty feature matrix</li>
+<li>Dimension mismatches</li>
+</ul>
+<h3 id="stub-implementations">Stub Implementations</h3>
+<p>Most models currently return <code>CreateNotImplementedArtifacts()</code>:</p>
+<ul>
+<li>Sets <code>success = false</code></li>
+<li>Adds warning message</li>
+<li>Returns empty artifacts</li>
+</ul>
+<p>To implement a new model:</p>
+<ol>
+<li>Create training function in <code>csAIModelFeatures.hxx</code> or separate file</li>
+<li>Replace stub with actual implementation</li>
+<li>Follow <code>TrainLinearRegression</code> pattern</li>
+<li>Save model file and metrics</li>
+<li>Return populated <code>AIModelTrainingArtifacts</code></li>
+</ol>
+<hr>
+<h2 id="data-flow">Data Flow</h2>
+<h3 id="training-data-flow">Training Data Flow</h3>
+<pre class="hljs"><code><div>Database (scan.db)
+    ↓
+Series → getSummarizedFeaturesFromDatabase()
+    ↓
+Feature Vectors (per series/mask)
+    ↓
+buildTrainingDataset() → Aggregate across series
+    ↓
+csTable {
+    denseMat: EigenMatrix (samples × features)
+    colNames: feature names
+    rowNames: sample IDs
+    m_labels: target values
+}
+    ↓
+filterFeaturesForModel() → Filter by model feature pool
+    ↓
+AIModelTrainingRequest {
+    featureMatrix: filtered matrix
+    labels: target values
+    featureNames: filtered names
+    ...
+}
+    ↓
+CS::ExecuteAIModel() → Route to training function
+    ↓
+Model-specific training → Train model
+    ↓
+AIModelTrainingArtifacts {
+    modelFilePath: path to saved model
+    metrics: evaluation metrics
+    ...
+}
+    ↓
+Save training summary → Output directory
+</div></code></pre>
+<h3 id="feature-pool-flow">Feature Pool Flow</h3>
+<pre class="hljs"><code><div>Feature Selection Module
+    ↓
+Selected Features → Database (SelectedFeatures table)
+    ↓
+csSeriesController::getSelectedFeaturesPool()
+    ↓
+AIModelDriver::buildTrainingDataset()
+    ↓
+Model-specific feature pool (if specified)
+    ↓
+filterFeaturesForModel()
+    ↓
+Training with filtered features
+</div></code></pre>
+<h3 id="model-configuration-flow">Model Configuration Flow</h3>
+<pre class="hljs"><code><div>User drops model → FVAIModelItem created
+    ↓
+User opens settings → csAIModelSettingsGUI
+    ↓
+User configures parameters → CollectModelParameters()
+    ↓
+Parameters stored in FVAIModelItem
+    ↓
+User clicks &quot;Run AI Model&quot; → Models collected
+    ↓
+AIModelDriver::appendModelData() → Register models
+    ↓
+Save to AIModelDefs.ini → Loaded by AIModelWriter.exe
+    ↓
+Parameters parsed → Passed to training function
+</div></code></pre>
+<hr>
+<h2 id="testing">Testing</h2>
+<h3 id="unit-tests">Unit Tests</h3>
+<p><strong>Location:</strong> <code>UnitTests/ModuleDriversTests.cpp</code></p>
+<p>Currently tests feature extraction, not AI models. To add AI model tests:</p>
+<ol>
+<li>
+<p><strong>Test Training Dataset Building:</strong></p>
+<pre class="hljs"><code><div>TEST(AIModelDriver, BuildTrainingDataset) {
+    <span class="hljs-comment">// Create mock series</span>
+    <span class="hljs-comment">// Call buildTrainingDataset()</span>
+    <span class="hljs-comment">// Verify csTable structure</span>
+    <span class="hljs-comment">// Check feature matrix dimensions</span>
+    <span class="hljs-comment">// Verify labels match</span>
+}
+</div></code></pre>
+</li>
+<li>
+<p><strong>Test Model Loading:</strong></p>
+<pre class="hljs"><code><div>TEST(AIModelDriver, LoadModelDefsFromIni) {
+    <span class="hljs-comment">// Create test INI file</span>
+    <span class="hljs-comment">// Call loadModelDefsFromIni()</span>
+    <span class="hljs-comment">// Verify models loaded correctly</span>
+    <span class="hljs-comment">// Check parameters parsed</span>
+}
+</div></code></pre>
+</li>
+<li>
+<p><strong>Test Linear Regression:</strong></p>
+<pre class="hljs"><code><div>TEST(LinearRegression, BasicTraining) {
+    <span class="hljs-comment">// Create test data</span>
+    <span class="hljs-comment">// Call TrainLinearRegression()</span>
+    <span class="hljs-comment">// Verify success</span>
+    <span class="hljs-comment">// Check metrics are reasonable</span>
+    <span class="hljs-comment">// Verify model file created</span>
+}
+</div></code></pre>
+</li>
+</ol>
+<h3 id="integration-tests">Integration Tests</h3>
+<p><strong>Location:</strong> <code>IntegrationTests/</code></p>
+<p>Should test:</p>
+<ul>
+<li>End-to-end training workflow</li>
+<li>Parallel process execution</li>
+<li>Model file generation</li>
+<li>Progress reporting</li>
+<li>Error handling</li>
+</ul>
+<h3 id="test-data">Test Data</h3>
+<p><strong>Location:</strong> <code>Data/UnitTests/</code></p>
+<p>Use existing test images and masks for:</p>
+<ul>
+<li>Feature extraction validation</li>
+<li>Training dataset creation</li>
+<li>Model training verification</li>
+</ul>
+<hr>
+<h2 id="integration-points">Integration Points</h2>
+<h3 id="database-integration">Database Integration</h3>
+<p><strong>Tables Used:</strong></p>
+<ul>
+<li><code>Series</code>: Source of feature data</li>
+<li><code>SelectedFeatures</code>: Selected features pool</li>
+<li><code>SummarizedFeatures</code>: Feature statistics</li>
+<li><code>Studies</code>: Source of labels (via <code>getLabel()</code>)</li>
+</ul>
+<p><strong>Database Driver:</strong></p>
+<ul>
+<li><code>DatabaseDriver</code>: Connection management</li>
+<li><code>csSeriesController</code>: Series and feature retrieval</li>
+<li>Thread-safe connections per process</li>
+</ul>
+<h3 id="feature-selection-integration">Feature Selection Integration</h3>
+<p><strong>Dependency:</strong></p>
+<ul>
+<li>AI Models require feature selection to be completed first</li>
+<li>Uses <code>getSelectedFeaturesPool()</code> to get available features</li>
+<li>Validates feature pool is non-empty before training</li>
+</ul>
+<p><strong>Feature Filtering:</strong></p>
+<ul>
+<li>Models can specify subset of selected features</li>
+<li><code>filterFeaturesForModel()</code> filters training data</li>
+<li>If no features match, uses full feature set</li>
+</ul>
+<h3 id="preprocessing-integration">Preprocessing Integration</h3>
+<p><strong>Indirect Dependency:</strong></p>
+<ul>
+<li>Features depend on preprocessing</li>
+<li>AI Models use preprocessed features</li>
+<li>No direct coupling to preprocessing module</li>
+</ul>
+<h3 id="settings-integration">Settings Integration</h3>
+<p><strong>Settings Driver:</strong></p>
+<ul>
+<li><code>AIModelOutputPath</code>: Where to save training results</li>
+<li><code>MaxNumberOfExtactionProcess</code>: Parallel process limit</li>
+<li>Settings persisted across sessions</li>
+</ul>
+<h3 id="logger-integration">Logger Integration</h3>
+<p><strong>Logger Usage:</strong></p>
+<ul>
+<li>All training steps logged</li>
+<li>Progress messages sent via logger</li>
+<li>Error and warning messages</li>
+<li>Duration tracking for reports</li>
+</ul>
+<p><strong>Message Format:</strong></p>
+<pre class="hljs"><code><div>[MessageType] [SubType] [Message]
+Data =ModelName#DurationMs
+</div></code></pre>
+<hr>
+<h2 id="future-development">Future Development</h2>
+<h3 id="planned-implementations">Planned Implementations</h3>
+<ol>
+<li>
+<p><strong>Complete Model Implementations:</strong></p>
+<ul>
+<li>Random Forest (Classifier &amp; Regressor)</li>
+<li>XGBoost (Classifier &amp; Regressor)</li>
+<li>SVM (Classifier &amp; Regressor)</li>
+<li>Logistic Regression</li>
+<li>Neural Networks</li>
+<li>CNN &amp; ResNet</li>
+</ul>
+</li>
+<li>
+<p><strong>Model Evaluation:</strong></p>
+<ul>
+<li>Cross-validation support</li>
+<li>Train/test split</li>
+<li>Confusion matrices</li>
+<li>ROC curves</li>
+<li>Feature importance</li>
+</ul>
+</li>
+<li>
+<p><strong>Model Inference:</strong></p>
+<ul>
+<li>Load trained models</li>
+<li>Predict on new data</li>
+<li>Batch prediction</li>
+<li>Prediction visualization</li>
+</ul>
+</li>
+<li>
+<p><strong>Model Management:</strong></p>
+<ul>
+<li>Model versioning</li>
+<li>Model comparison</li>
+<li>Model selection based on metrics</li>
+<li>Model export/import</li>
+</ul>
+</li>
+<li>
+<p><strong>Advanced Features:</strong></p>
+<ul>
+<li>Hyperparameter tuning</li>
+<li>Ensemble methods</li>
+<li>AutoML capabilities</li>
+<li>Model interpretability</li>
+</ul>
+</li>
+</ol>
+<h3 id="implementation-guidelines">Implementation Guidelines</h3>
+<p><strong>Adding a New Model:</strong></p>
+<ol>
+<li>
+<p><strong>Update Type Definitions</strong> (<code>csAIModelTypes.h</code>):</p>
+<ul>
+<li>Add model name to supported list (if new type)</li>
+</ul>
+</li>
+<li>
+<p><strong>Update Model Registry</strong> (<code>csAIModelFeatures.hxx</code>):</p>
+<ul>
+<li>Add to <code>GetSupportedAIModelNames()</code></li>
+<li>Add parameter definitions in <code>GetAIModelParamNamesAndTypes()</code></li>
+<li>Add alias in <code>NormalizeAIModelName()</code></li>
+<li>Add training function declaration</li>
+<li>Add to <code>ResolveTrainingFunction()</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Implement Training Function:</strong></p>
+<ul>
+<li>Create function: <code>TrainModelName()</code></li>
+<li>Validate input data</li>
+<li>Parse parameters</li>
+<li>Train model</li>
+<li>Calculate metrics</li>
+<li>Save model file</li>
+<li>Return artifacts</li>
+</ul>
+</li>
+<li>
+<p><strong>Update GUI</strong> (if needed):</p>
+<ul>
+<li>Add model label to UI</li>
+<li>Update <code>populateAIModels()</code> mapping</li>
+<li>Add icon/text mappings</li>
+</ul>
+</li>
+<li>
+<p><strong>Test:</strong></p>
+<ul>
+<li>Unit tests for training function</li>
+<li>Integration tests for full workflow</li>
+<li>Verify metrics are reasonable</li>
+</ul>
+</li>
+</ol>
+<p><strong>Example Implementation Template:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">static</span> AIModelTrainingArtifacts <span class="hljs-title">TrainNewModel</span><span class="hljs-params">(<span class="hljs-keyword">const</span> AIModelTrainingRequest&amp; request)</span>
+</span>{
+    AIModelTrainingArtifacts artifacts;
+    artifacts.success = <span class="hljs-literal">false</span>;
+
+    <span class="hljs-keyword">try</span>
+    {
+        <span class="hljs-comment">// 1. Validate input</span>
+        <span class="hljs-keyword">if</span> (request.featureMatrix.rows() == <span class="hljs-number">0</span> || request.labels.size() == <span class="hljs-number">0</span>)
+        {
+            artifacts.warnings.push_back(<span class="hljs-string">"Empty input data."</span>);
+            <span class="hljs-keyword">return</span> artifacts;
+        }
+
+        <span class="hljs-comment">// 2. Parse parameters</span>
+        <span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span>&amp; paramInts = <span class="hljs-built_in">std</span>::get&lt;<span class="hljs-number">0</span>&gt;(request.parameters);
+        <span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span>&amp; paramDoubles = <span class="hljs-built_in">std</span>::get&lt;<span class="hljs-number">1</span>&gt;(request.parameters);
+        <span class="hljs-comment">// ... extract parameters</span>
+
+        <span class="hljs-comment">// 3. Train model</span>
+        <span class="hljs-comment">// ... model-specific training code</span>
+
+        <span class="hljs-comment">// 4. Calculate metrics</span>
+        <span class="hljs-comment">// ... evaluation code</span>
+
+        <span class="hljs-comment">// 5. Save model</span>
+        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> modelFilePath = request.outputDirectory + <span class="hljs-string">"/model_file.ext"</span>;
+        <span class="hljs-comment">// ... save model code</span>
+        artifacts.modelFilePath = modelFilePath;
+        artifacts.generatedFiles.push_back(modelFilePath);
+
+        <span class="hljs-comment">// 6. Set success and metrics</span>
+        artifacts.success = <span class="hljs-literal">true</span>;
+        artifacts.metrics[<span class="hljs-string">"Metric1"</span>] = value1;
+        <span class="hljs-comment">// ... more metrics</span>
+    }
+    <span class="hljs-keyword">catch</span> (<span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::exception&amp; e)
+    {
+        artifacts.warnings.push_back(<span class="hljs-string">"Exception: "</span> + <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>(e.what()));
+        artifacts.success = <span class="hljs-literal">false</span>;
+    }
+
+    <span class="hljs-keyword">return</span> artifacts;
+}
+</div></code></pre>
+<hr>
+<h2 id="appendix">Appendix</h2>
+<h3 id="file-locations-summary">File Locations Summary</h3>
+<p><strong>FeatureViewer:</strong></p>
+<ul>
+<li><code>ModuleDrivers/AIModelDriver.h/cpp</code></li>
+<li><code>GUI/MainWin_AIModels.cpp</code></li>
+<li><code>GUI/FVAIModelItem.h/cpp</code></li>
+<li><code>GUI/AIModelDropArea.h/cpp</code></li>
+<li><code>GUI/AIModelReport.h/cpp</code></li>
+<li><code>DataModeler/AIModelData.h</code></li>
+<li><code>AIModelWriter/AIModelWriter.cpp</code></li>
+</ul>
+<p><strong>CSMain:</strong></p>
+<ul>
+<li><code>Radiomics/AI/csAIModelFeatures.hxx</code></li>
+<li><code>Radiomics/AI/csLinearRegression.hxx</code></li>
+<li><code>Scanner/Core/csAIModel.h/cpp</code></li>
+<li><code>GUI/Qt/csAIModelSettingsGUI.h/cpp</code></li>
+<li><code>Common/Core/csAIModelTypes.h</code></li>
+</ul>
+<h3 id="key-dependencies">Key Dependencies</h3>
+<ul>
+<li><strong>Qt</strong>: GUI framework</li>
+<li><strong>Eigen</strong>: Matrix operations</li>
+<li><strong>ITK</strong>: Image processing (for features)</li>
+<li><strong>SQLite</strong>: Database</li>
+<li><strong>CSMain Libraries</strong>: Core functionality</li>
+</ul>
+<h3 id="configuration-files">Configuration Files</h3>
+<ul>
+<li><code>AIModelDefs.ini</code>: Model definitions for training</li>
+<li><code>scan.db</code>: Database with features and series</li>
+<li>Settings: Stored in application data directory</li>
+</ul>
+<h3 id="output-structure">Output Structure</h3>
+<pre class="hljs"><code><div>OutputDirectory/
+└── AI Models/
+    └── Run_YYYY-MM-DD_hh-mm-ss ap[_ExperimentID]/
+        ├── ModelName1/
+        │   ├── training_summary.txt
+        │   ├── model_file.ext
+        │   └── [other artifacts]
+        ├── ModelName2/
+        │   └── ...
+        └── ...
+</div></code></pre>
+<hr>
+<h2 id="revision-history">Revision History</h2>
+<ul>
+<li><strong>2025-11-18</strong>: Initial documentation created</li>
+<li>Documented current implementation state</li>
+<li>Included Linear Regression as reference implementation</li>
+<li>Noted stub implementations for other models</li>
+</ul>
+<hr>
+<p><strong>End of Documentation</strong></p>
+
+</body>
+</html>

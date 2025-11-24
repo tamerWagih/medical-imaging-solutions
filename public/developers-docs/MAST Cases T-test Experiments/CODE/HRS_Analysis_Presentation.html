@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HRS Parameter Analysis Results</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+        }
+        .slide {
+            background: white;
+            margin: 20px auto;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            max-width: 900px;
+            page-break-after: always;
+        }
+        .slide h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
+        .slide h2 {
+            color: #e74c3c;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .slide h3 {
+            color: #8e44ad;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        .slide ul {
+            font-size: 1.2em;
+            line-height: 1.8;
+        }
+        .slide li {
+            margin-bottom: 10px;
+        }
+        .highlight {
+            background-color: #f39c12;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .success {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        .warning {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .code {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .results-table th, .results-table td {
+            border: 1px solid #bdc3c7;
+            padding: 12px;
+            text-align: left;
+        }
+        .results-table th {
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+        .results-table tr:nth-child(even) {
+            background-color: #ecf0f1;
+        }
+        .slide-number {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            background-color: #34495e;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+        @media print {
+            .slide {
+                page-break-after: always;
+                margin: 0;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-number">1</div>
+        <h1>HRS Parameter Analysis Results</h1>
+        <h2>Investigation of Identical Values Across Experiments</h2>
+        <div style="text-align: center; margin-top: 50px;">
+            <p style="font-size: 1.3em; color: #7f8c8d;">Comprehensive Analysis of Parameter Impact on HRS Features</p>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="slide-number">2</div>
+        <h2>Problem Statement</h2>
+        <ul>
+            <li><span class="highlight">Initial observation:</span> Many identical values across experiments</li>
+            <li><span class="highlight">Question:</span> Are parameter variations working correctly?</li>
+            <li><span class="highlight">Investigation:</span> Compare same study across different experiments</li>
+            <li><span class="highlight">Focus:</span> First 4 experiments with varying WashOutUpper parameters</li>
+            <li><span class="highlight">Expected:</span> Different parameter values should produce different results</li>
+        </ul>
+        <div style="background-color: #e8f4fd; padding: 20px; border-left: 5px solid #3498db; margin-top: 30px;">
+            <h3>Key Question</h3>
+            <p style="font-size: 1.2em; margin: 0;">Why are some patients showing identical values across different parameter settings?</p>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="slide-number">3</div>
+        <h2>Experiment Parameters</h2>
+        <h3>Parameter Variations (ADC parameters identical):</h3>
+        <table class="results-table">
+            <thead>
+                <tr>
+                    <th>Experiment</th>
+                    <th>WashOutUpper</th>
+                    <th>ADC PZ Thresholds</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Exp001</strong></td>
+                    <td>4.0</td>
+                    <td>850/1050/1200</td>
+                </tr>
+                <tr>
+                    <td><strong>Exp002</strong></td>
+                    <td>2.5</td>
+                    <td>850/1050/1200</td>
+                </tr>
+                <tr>
+                    <td><strong>Exp003</strong></td>
+                    <td>3.0</td>
+                    <td>850/1050/1200</td>
+                </tr>
+                <tr>
+                    <td><strong>Exp004</strong></td>
+                    <td>3.5</td>
+                    <td>850/1050/1200</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h3>Expected Impact:</h3>
+        <ul>
+            <li><span class="highlight">WashOutUpper</span> → DCE masks → HRS masks → All features except ADC_Prostate_Mean</li>
+            <li><span class="highlight">ADC PZ thresholds</span> → ADC-based features (ADC_HRS1_Mean, ADC_HRS6_Mean)</li>
+        </ul>
+    </div>
+
+    <div class="slide">
+        <div class="slide-number">4</div>
+        <h2>Analysis Results Overview</h2>
+        <table class="results-table">
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>Identical %</th>
+                    <th>Status</th>
+                    <th>Explanation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>ADC_Prostate_Mean</strong></td>
+                    <td>100%</td>
+                    <td><span class="success">✅ EXPECTED</span></td>
+                    <td>Not affected by parameters</td>
+                </tr>
+                <tr>
+                    <td><strong>HRS1_Volume</strong></td>
+                    <td>68-94%</td>
+                    <td><span class="success">✅ GOOD</span></td>
+                    <td>Shows proper variation</td>
+                </tr>
+                <tr>
+                    <td><strong>HRS6_Volume</strong></td>
+                    <td>62-92%</td>
+                    <td><span class="success">✅ GOOD</span></td>
+                    <td>Shows proper variation</td>
+                </tr>
+                <tr>
+                    <td><strong>HRS7_6_Ratio</strong></td>
+                    <td>60-91%</td>
+                    <td><span class="success">✅ GOOD</span></td>
+                    <td>Shows proper variation</td>
+                </tr>
+                <tr>
+                    <td><strong>ADC_HRS1_Mean</strong></td>
+                    <td>57-88%</td>
+                    <td><span class="success">✅ GOOD</span></td>
+                    <td>Shows proper variation</td>
+                </tr>
+                <tr>
+                    <td><strong>ADC_HRS6_Mean</strong></td>
+                    <td>51-81%</td>
+                    <td><span class="success">✅ GOOD</span></td>
+                    <td>Shows proper variation</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div style="background-color: #d5f4e6; padding: 20px; border-left: 5px solid #27ae60; margin-top: 30px;">
+            <h3><span class="success">Conclusion:</span> Parameter variations ARE working correctly!</h3>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="slide-number">5</div>
+        <h2>Root Cause Analysis</h2>
+        <h3>Debugging Process:</h3>
+        <ol style="font-size: 1.2em; line-height: 1.8;">
+            <li>Reviewed HRS Java code implementation</li>
+            <li>Traced DCEScore calculation</li>
+            <li>Analyzed patient MAST007 as example</li>
+        </ol>
+        
+        <h3>Key Finding:</h3>
+        <div style="background-color: #fff3cd; padding: 20px; border-left: 5px solid #ffc107; margin: 20px 0;">
+            <p style="font-size: 1.2em; margin: 0;"><strong>DCEScore calculation explains similarities</strong></p>
+        </div>
+        
+        <div class="code">
+DCEScore = (Math.max(Math.min(DCEFeatureSum, upper), lower) - lower) / (upper - lower)
+        </div>
+        
+        <p style="font-size: 1.1em;">When DCEFeatureSum values are similar, DCEScore becomes identical, leading to identical HRS features.</p>
+    </div>
+
+    <div class="slide">
+        <div class="slide-number">6</div>
+        <h2>MAST007 Debug Example</h2>
+        <h3>Patient MAST007 Analysis:</h3>
+        <table class="results-table">
+            <thead>
+                <tr>
+                    <th>WashOut Parameter</th>
+                    <th>DCEFeatureSum</th>
+                    <th>DCEScore</th>
+                    <th>Result</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>4.0</td>
+                    <td>6.536</td>
+                    <td>1.0</td>
+                    <td>Identical</td>
+                </tr>
+                <tr>
+                    <td>2.5</td>
+                    <td>3.26</td>
+                    <td>1.0</td>
+                    <td>Identical</td>
+                </tr>
+                <tr>
+                    <td>3.0</td>
+                    <td>3.26</td>
+                    <td>1.0</td>
+                    <td>Identical</td>
+                </tr>
+                <tr>
+                    <td>3.5</td>
+                    <td>3.26</td>
+                    <td>0.9227</td>
+                    <td><span class="warning">Different</span></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div style="background-color: #e8f4fd; padding: 20px; border-left: 5px solid #3498db; margin-top: 20px;">
+            <h3>Result:</h3>
+            <p style="font-size: 1.2em; margin: 0;">Experiments 1,2,3 identical, Experiment 4 different</p>
+            <p style="margin: 10px 0 0 0;">This explains why some patients show identical values across experiments 1-3 but differ in experiment 4.</p>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="slide-number">7</div>
+        <h2>Technical Implementation</h2>
+        <h3>HRS Algorithm Flow:</h3>
+        
+        <div style="background-color: #f8f9fa; padding: 20px; border-radius: 5px; margin: 20px 0;">
+            <h4>1. DCE Processing:</h4>
+            <ul>
+                <li>Calculate DCEFeatureSum from DCE data</li>
+                <li>Apply WashOutUpper threshold</li>
+                <li>Compute DCEScore = (max(min(DCEFeatureSum, upper), lower) - lower) / (upper - lower)</li>
+            </ul>
+        </div>
+        
+        <div style="background-color: #f8f9fa; padding: 20px; border-radius: 5px; margin: 20px 0;">
+            <h4>2. HRS Calculation:</h4>
+            <ul>
+                <li>wNorm = min(wWP.get(i, 0) / wNthPercentile, 1)</li>
+                <li>hrsDCE.set(i, 0, wNorm * DCEScore)</li>
+            </ul>
+        </div>
+        
+        <div style="background-color: #f8f9fa; padding: 20px; border-radius: 5px; margin: 20px 0;">
+            <h4>3. Feature Extraction:</h4>
+            <ul>
+                <li>HRS volumes calculated from final HRS masks</li>
+                <li>ADC means calculated within HRS regions</li>
+                <li>Ratios computed from volume relationships</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="slide-number">8</div>
+        <h2>Parameter Impact Summary</h2>
+        <h3>WashOutUpper Parameter:</h3>
+        <ul>
+            <li><strong>Affects:</strong> HRS1_Volume, HRS6_Volume, HRS7_6_Ratio, ADC_HRS1_Mean, ADC_HRS6_Mean</li>
+            <li><strong>Mechanism:</strong> DCE mask → HRS mask → Feature calculation</li>
+            <li><strong>Result:</strong> Some patients identical across experiments 1-3, different in experiment 4</li>
+        </ul>
+        
+        <h3>ADC PZ Thresholds:</h3>
+        <ul>
+            <li><strong>Affects:</strong> ADC_HRS1_Mean, ADC_HRS6_Mean</li>
+            <li><strong>Mechanism:</strong> Direct ADC value calculation within HRS regions</li>
+            <li><strong>Result:</strong> Additional variation in ADC-based features</li>
+        </ul>
+        
+        <h3>ADC_Prostate_Mean:</h3>
+        <ul>
+            <li><strong>Not affected by any parameters</strong> (expected behavior)</li>
+        </ul>
+    </div>
+
+    <div class="slide">
+        <div class="slide-number">9</div>
+        <h2>Conclusions</h2>
+        <div style="font-size: 1.3em; line-height: 2;">
+            <p><span class="success">✅</span> Parameter variations are working correctly</p>
+            <p><span class="success">✅</span> Identical values are explained by DCEScore calculation</p>
+            <p><span class="success">✅</span> Some patients naturally have similar DCEFeatureSum values</p>
+            <p><span class="success">✅</span> When DCEFeatureSum is similar, DCEScore becomes identical</p>
+            <p><span class="success">✅</span> This leads to identical HRS features for those patients</p>
+            <p><span class="success">✅</span> ADC_Prostate_Mean correctly shows no variation (not parameter-dependent)</p>
+            <p><span class="success">✅</span> The system is functioning as designed</p>
+        </div>
+        
+        <div style="background-color: #d5f4e6; padding: 30px; border-left: 5px solid #27ae60; margin-top: 40px; text-align: center;">
+            <h2 style="color: #27ae60; margin: 0;">System Status: ✅ WORKING CORRECTLY</h2>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="slide-number">10</div>
+        <h2>Recommendations</h2>
+        <h3>For Future Analysis:</h3>
+        <ol style="font-size: 1.2em; line-height: 2;">
+            <li><strong>Document expected behavior:</strong> Some patients will have identical values</li>
+            <li><strong>Focus on patients showing variation</strong> to assess parameter sensitivity</li>
+            <li><strong>Consider DCEScore thresholds</strong> when designing experiments</li>
+            <li><strong>Validate parameter ranges</strong> to ensure meaningful variation</li>
+            <li><strong>Monitor ADC_Prostate_Mean separately</strong> (parameter-independent feature)</li>
+            <li><strong>Use statistical analysis</strong> to identify parameter-sensitive patient subgroups</li>
+        </ol>
+        
+        <div style="background-color: #e8f4fd; padding: 20px; border-left: 5px solid #3498db; margin-top: 30px;">
+            <h3>Key Takeaway</h3>
+            <p style="font-size: 1.2em; margin: 0;">The identical values are not a bug - they are a natural consequence of the DCEScore calculation algorithm when patients have similar DCEFeatureSum values.</p>
+        </div>
+    </div>
+
+    <script>
+        // Add slide navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                // Next slide logic could be added here
+            }
+        });
+    </script>
+</body>
+</html>

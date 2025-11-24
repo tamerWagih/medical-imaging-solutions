@@ -1,0 +1,37 @@
+Experiment,WashOutUpper,ADC PZ High,ADC PZ Medium,ADC PZ Low,Description
+EXP001,4,850,1050,1200,Default Parameters
+EXP002,2.5,850,1050,1200,WashOutUpper=2.5 and default PZ
+EXP003,3,850,1050,1200,WashOutUpper=3 and default PZ
+EXP004,3.5,850,1050,1200,WashOutUpper=3.5 and default PZ
+EXP005,4,900,1100,1250,Increase all PZ by 50
+EXP006,4,950,1150,1300,Increase all PZ by 100
+EXP007,2.5,900,1100,1250,WashOutUpper=2.5 and increase all PZ by 50
+EXP008,2.5,950,1150,1300,WashOutUpper=2.5 and increase all PZ by 100
+EXP009,3,900,1100,1250,WashOutUpper=3 and increase all PZ by 50
+EXP010,3,950,1150,1300,WashOutUpper=3 and increase all PZ by 100
+EXP011,3.5,900,1100,1250,WashOutUpper=3.5 and increase all PZ by 50
+EXP012,3.5,950,1150,1300,WashOutUpper=3.5 and increase all PZ by 100
+EXP013,2.0,850,1050,1200,WashOutUpper=2.0 and default PZ
+EXP014,2.25,850,1050,1200,WashOutUpper=2.25 and default PZ
+EXP015,2.75,850,1050,1200,WashOutUpper=2.75 and default PZ
+EXP016,3.25,850,1050,1200,WashOutUpper=3.25 and default PZ
+EXP017,3.75,850,1050,1200,WashOutUpper=3.75 and default PZ
+EXP018,4.25,850,1050,1200,WashOutUpper=4.25 and default PZ
+EXP019,4.5,850,1050,1200,WashOutUpper=4.5 and default PZ
+EXP020,4,800,1000,1150,Decrease all PZ by 50
+EXP021,4,875,1075,1225,Increase all PZ by 25
+EXP022,4,925,1125,1275,Increase all PZ by 75
+EXP023,4,975,1175,1325,Increase all PZ by 125
+EXP024,4,1000,1200,1350,Increase all PZ by 150
+EXP025,2.5,800,1000,1150,WashOutUpper=2.5 and ADC PZ 800/1000/1150
+EXP026,3,800,1000,1150,WashOutUpper=3 and ADC PZ 800/1000/1150
+EXP027,3.5,800,1000,1150,WashOutUpper=3.5 and ADC PZ 800/1000/1150
+EXP028,2.5,1000,1200,1350,WashOutUpper=2.5 and ADC PZ 1000/1200/1350
+EXP029,3,1000,1200,1350,WashOutUpper=3 and ADC PZ 1000/1200/1350
+EXP030,3.5,1000,1200,1350,WashOutUpper=3.5 and ADC PZ 1000/1200/1350
+EXP031,2.5,750,950,1100,WashOutUpper=2.5 and ADC PZ 750/950/1100
+EXP032,3,750,950,1100,WashOutUpper=3 and ADC PZ 750/950/1100
+EXP033,3.5,750,950,1100,WashOutUpper=3.5 and ADC PZ 750/950/1100
+EXP034,2.5,950,1150,1300,WashOutUpper=2.5 and ADC PZ 950/1150/1300
+EXP035,3,950,1150,1300,WashOutUpper=3 and ADC PZ 950/1150/1300
+EXP036,3.5,950,1150,1300,WashOutUpper=3.5 and ADC PZ 950/1150/1300

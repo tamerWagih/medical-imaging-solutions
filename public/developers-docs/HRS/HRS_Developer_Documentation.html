@@ -1,0 +1,1911 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>HRS_Developer_Documentation.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="habitat-risk-scoring-hrs---developer-documentation">Habitat Risk Scoring (HRS) - Developer Documentation</h1>
+<p><strong>Version 2.0 - Developer Edition</strong><br>
+<strong>Document Date: November 2025</strong><br>
+<strong>Advanced Prostate MRI Analysis System - Technical Reference</strong></p>
+<hr>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li>
+<p><a href="#1-architecture-overview">Architecture Overview</a></p>
+<ul>
+<li>1.1 <a href="#11-system-architecture">System Architecture</a></li>
+<li>1.2 <a href="#12-technology-stack">Technology Stack</a></li>
+<li>1.3 <a href="#13-component-overview">Component Overview</a></li>
+<li>1.4 <a href="#14-data-flow">Data Flow</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#2-hrsparams-c-project">HRSParams C++ Project</a></p>
+<ul>
+<li>2.1 <a href="#21-project-structure">Project Structure</a></li>
+<li>2.2 <a href="#22-core-classes">Core Classes</a></li>
+<li>2.3 <a href="#23-module-drivers">Module Drivers</a></li>
+<li>2.4 <a href="#24-parameter-management">Parameter Management</a></li>
+<li>2.5 <a href="#25-process-management">Process Management</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#3-hrs2-java-project">HRS2 Java Project</a></p>
+<ul>
+<li>3.1 <a href="#31-project-structure">Project Structure</a></li>
+<li>3.2 <a href="#32-core-classes">Core Classes</a></li>
+<li>3.3 <a href="#33-nmf-processing">NMF Processing</a></li>
+<li>3.4 <a href="#34-image-and-mask-handling">Image and Mask Handling</a></li>
+<li>3.5 <a href="#35-matrix-operations">Matrix Operations</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#4-integration-and-communication">Integration and Communication</a></p>
+<ul>
+<li>4.1 <a href="#41-c-to-java-communication">C++ to Java Communication</a></li>
+<li>4.2 <a href="#42-data-format-standards">Data Format Standards</a></li>
+<li>4.3 <a href="#43-parameter-passing">Parameter Passing</a></li>
+<li>4.4 <a href="#44-error-handling">Error Handling</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#5-pipeline-execution-flow">Pipeline Execution Flow</a></p>
+<ul>
+<li>5.1 <a href="#51-step-1-preprocessing">Step 1: Preprocessing</a></li>
+<li>5.2 <a href="#52-step-2-normalization-and-registration">Step 2: Normalization and Registration</a></li>
+<li>5.3 <a href="#53-step-3-java-processing">Step 3: Java Processing</a></li>
+<li>5.4 <a href="#54-step-4-export-and-visualization">Step 4: Export and Visualization</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#6-build-system-and-deployment">Build System and Deployment</a></p>
+<ul>
+<li>6.1 <a href="#61-c-build-configuration">C++ Build Configuration</a></li>
+<li>6.2 <a href="#62-java-build-configuration">Java Build Configuration</a></li>
+<li>6.3 <a href="#63-dependencies">Dependencies</a></li>
+<li>6.4 <a href="#64-deployment-process">Deployment Process</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#7-extension-points">Extension Points</a></p>
+<ul>
+<li>7.1 <a href="#71-adding-new-parameters">Adding New Parameters</a></li>
+<li>7.2 <a href="#72-custom-processing-steps">Custom Processing Steps</a></li>
+<li>7.3 <a href="#73-report-generation">Report Generation</a></li>
+<li>7.4 <a href="#74-algorithm-modifications">Algorithm Modifications</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#8-code-reference">Code Reference</a></p>
+<ul>
+<li>8.1 <a href="#81-key-methods-and-functions">Key Methods and Functions</a></li>
+<li>8.2 <a href="#82-data-structures">Data Structures</a></li>
+<li>8.3 <a href="#83-constants-and-configuration">Constants and Configuration</a></li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="1-architecture-overview">1. Architecture Overview</h2>
+<h3 id="11-system-architecture">1.1 System Architecture</h3>
+<p>The HRS system is a hybrid C++/Java application designed for multi-parametric prostate MRI analysis. The architecture follows a modular pipeline pattern with clear separation between:</p>
+<ul>
+<li><strong>User Interface Layer (C++/Qt)</strong>: <code>HRSParams</code> - GUI application for parameter configuration and process management</li>
+<li><strong>Processing Layer (C++)</strong>: <code>HRSPipelineDriver</code> - Orchestrates preprocessing, normalization, and export</li>
+<li><strong>Analysis Layer (Java)</strong>: <code>HRS2</code> - Performs core NMF analysis and habitat risk scoring</li>
+<li><strong>Report Generation (C++)</strong>: <code>HRSReportsDriver</code> - Generates clinical reports and visualizations</li>
+</ul>
+<pre class="hljs"><code><div>┌─────────────────────────────────────────────────────────────┐
+│                    HRSParams (C++/Qt GUI)                   │
+│  - Parameter Configuration                                  │
+│  - Case Management                                          │
+│  - Process Orchestration                                     │
+│  - Progress Monitoring                                      │
+└────────────────────┬────────────────────────────────────────┘
+                      │
+                      │ JSON Parameters
+                      │
+         ┌────────────┴────────────┐
+         │                          │
+┌────────▼────────┐      ┌─────────▼──────────┐
+│ HRSPipelineDriver│      │ HRSReportsDriver   │
+│   (C++ Module)   │      │   (C++ Module)     │
+│                  │      │                    │
+│ Step 1: Preproc  │      │ Report Generation │
+│ Step 2: Norm/Reg │      │ Statistics Export  │
+│ Step 3: Java    │      │ Visualization      │
+│ Step 4: Export   │      │                    │
+└────────┬─────────┘      └────────────────────┘
+         │
+         │ MHA Files + JSON
+         │
+┌────────▼─────────┐
+│   HRS2 (Java)    │
+│                  │
+│ - NMF Analysis   │
+│ - DCE Processing │
+│ - ADC Processing │
+│ - T2 Processing  │
+│ - HRS Scoring    │
+└────────┬─────────┘
+         │
+         │ MHA Masks
+         │
+┌────────▼─────────┐
+│  Output Files    │
+│  - MHA Masks     │
+│  - Grid Images   │
+│  - Reports       │
+└──────────────────┘
+</div></code></pre>
+<h3 id="12-technology-stack">1.2 Technology Stack</h3>
+<p><strong>C++ Components:</strong></p>
+<ul>
+<li><strong>Framework</strong>: Qt 6.x (GUI, Process Management, JSON)</li>
+<li><strong>Image Processing</strong>: ITK (Insight Toolkit) for medical image processing</li>
+<li><strong>Build System</strong>: Visual Studio 2022+ (Windows), CMake (cross-platform)</li>
+<li><strong>Libraries</strong>:
+<ul>
+<li>SimpleITK for image I/O</li>
+<li>QCustomPlot for graph generation</li>
+<li>XLSX for Excel report generation</li>
+<li>Boost for mathematical operations</li>
+</ul>
+</li>
+</ul>
+<p><strong>Java Components:</strong></p>
+<ul>
+<li><strong>JDK</strong>: Java 21</li>
+<li><strong>Image Processing</strong>: SimpleITK Java bindings</li>
+<li><strong>NMF Library</strong>: Custom implementation (pnet package)</li>
+<li><strong>Dependencies</strong>:
+<ul>
+<li>Apache Commons Math 3.5 (statistics)</li>
+<li>WEKA (NNLS solver)</li>
+<li>JSON (20230618) for parameter parsing</li>
+</ul>
+</li>
+</ul>
+<p><strong>Data Formats:</strong></p>
+<ul>
+<li><strong>MHA (MetaImage)</strong>: Primary 3D volume format</li>
+<li><strong>DICOM</strong>: Input medical imaging format</li>
+<li><strong>JSON</strong>: Parameter configuration and metadata</li>
+<li><strong>CSV</strong>: Intermediate data exchange</li>
+</ul>
+<h3 id="13-component-overview">1.3 Component Overview</h3>
+<h4 id="hrsparams-c-gui-application">HRSParams (C++ GUI Application)</h4>
+<ul>
+<li><strong>Purpose</strong>: Main user interface for HRS analysis</li>
+<li><strong>Key Responsibilities</strong>:
+<ul>
+<li>Parameter configuration and validation</li>
+<li>Case selection and management</li>
+<li>Process spawning and monitoring</li>
+<li>Progress tracking and logging</li>
+<li>JSON parameter file management</li>
+</ul>
+</li>
+</ul>
+<h4 id="hrspipelinedriver-c-processing-module">HRSPipelineDriver (C++ Processing Module)</h4>
+<ul>
+<li><strong>Purpose</strong>: Orchestrates the 4-step HRS pipeline</li>
+<li><strong>Key Responsibilities</strong>:
+<ul>
+<li>DICOM preprocessing and validation</li>
+<li>Image normalization and registration</li>
+<li>Java process invocation</li>
+<li>Output export and visualization</li>
+</ul>
+</li>
+</ul>
+<h4 id="hrs2-java-analysis-engine">HRS2 (Java Analysis Engine)</h4>
+<ul>
+<li><strong>Purpose</strong>: Core analysis engine for habitat risk scoring</li>
+<li><strong>Key Responsibilities</strong>:
+<ul>
+<li>Non-negative Matrix Factorization (NMF) for DCE analysis</li>
+<li>ADC and T2 threshold-based processing</li>
+<li>Alpha-weighted integration</li>
+<li>Habitat mask generation</li>
+</ul>
+</li>
+</ul>
+<h4 id="hrsreportsdriver-c-report-generator">HRSReportsDriver (C++ Report Generator)</h4>
+<ul>
+<li><strong>Purpose</strong>: Generates clinical reports and statistics</li>
+<li><strong>Key Responsibilities</strong>:
+<ul>
+<li>Statistical analysis and metrics calculation</li>
+<li>Grid image generation</li>
+<li>PowerPoint report creation</li>
+<li>Excel statistics export</li>
+</ul>
+</li>
+</ul>
+<h3 id="14-data-flow">1.4 Data Flow</h3>
+<p><strong>Input Data Flow:</strong></p>
+<ol>
+<li>User selects data folder containing ZIP files</li>
+<li>HRSParams extracts and validates case structure</li>
+<li>HRSPipelineDriver processes DICOM files</li>
+<li>Images converted to MHA format for Java processing</li>
+</ol>
+<p><strong>Processing Flow:</strong></p>
+<ol>
+<li><strong>Preprocessing</strong>: DICOM → MHA conversion, protocol identification</li>
+<li><strong>Normalization</strong>: T2 normalization, DCE muscle reference</li>
+<li><strong>Registration</strong>: Spatial alignment using Elastix</li>
+<li><strong>Java Processing</strong>: NMF analysis, mask generation</li>
+<li><strong>Export</strong>: MHA masks → Grid images, reports</li>
+</ol>
+<p><strong>Output Data Flow:</strong></p>
+<ol>
+<li>Java generates MHA mask files</li>
+<li>C++ reads masks for visualization</li>
+<li>Grid images and reports generated</li>
+<li>Statistics exported to Excel/JSON</li>
+</ol>
+<hr>
+<h2 id="2-hrsparams-c-project">2. HRSParams C++ Project</h2>
+<h3 id="21-project-structure">2.1 Project Structure</h3>
+<pre class="hljs"><code><div>HRSParams/
+├── HRSParams/                    # Main GUI application
+│   ├── HRSParams.h              # Main window class header
+│   ├── HRSParams.cpp            # Main window implementation
+│   ├── HRSParams.ui             # Qt Designer UI file
+│   ├── HRSParams.qrc            # Resource file
+│   ├── main.cpp                 # Application entry point
+│   ├── ListItemWithProgressBar.h # Custom list widget item
+│   └── csDarkStyle.h            # UI styling
+│
+├── ModuleDrivers/               # Processing modules
+│   ├── HRSPipelineDriver.h      # Pipeline driver header
+│   ├── HRSPipelineDriver.cpp    # Pipeline driver implementation
+│   ├── HRSPipelineDriver_Step1.cpp  # Step 1: Preprocessing
+│   ├── HRSPipelineDriver_Step2.cpp   # Step 2: Normalization
+│   ├── HRSPipelineDriver_Step3.cpp   # Step 3: Java invocation
+│   ├── HRSPipelineDriver_Step4.cpp   # Step 4: Export
+│   ├── HRSReportsDriver.h       # Reports driver header
+│   ├── HRSReportsDriver.cpp      # Reports driver implementation
+│   └── Utilities.h              # Utility functions
+│
+├── HRSPipelineWriter/           # Standalone pipeline executable
+│   └── main.cpp                 # Pipeline entry point
+│
+├── HRSReportsWriter/            # Standalone reports executable
+│   └── main.cpp                 # Reports entry point
+│
+└── UnitTests/                   # Unit test suite
+    └── ModuleDriversTests.cpp
+</div></code></pre>
+<h3 id="22-core-classes">2.2 Core Classes</h3>
+<h4 id="hrsparams-class">HRSParams Class</h4>
+<p><strong>Location</strong>: <code>HRSParams/HRSParams.h</code>, <code>HRSParams/HRSParams.cpp</code></p>
+<p><strong>Purpose</strong>: Main application window managing user interface, parameter configuration, and process orchestration.</p>
+<p><strong>Key Member Variables:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Parameter storage</span>
+Qt::CheckState m_useDCE, m_useADC, m_useT2;
+QString m_numberOfCurves, m_contribution, m_wPercentile;
+QString m_highPZADC, m_mediumPZADC, m_lowPZADC;
+<span class="hljs-comment">// ... (see header for complete list)</span>
+
+<span class="hljs-comment">// Process management</span>
+QMap&lt;QString, QProcess*&gt; m_caseProcesses;
+QStringList m_caseQueue;
+<span class="hljs-keyword">int</span> m_maxConcurrentProcesses;
+<span class="hljs-keyword">int</span> m_runningProcesses;
+
+<span class="hljs-comment">// Case management</span>
+QMap&lt;QString, CaseStatus&gt; m_caseStatus;
+QMap&lt;QString, QTextEdit*&gt; m_caseTextEdits;
+QMap&lt;QString, QFile*&gt; m_logFiles;
+</div></code></pre>
+<p><strong>Key Methods:</strong></p>
+<p><strong>Parameter Management:</strong></p>
+<ul>
+<li><code>setHRSParamsValues()</code>: Updates UI from member variables</li>
+<li><code>saveHRSParamsToJson()</code>: Serializes parameters to JSON</li>
+<li><code>loadHRSParamsFromJson()</code>: Loads parameters from JSON</li>
+<li><code>validateHRSParams()</code>: Validates parameter consistency</li>
+<li><code>setDefaultsParams()</code>: Initializes default values</li>
+</ul>
+<p><strong>Process Management:</strong></p>
+<ul>
+<li><code>startHRSPipelineProcesses()</code>: Starts processing for selected cases</li>
+<li><code>startProcessForCase()</code>: Spawns individual case process</li>
+<li><code>processFinished_slt()</code>: Handles process completion</li>
+<li><code>readProcessOutput_slt()</code>: Parses process stdout</li>
+<li><code>readProcessError_slt()</code>: Parses process stderr</li>
+<li><code>killHRSPipelineProcesses()</code>: Terminates all processes</li>
+</ul>
+<p><strong>Case Management:</strong></p>
+<ul>
+<li><code>loadData()</code>: Scans and loads case data</li>
+<li><code>scanProcessedCasesForPipeline()</code>: Identifies processed cases</li>
+<li><code>validateCaseHRSParams()</code>: Validates case-specific parameters</li>
+<li><code>updateListWidgetItemColor()</code>: Updates UI status indicators</li>
+</ul>
+<p><strong>Key Implementation Details:</strong></p>
+<ol>
+<li>
+<p><strong>Concurrent Processing</strong>: Uses <code>QProcess</code> with a queue system to manage multiple concurrent case processing. The <code>m_maxConcurrentProcesses</code> is calculated based on system RAM and storage type (SSD vs HDD).</p>
+</li>
+<li>
+<p><strong>Message Parsing</strong>: Processes output from child processes using a custom logger format:</p>
+<pre class="hljs"><code><div>[HH:MM:SS.mmm] [Type] {PatientID} Message
+</div></code></pre>
+</li>
+<li>
+<p><strong>Parameter Validation</strong>: Real-time validation of:</p>
+<ul>
+<li>Alpha weights must sum to 1.0 per zone</li>
+<li>Numeric ranges for thresholds</li>
+<li>Required protocol availability</li>
+</ul>
+</li>
+<li>
+<p><strong>State Management</strong>: Maintains original UI state for restoration after processing completes.</p>
+</li>
+</ol>
+<h4 id="hrspipelinedriver-class">HRSPipelineDriver Class</h4>
+<p><strong>Location</strong>: <code>ModuleDrivers/HRSPipelineDriver.h</code>, <code>ModuleDrivers/HRSPipelineDriver.cpp</code></p>
+<p><strong>Purpose</strong>: Orchestrates the complete HRS processing pipeline for one or more patients.</p>
+<p><strong>Key Member Variables:</strong></p>
+<pre class="hljs"><code><div>QStringList m_patientsID;
+QString m_jsonFilePath;
+QString m_dataPath, m_outputPath;
+<span class="hljs-keyword">bool</span> m_useDCE, m_useADC, m_useT2;
+<span class="hljs-keyword">bool</span> m_useRegistration, m_checkRegistrationNeed;
+QSystemSemaphore* m_javaSemaphore;  <span class="hljs-comment">// Synchronization for Java processes</span>
+QSystemSemaphore* m_normSemaphore;   <span class="hljs-comment">// Synchronization for normalization</span>
+</div></code></pre>
+<p><strong>Key Methods:</strong></p>
+<p><strong>Pipeline Orchestration:</strong></p>
+<ul>
+<li><code>processPatientPipeline()</code>: Main entry point for desktop pipeline</li>
+<li><code>processCloudPipeline()</code>: Cloud-specific pipeline variant</li>
+<li><code>processSinglePatientDesktop()</code>: Processes single patient</li>
+<li><code>executeStep1_Preprocessing()</code>: Step 1 execution</li>
+<li><code>executeStep2_NormalizationAndRegistration()</code>: Step 2 execution</li>
+<li><code>executeStep3_JavaProcessing()</code>: Step 3 execution</li>
+<li><code>executeStep4_Export()</code>: Step 4 execution</li>
+</ul>
+<p><strong>Step 1 - Preprocessing:</strong></p>
+<ul>
+<li><code>preprocessPatientFiles()</code>: Main preprocessing function</li>
+<li><code>getCasesNamesFromPatient()</code>: Extracts case names from patient folder</li>
+<li><code>processStudyDirs()</code>: Processes study directories</li>
+<li><code>standardizeStudiesAndProtocolsNames()</code>: Normalizes naming</li>
+<li><code>splitDCEDir()</code>: Splits DCE series into timepoints</li>
+<li><code>validateDicomFilesLength()</code>: Validates DICOM file integrity</li>
+</ul>
+<p><strong>Step 2 - Normalization and Registration:</strong></p>
+<ul>
+<li><code>normalizeStudyT2Series()</code>: Normalizes T2 images</li>
+<li><code>registerStudySeries()</code>: Registers images to template</li>
+<li><code>checkRegistrationNeed()</code>: Determines if registration is needed</li>
+<li><code>registerImageToTemplate()</code>: Performs image registration</li>
+<li><code>zAlignImageToTemplate()</code>: Z-axis alignment</li>
+<li><code>alignImageToTemplate()</code>: Full 3D alignment</li>
+</ul>
+<p><strong>Step 3 - Java Processing:</strong></p>
+<ul>
+<li><code>callJavaCode()</code>: Invokes Java HRS2 application
+<ul>
+<li>Constructs command: <code>java -jar HRS2.jar &lt;casePath&gt; &lt;jsonPath&gt;</code></li>
+<li>Uses semaphore for concurrent Java process limiting</li>
+<li>Monitors process output for errors</li>
+</ul>
+</li>
+</ul>
+<p><strong>Step 4 - Export:</strong></p>
+<ul>
+<li><code>exportStudyOutput()</code>: Main export function</li>
+<li><code>exportHRSMasksAndLabelImages()</code>: Exports MHA masks</li>
+<li><code>ExportHRSQuadrantsGrid()</code>: Generates grid visualizations</li>
+<li><code>exportHRSMetricsTable()</code>: Exports statistics tables</li>
+<li><code>exportQuadrantsGridPPT()</code>: Creates PowerPoint presentations</li>
+</ul>
+<p><strong>Key Implementation Details:</strong></p>
+<ol>
+<li>
+<p><strong>Error Handling</strong>: Comprehensive exception handling with detailed logging. Errors are propagated with patient ID context.</p>
+</li>
+<li>
+<p><strong>Synchronization</strong>: Uses <code>QSystemSemaphore</code> to limit concurrent:</p>
+<ul>
+<li>Java processes (prevents memory exhaustion)</li>
+<li>Normalization processes (prevents GPU conflicts)</li>
+</ul>
+</li>
+<li>
+<p><strong>Registration Strategy</strong>:</p>
+<ul>
+<li>Checks if registration is needed by comparing spatial properties</li>
+<li>Uses Elastix for 2D/3D registration</li>
+<li>Falls back to simple alignment if registration fails</li>
+</ul>
+</li>
+<li>
+<p><strong>Protocol Detection</strong>: Intelligent DICOM tag reading to identify ADC, DCE, T2, and RT protocols even with non-standard naming.</p>
+</li>
+</ol>
+<h4 id="hrsreportsdriver-class">HRSReportsDriver Class</h4>
+<p><strong>Location</strong>: <code>ModuleDrivers/HRSReportsDriver.h</code>, <code>ModuleDrivers/HRSReportsDriver.cpp</code></p>
+<p><strong>Purpose</strong>: Generates comprehensive clinical reports from processed HRS data.</p>
+<p><strong>Key Data Structures:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">MaskStats</span> {</span>
+    QVector&lt;<span class="hljs-keyword">double</span>&gt; maskAccuracy;
+    QVector&lt;QVector&lt;<span class="hljs-keyword">double</span>&gt;&gt; slicesAccuracy;
+    QVector&lt;<span class="hljs-keyword">double</span>&gt; maskPrecision;
+    QVector&lt;QVector&lt;<span class="hljs-keyword">double</span>&gt;&gt; slicesPrecision;
+    QVector&lt;<span class="hljs-keyword">double</span>&gt; maskSensitivity;
+    <span class="hljs-comment">// ...</span>
+};
+
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">CaseStats</span> {</span>
+    QString caseName;
+    QVector&lt;<span class="hljs-keyword">double</span>&gt; adcMasksAccuracy;
+    QVector&lt;<span class="hljs-keyword">double</span>&gt; dceMasksAccuracy;
+    QVector&lt;<span class="hljs-keyword">double</span>&gt; hrsMasksAccuracy;
+    <span class="hljs-comment">// ...</span>
+};
+</div></code></pre>
+<p><strong>Key Methods:</strong></p>
+<p><strong>Report Generation:</strong></p>
+<ul>
+<li><code>exportStudyReports()</code>: Main report generation entry point</li>
+<li><code>exportHRSQuadrantMetricsTables()</code>: Quadrant-based statistics</li>
+<li><code>exportHRSMetricsTables()</code>: Overall metrics tables</li>
+<li><code>exportPatientStats()</code>: Patient-level statistics</li>
+<li><code>exportCasesLesionsReports()</code>: Lesion comparison reports</li>
+<li><code>exportCasesOutputVsBaselineReports()</code>: Baseline comparison</li>
+<li><code>exportHRS2Reports()</code>: HRS2-specific reports</li>
+<li><code>generateHRSVolumeReport()</code>: Volume analysis reports</li>
+</ul>
+<p><strong>Statistical Analysis:</strong></p>
+<ul>
+<li><code>calculateMasksStats()</code>: Computes accuracy, precision, sensitivity</li>
+<li><code>calculateOverallAUCs()</code>: Area Under Curve calculations</li>
+<li><code>calculatePearsonCorrelation()</code>: Correlation analysis</li>
+<li><code>evaluateMasks()</code>: Mask evaluation metrics</li>
+</ul>
+<p><strong>Visualization:</strong></p>
+<ul>
+<li><code>createQuadrantsGridsReport()</code>: Grid image generation</li>
+<li><code>overlayLabelOnImage()</code>: Label overlay on images</li>
+<li><code>exportPPTReport()</code>: PowerPoint report creation</li>
+</ul>
+<p><strong>Key Implementation Details:</strong></p>
+<ol>
+<li>
+<p><strong>Statistical Methods</strong>: Uses boost::math for Student's t-test and other statistical operations.</p>
+</li>
+<li>
+<p><strong>Excel Integration</strong>: Uses QXlsx library for Excel file generation with proper formatting.</p>
+</li>
+<li>
+<p><strong>Image Processing</strong>: Leverages ITK and Qt for image manipulation and overlay generation.</p>
+</li>
+<li>
+<p><strong>Report Types</strong>: Supports multiple report types:</p>
+<ul>
+<li>Metrics reports (sensitivity, specificity, PPV, NPV, AUC)</li>
+<li>Grid reports (quadrant visualizations)</li>
+<li>Patient stats (correlation analysis)</li>
+<li>Lesion reports (comparison with ground truth)</li>
+<li>Volume reports (habitat volume analysis)</li>
+</ul>
+</li>
+</ol>
+<h3 id="23-module-drivers">2.3 Module Drivers</h3>
+<p>The module driver architecture separates concerns into distinct executable modules:</p>
+<p><strong>HRSPipelineWriter</strong> (<code>HRSPipelineWriter/main.cpp</code>):</p>
+<ul>
+<li>Standalone executable for pipeline processing</li>
+<li>Command-line interface: <code>HRSPipelineWriter.exe &lt;jsonPath&gt; &lt;patientID&gt;</code></li>
+<li>Used by HRSParams to spawn individual case processes</li>
+</ul>
+<p><strong>HRSReportsWriter</strong> (<code>HRSReportsWriter/main.cpp</code>):</p>
+<ul>
+<li>Standalone executable for report generation</li>
+<li>Command-line interface: <code>HRSReportsWriter.exe &lt;jsonPath&gt;</code></li>
+<li>Processes all cases specified in JSON configuration</li>
+</ul>
+<h3 id="24-parameter-management">2.4 Parameter Management</h3>
+<p><strong>JSON Structure:</strong>
+The parameter JSON file contains all HRS configuration:</p>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"DataPath"</span>: <span class="hljs-string">"C:/Data"</span>,
+  <span class="hljs-attr">"OutputPath"</span>: <span class="hljs-string">"C:/Output"</span>,
+  <span class="hljs-attr">"useDCE"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"useADC"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"useT2"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"curvesNumber"</span>: <span class="hljs-number">3</span>,
+  <span class="hljs-attr">"thresholdPercentage"</span>: <span class="hljs-number">0.6</span>,
+  <span class="hljs-attr">"zeroShiftPoints"</span>: <span class="hljs-number">2</span>,
+  <span class="hljs-attr">"dWwpTZTxt"</span>: <span class="hljs-number">90.0</span>,
+  <span class="hljs-attr">"WPercentile"</span>: <span class="hljs-number">95.0</span>,
+  <span class="hljs-attr">"NthPercentileSource"</span>: <span class="hljs-string">"ROI"</span>,
+  <span class="hljs-attr">"WashoutLower"</span>: <span class="hljs-number">0.5</span>,
+  <span class="hljs-attr">"WashoutUpper"</span>: <span class="hljs-number">4.0</span>,
+  <span class="hljs-attr">"nPZAlphaDCE"</span>: <span class="hljs-number">0.50</span>,
+  <span class="hljs-attr">"nPZAlphaADC"</span>: <span class="hljs-number">0.25</span>,
+  <span class="hljs-attr">"nPZAlphaT2"</span>: <span class="hljs-number">0.25</span>,
+  <span class="hljs-attr">"nTZAlphaDCE"</span>: <span class="hljs-number">0.20</span>,
+  <span class="hljs-attr">"nTZAlphaADC"</span>: <span class="hljs-number">0.40</span>,
+  <span class="hljs-attr">"nTZAlphaT2"</span>: <span class="hljs-number">0.40</span>,
+  <span class="hljs-attr">"nADCHighPz"</span>: <span class="hljs-number">850</span>,
+  <span class="hljs-attr">"nADCMedPz"</span>: <span class="hljs-number">1050</span>,
+  <span class="hljs-attr">"nADCLowPz"</span>: <span class="hljs-number">1200</span>,
+  <span class="hljs-attr">"nADCHighTz"</span>: <span class="hljs-number">600</span>,
+  <span class="hljs-attr">"nADCMedTz"</span>: <span class="hljs-number">750</span>,
+  <span class="hljs-attr">"nADCLowTz"</span>: <span class="hljs-number">850</span>,
+  <span class="hljs-attr">"noiseADC"</span>: <span class="hljs-number">400</span>,
+  <span class="hljs-attr">"ceilingADC"</span>: <span class="hljs-number">1600</span>,
+  <span class="hljs-attr">"volumeCleanThreshold"</span>: <span class="hljs-number">0.01</span>,
+  <span class="hljs-attr">"useRegistration"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"checkRegistrationNeed"</span>: <span class="hljs-literal">true</span>
+}
+</div></code></pre>
+<p><strong>Parameter Validation:</strong></p>
+<ul>
+<li>Alpha weights must sum to 1.0 within each zone (PZ and TZ)</li>
+<li>Threshold values must be in valid ranges</li>
+<li>Required protocols must be present for selected modalities</li>
+</ul>
+<h3 id="25-process-management">2.5 Process Management</h3>
+<p><strong>Concurrent Processing Strategy:</strong></p>
+<ol>
+<li>
+<p>Calculate <code>m_maxConcurrentProcesses</code> based on:</p>
+<ul>
+<li>System RAM (1 case per 8GB RAM)</li>
+<li>Storage type (SSD allows more concurrent processes)</li>
+<li>Maximum of 4 concurrent processes</li>
+</ul>
+</li>
+<li>
+<p>Queue Management:</p>
+<ul>
+<li>Cases added to <code>m_caseQueue</code> when &quot;Run&quot; is clicked</li>
+<li>Processes started sequentially up to <code>m_maxConcurrentProcesses</code></li>
+<li>When a process finishes, next case from queue is started</li>
+</ul>
+</li>
+<li>
+<p>Process Communication:</p>
+<ul>
+<li>Uses <code>QProcess</code> for subprocess management</li>
+<li>Captures stdout/stderr for logging</li>
+<li>Parses logger-formatted messages for UI updates</li>
+</ul>
+</li>
+</ol>
+<p><strong>Error Handling:</strong></p>
+<ul>
+<li>Process failures are tracked per case</li>
+<li>Error cases are marked in UI with red color</li>
+<li>Log files are saved to case output directories</li>
+<li>Process tree is killed on cancellation</li>
+</ul>
+<hr>
+<h2 id="3-hrs2-java-project">3. HRS2 Java Project</h2>
+<h3 id="31-project-structure">3.1 Project Structure</h3>
+<pre class="hljs"><code><div>HRS2/
+├── src/
+│   ├── launcher/
+│   │   └── Launcher.java          # Main entry point
+│   │
+│   ├── UM/                        # Image and Mask utilities
+│   │   ├── UMImage.java          # 3D/4D image wrapper
+│   │   ├── UMMask.java           # Mask representation
+│   │   ├── UMMaskImage.java      # Mask image operations
+│   │   ├── UMMaskOperations.java # Mask set operations
+│   │   └── UMPointI.java         # 3D point representation
+│   │
+│   ├── pnet/                     # NMF implementation
+│   │   ├── NMF.java              # Abstract NMF base class
+│   │   ├── NMFCostKL.java        # KL divergence NMF
+│   │   ├── Matrix.java           # 2D matrix operations
+│   │   ├── Matrix3D.java        # 3D matrix operations
+│   │   └── MatrixUtilities.java  # Matrix utility functions
+│   │
+│   ├── nmf/                      # NMF computation
+│   │   ├── NMFMatrixesComputation.java  # Main NMF computation
+│   │   ├── NMFHelper.java        # NMF helper functions
+│   │   ├── Statistics.java       # Statistical operations
+│   │   └── GraphingData.java    # Graph visualization
+│   │
+│   ├── MHA/                      # MHA file I/O
+│   │   └── MHAHandler.java       # MHA read/write operations
+│   │
+│   ├── csv/                      # CSV utilities
+│   │   └── CSVHandler.java       # CSV read/write
+│   │
+│   └── weka/                     # WEKA integration
+│       └── classifiers/functions/NNLS.java  # Non-negative least squares
+│
+└── lib/                          # External dependencies
+    ├── simpleitk-2.3.1.jar
+    ├── commons-math3-3.5.jar
+    ├── weka.jar
+    └── json-20230618.jar
+</div></code></pre>
+<h3 id="32-core-classes">3.2 Core Classes</h3>
+<h4 id="launcher-class">Launcher Class</h4>
+<p><strong>Location</strong>: <code>src/launcher/Launcher.java</code></p>
+<p><strong>Purpose</strong>: Main entry point for HRS2 Java processing. Orchestrates the complete analysis workflow.</p>
+<p><strong>Key Static Variables:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Parameters (loaded from JSON)</span>
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">boolean</span> useDCE, useADC, useT2;
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> curvesNumber;
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">float</span> thresholdPercentage;
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">float</span> nPZAlphaDCE, nPZAlphaADC, nPZAlphaT2;
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">float</span> nTZAlphaDCE, nTZAlphaADC, nTZAlphaT2;
+<span class="hljs-comment">// ... (see source for complete list)</span>
+
+<span class="hljs-comment">// Processing state</span>
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Matrix nmfPositions;      <span class="hljs-comment">// NMF voxel positions</span>
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Matrix hrsDCE;             <span class="hljs-comment">// DCE risk scores</span>
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Matrix hrsADC;             <span class="hljs-comment">// ADC risk scores</span>
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Matrix hrsT2;              <span class="hljs-comment">// T2 risk scores</span>
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">float</span> DCEScore;           <span class="hljs-comment">// Overall DCE score</span>
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">float</span> DCEFeatureSum;       <span class="hljs-comment">// DCE feature sum</span>
+</div></code></pre>
+<p><strong>Key Methods:</strong></p>
+<p><strong>Main Workflow:</strong></p>
+<ul>
+<li><code>main(String[] args)</code>: Entry point, parses arguments and processes cases</li>
+<li><code>runSession()</code>: Main processing session for a case</li>
+<li><code>readArguments(String[] args)</code>: Parses command-line arguments</li>
+<li><code>getUserParams(String[] args)</code>: Loads parameters from JSON file</li>
+</ul>
+<p><strong>DCE Processing:</strong></p>
+<ul>
+<li><code>createDCEMasks()</code>: Generates DCE-based habitat masks
+<ul>
+<li>Calls NMF computation</li>
+<li>Calculates well-perfused regions</li>
+<li>Computes DCE score and HRS values</li>
+<li>Creates 10 DCE masks (DCE 1-10)</li>
+</ul>
+</li>
+</ul>
+<p><strong>ADC Processing:</strong></p>
+<ul>
+<li><code>createADCMasks()</code>: Generates ADC-based habitat masks
+<ul>
+<li>Zone-specific threshold application (PZ vs TZ)</li>
+<li>Linear interpolation for risk scoring</li>
+<li>Creates 10 ADC masks (ADC 1-10)</li>
+</ul>
+</li>
+</ul>
+<p><strong>T2 Processing:</strong></p>
+<ul>
+<li><code>createT2Masks()</code>: Generates T2-based habitat masks
+<ul>
+<li>Similar to ADC processing</li>
+<li>Zone-specific thresholds</li>
+<li>Creates 10 T2 masks (T2 1-10)</li>
+</ul>
+</li>
+</ul>
+<p><strong>Integration:</strong></p>
+<ul>
+<li><code>approximateADC()</code>: Maps ADC mask values to NMF positions</li>
+<li><code>approximateT2()</code>: Maps T2 mask values to NMF positions</li>
+<li>Alpha-weighted combination of DCE, ADC, T2 scores</li>
+</ul>
+<p><strong>Key Implementation Details:</strong></p>
+<ol>
+<li>
+<p><strong>Argument Parsing</strong>:</p>
+<ul>
+<li>Arg 0: Comma-separated case directory paths</li>
+<li>Arg 1: JSON parameter file path</li>
+<li>Validates paths and file existence</li>
+</ul>
+</li>
+<li>
+<p><strong>Error Handling</strong>:</p>
+<ul>
+<li>Comprehensive try-catch blocks</li>
+<li>Logs errors with patient ID context</li>
+<li>Continues processing remaining cases on failure</li>
+</ul>
+</li>
+<li>
+<p><strong>Memory Management</strong>:</p>
+<ul>
+<li>Processes cases sequentially to manage memory</li>
+<li>Large 4D DCE images are memory-intensive</li>
+<li>Consider increasing JVM heap size for large cases</li>
+</ul>
+</li>
+<li>
+<p><strong>Logging Format</strong>:</p>
+<ul>
+<li>Uses format: <code>[Type]: {PatientID} Message</code></li>
+<li>Types: INFO, ERROR, DEBUG</li>
+<li>Compatible with C++ logger parser</li>
+</ul>
+</li>
+</ol>
+<h4 id="umimage-class">UMImage Class</h4>
+<p><strong>Location</strong>: <code>src/UM/UMImage.java</code></p>
+<p><strong>Purpose</strong>: Wrapper for SimpleITK Image objects, providing convenient 3D/4D image operations.</p>
+<p><strong>Key Member Variables:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> m_nDimensions;        <span class="hljs-comment">// 3 or 4</span>
+<span class="hljs-keyword">public</span> Image m_image;            <span class="hljs-comment">// SimpleITK Image (3D)</span>
+<span class="hljs-keyword">public</span> List&lt;Image&gt; m_imagesList; <span class="hljs-comment">// List of 3D images (4D)</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> m_nRows, m_nCols, m_nSlices, m_nTimePoints;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span>[][] m_pixelSize;   <span class="hljs-comment">// Spacing information</span>
+</div></code></pre>
+<p><strong>Key Methods:</strong></p>
+<ul>
+<li><code>UMImage(String volImgFolderPath, int nDims)</code>: Loads MHA image from directory</li>
+<li><code>Load3D(String path)</code>: Loads 3D MHA image</li>
+<li><code>Load4D(String path)</code>: Loads 4D MHA (time series)</li>
+<li><code>GetMatrix3D()</code>: Converts to Matrix3D for processing</li>
+<li><code>GetMatrix4DTimePoint(int timePoint)</code>: Gets specific timepoint</li>
+<li><code>GetPixel3D(int row, int col, int slice)</code>: Pixel accessor</li>
+<li><code>GetPixel4D(int row, int col, int slice, int timePoint)</code>: 4D pixel accessor</li>
+</ul>
+<p><strong>Key Implementation Details:</strong></p>
+<ol>
+<li>
+<p><strong>MHA Format</strong>: Uses SimpleITK to read MHA (MetaImage) format files. MHA files contain header + raw data.</p>
+</li>
+<li>
+<p><strong>4D Handling</strong>: 4D images are stored as a list of 3D images, one per timepoint. Each timepoint is in a separate subdirectory.</p>
+</li>
+<li>
+<p><strong>Coordinate System</strong>: Uses (row, col, slice) indexing, where:</p>
+<ul>
+<li>row = y-axis (height)</li>
+<li>col = x-axis (width)</li>
+<li>slice = z-axis (depth)</li>
+</ul>
+</li>
+</ol>
+<h4 id="ummask-class">UMMask Class</h4>
+<p><strong>Location</strong>: <code>src/UM/UMMask.java</code></p>
+<p><strong>Purpose</strong>: Represents a binary mask as a set of 3D points. Provides mask operations and volume cleaning.</p>
+<p><strong>Key Member Variables:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-keyword">public</span> List&lt;UMPointI&gt; m_points;  <span class="hljs-comment">// Set of mask points</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> m_nPoints;             <span class="hljs-comment">// Number of points</span>
+<span class="hljs-keyword">public</span> String m_name;             <span class="hljs-comment">// Mask identifier</span>
+<span class="hljs-keyword">public</span> UMImage m_refImage;        <span class="hljs-comment">// Reference image for dimensions</span>
+</div></code></pre>
+<p><strong>Key Methods:</strong></p>
+<ul>
+<li><code>UMMask(String name, UMImage refImage)</code>: Creates empty mask</li>
+<li><code>setValue(UMPointI p, boolean b)</code>: Adds/removes point</li>
+<li><code>getBooleanValue(UMPointI p)</code>: Checks if point is in mask</li>
+<li><code>clean(float volumeCleanThreshold)</code>: Removes small connected components</li>
+<li><code>GetAsMask(UMImage refImage)</code>: Converts to Matrix3D representation</li>
+<li><code>Load(String filePath)</code>: Loads mask from MHA file</li>
+</ul>
+<p><strong>Key Implementation Details:</strong></p>
+<ol>
+<li>
+<p><strong>Volume Cleaning</strong>: Uses Union-Find algorithm to identify connected components, then filters by volume threshold.</p>
+</li>
+<li>
+<p><strong>Point Storage</strong>: Stores mask as a list of points rather than full 3D array for memory efficiency with sparse masks.</p>
+</li>
+<li>
+<p><strong>Coordinate Validation</strong>: All operations validate coordinates against reference image dimensions.</p>
+</li>
+</ol>
+<h4 id="nmfmatrixescomputation-class">NMFMatrixesComputation Class</h4>
+<p><strong>Location</strong>: <code>src/nmf/NMFMatrixesComputation.java</code></p>
+<p><strong>Purpose</strong>: Performs Non-negative Matrix Factorization on DCE time series data.</p>
+<p><strong>Key Member Variables:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-keyword">public</span> Matrix X;                  <span class="hljs-comment">// Input matrix (voxels × timepoints)</span>
+<span class="hljs-keyword">public</span> Matrix W;                  <span class="hljs-comment">// Spatial component (voxels × curves)</span>
+<span class="hljs-keyword">public</span> Matrix S;                  <span class="hljs-comment">// Temporal component (curves × timepoints)</span>
+<span class="hljs-keyword">public</span> Matrix Xindex;             <span class="hljs-comment">// Voxel coordinates (voxels × 3)</span>
+<span class="hljs-keyword">public</span> List&lt;Integer&gt; Wgroup;     <span class="hljs-comment">// Group assignment for each voxel</span>
+<span class="hljs-keyword">public</span> List&lt;Integer&gt; Srank;       <span class="hljs-comment">// Rank of each temporal curve</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> CurvesNumber;          <span class="hljs-comment">// Number of NMF components</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">float</span> ThresholdPercentage; <span class="hljs-comment">// Contribution threshold</span>
+</div></code></pre>
+<p><strong>Key Methods:</strong></p>
+<ul>
+<li>
+<p><code>computeWandS()</code>: Main NMF computation function</p>
+<ul>
+<li>Extracts DCE time series from prostate mask</li>
+<li>Applies zero-shifting baseline correction</li>
+<li>Runs NMF algorithm</li>
+<li>Groups voxels by dominant curve</li>
+<li>Ranks temporal curves by washout characteristics</li>
+</ul>
+</li>
+<li>
+<p><code>runNMF(Matrix X, int R)</code>: Executes NMF algorithm</p>
+<ul>
+<li>Initializes W and H matrices</li>
+<li>Uses NNLS for initial H estimation</li>
+<li>Iterates KL divergence updates (500 iterations)</li>
+<li>Returns factorized matrices</li>
+</ul>
+</li>
+</ul>
+<p><strong>Key Implementation Details:</strong></p>
+<ol>
+<li>
+<p><strong>NMF Algorithm</strong>: Uses KL divergence cost function with multiplicative updates (Lee &amp; Seung algorithm).</p>
+</li>
+<li>
+<p><strong>Initialization</strong>:</p>
+<ul>
+<li>W initialized with random normal values</li>
+<li>H initialized using Non-Negative Least Squares (NNLS) solver</li>
+</ul>
+</li>
+<li>
+<p><strong>Zero Shifting</strong>: Removes baseline signal by subtracting mean of first N timepoints (configurable via <code>zeroShiftPoints</code>).</p>
+</li>
+<li>
+<p><strong>Curve Ranking</strong>: Temporal curves are ranked by their washout characteristics:</p>
+<ul>
+<li>Fast washout (high rank) = well-perfused</li>
+<li>Slow/no washout (low rank) = poorly-perfused</li>
+</ul>
+</li>
+<li>
+<p><strong>Voxel Grouping</strong>: Each voxel is assigned to the curve with highest contribution (above threshold percentage).</p>
+</li>
+</ol>
+<h3 id="33-nmf-processing">3.3 NMF Processing</h3>
+<p><strong>NMF Algorithm Flow:</strong></p>
+<ol>
+<li>
+<p><strong>Matrix Construction</strong>:</p>
+<pre class="hljs"><code><div>X = [voxel1_time1, voxel1_time2, ..., voxel1_timeT]
+    [voxel2_time1, voxel2_time2, ..., voxel2_timeT]
+    ...
+    [voxelN_time1, voxelN_time2, ..., voxelN_timeT]
+</div></code></pre>
+<p>Dimensions: N voxels × T timepoints</p>
+</li>
+<li>
+<p><strong>Factorization</strong>:</p>
+<pre class="hljs"><code><div>X ≈ W × S
+</div></code></pre>
+<ul>
+<li>W: N × R (spatial patterns, R = number of curves)</li>
+<li>S: R × T (temporal patterns)</li>
+</ul>
+</li>
+<li>
+<p><strong>Interpretation</strong>:</p>
+<ul>
+<li>Each column of W represents spatial distribution of a perfusion pattern</li>
+<li>Each row of S represents temporal evolution of a perfusion pattern</li>
+<li>Well-perfused regions have fast washout (high rank in S)</li>
+</ul>
+</li>
+</ol>
+<p><strong>NMF Implementation</strong> (<code>pnet/NMFCostKL.java</code>):</p>
+<p>Uses KL divergence cost function:</p>
+<pre class="hljs"><code><div>D(X || W×H) = Σᵢⱼ (Xᵢⱼ log(Xᵢⱼ/(WH)ᵢⱼ) - Xᵢⱼ + (WH)ᵢⱼ)
+</div></code></pre>
+<p>Update rules (multiplicative):</p>
+<pre class="hljs"><code><div>Wᵢᵣ ← Wᵢᵣ × (Σⱼ Hᵣⱼ Xᵢⱼ/(WH)ᵢⱼ) / (Σⱼ Hᵣⱼ)
+Hᵣⱼ ← Hᵣⱼ × (Σᵢ Wᵢᵣ Xᵢⱼ/(WH)ᵢⱼ) / (Σᵢ Wᵢᵣ)
+</div></code></pre>
+<h3 id="34-image-and-mask-handling">3.4 Image and Mask Handling</h3>
+<p><strong>MHA File Format:</strong></p>
+<ul>
+<li>Header: ASCII text with image metadata</li>
+<li>Data: Binary pixel data</li>
+<li>SimpleITK handles reading/writing</li>
+</ul>
+<p><strong>Mask Operations</strong> (<code>UMMaskOperations.java</code>):</p>
+<ul>
+<li><code>union()</code>: Combines two masks</li>
+<li><code>intersection()</code>: Finds common points</li>
+<li><code>complement()</code>: Inverts mask</li>
+<li><code>clone()</code>: Creates copy</li>
+</ul>
+<p><strong>Coordinate Systems:</strong></p>
+<ul>
+<li>Image coordinates: (x, y, z) = (col, row, slice)</li>
+<li>Mask points: Stored as UMPointI(x, y, z)</li>
+<li>Matrix3D: Uses (row, col, slice) indexing</li>
+</ul>
+<h3 id="35-matrix-operations">3.5 Matrix Operations</h3>
+<p><strong>Matrix Class</strong> (<code>pnet/Matrix.java</code>):</p>
+<ul>
+<li>2D matrix with float precision</li>
+<li>Methods: get, set, getRow, getColumn, matrix multiplication</li>
+<li>Memory-efficient storage</li>
+</ul>
+<p><strong>Matrix3D Class</strong> (<code>pnet/Matrix3D.java</code>):</p>
+<ul>
+<li>3D matrix operations</li>
+<li>Methods: get, set, sum, subtract</li>
+<li>Used for image data representation</li>
+</ul>
+<p><strong>MatrixUtilities Class</strong> (<code>pnet/MatrixUtilities.java</code>):</p>
+<ul>
+<li>Matrix multiplication</li>
+<li>Element-wise operations</li>
+<li>Random initialization</li>
+<li>Statistical operations</li>
+</ul>
+<hr>
+<h2 id="4-integration-and-communication">4. Integration and Communication</h2>
+<h3 id="41-c-to-java-communication">4.1 C++ to Java Communication</h3>
+<p><strong>Invocation Method:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">HRSPipelineDriver::callJavaCode</span><span class="hljs-params">(<span class="hljs-keyword">const</span> QString&amp; patientID, QStringList&amp; studyFolders)</span>
+</span>{
+    QString javaExe = <span class="hljs-string">"java"</span>;
+    QString jarPath = QDir(m_outputPath).absoluteFilePath(<span class="hljs-string">"HRS2.jar"</span>);
+    QString jsonPath = m_jsonFilePath;
+    
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> QString&amp; studyFolder : studyFolders) {
+        QStringList arguments;
+        arguments &lt;&lt; <span class="hljs-string">"-Xmx8g"</span>  <span class="hljs-comment">// 8GB heap</span>
+                  &lt;&lt; <span class="hljs-string">"-jar"</span> &lt;&lt; jarPath
+                  &lt;&lt; studyFolder
+                  &lt;&lt; jsonPath;
+        
+        QProcess javaProcess;
+        javaProcess.start(javaExe, arguments);
+        javaProcess.waitForFinished(<span class="hljs-number">-1</span>);
+    }
+}
+</div></code></pre>
+<p><strong>Communication Protocol:</strong></p>
+<ol>
+<li><strong>Parameters</strong>: Passed via JSON file (shared between C++ and Java)</li>
+<li><strong>Data</strong>: MHA files in case directories</li>
+<li><strong>Output</strong>: MHA mask files written by Java, read by C++</li>
+<li><strong>Logging</strong>: Java writes to stdout/stderr, C++ parses and displays</li>
+</ol>
+<p><strong>Synchronization:</strong></p>
+<ul>
+<li><code>QSystemSemaphore</code> limits concurrent Java processes</li>
+<li>Prevents memory exhaustion on systems with limited RAM</li>
+<li>Default: 1 concurrent Java process (configurable)</li>
+</ul>
+<h3 id="42-data-format-standards">4.2 Data Format Standards</h3>
+<p><strong>MHA (MetaImage) Format:</strong></p>
+<ul>
+<li>Header contains:
+<ul>
+<li>ObjectType = Image</li>
+<li>NDims = 3</li>
+<li>DimSize = [width, height, depth]</li>
+<li>ElementSpacing = [x_spacing, y_spacing, z_spacing]</li>
+<li>ElementType = MET_FLOAT or MET_USHORT</li>
+</ul>
+</li>
+<li>Data stored as binary after header</li>
+</ul>
+<p><strong>Directory Structure:</strong></p>
+<pre class="hljs"><code><div>CaseFolder/
+├── ADC/
+│   └── *.mha
+├── DCE/
+│   ├── t0/
+│   │   └── *.mha
+│   ├── t1/
+│   │   └── *.mha
+│   └── ...
+├── T2/
+│   └── *.mha
+├── RT/
+│   ├── Prostate.mha
+│   └── PZ.mha
+└── Output/
+    └── HRS_Masks/
+        ├── ADC 1.mha
+        ├── ADC 2.mha
+        ├── DCE 1.mha
+        ├── HRS 1.mha
+        └── ...
+</div></code></pre>
+<p><strong>JSON Parameter Format:</strong></p>
+<ul>
+<li>Shared between C++ and Java</li>
+<li>C++ writes, Java reads</li>
+<li>Must match expected keys (see validation functions)</li>
+</ul>
+<h3 id="43-parameter-passing">4.3 Parameter Passing</h3>
+<p><strong>Parameter Flow:</strong></p>
+<ol>
+<li>User configures parameters in HRSParams GUI</li>
+<li>Parameters saved to JSON file</li>
+<li>HRSPipelineDriver reads JSON and passes path to Java</li>
+<li>Java Launcher reads JSON and initializes static variables</li>
+<li>Processing uses parameter values throughout</li>
+</ol>
+<p><strong>Parameter Validation:</strong></p>
+<ul>
+<li>C++ validates before saving JSON</li>
+<li>Java validates on load (throws exception if missing keys)</li>
+<li>Both enforce: alpha weights sum to 1.0, valid ranges</li>
+</ul>
+<h3 id="44-error-handling">4.4 Error Handling</h3>
+<p><strong>C++ Error Handling:</strong></p>
+<ul>
+<li>Exceptions caught with patient ID context</li>
+<li>Errors logged to case-specific log files</li>
+<li>UI updated with error status (red color)</li>
+<li>Process continues with remaining cases</li>
+</ul>
+<p><strong>Java Error Handling:</strong></p>
+<ul>
+<li>Try-catch blocks around main processing</li>
+<li>Errors logged with patient ID prefix</li>
+<li>Exceptions printed to stderr (captured by C++)</li>
+<li>Case marked as failed, processing continues</li>
+</ul>
+<p><strong>Error Propagation:</strong></p>
+<pre class="hljs"><code><div>Java Exception → stderr → C++ QProcess → readProcessError_slt() 
+→ appendColoredMessage() → UI update
+</div></code></pre>
+<hr>
+<h2 id="5-pipeline-execution-flow">5. Pipeline Execution Flow</h2>
+<h3 id="51-step-1-preprocessing">5.1 Step 1: Preprocessing</h3>
+<p><strong>Purpose</strong>: Prepare DICOM data for processing</p>
+<p><strong>Tasks:</strong></p>
+<ol>
+<li>Extract ZIP files to temporary directories</li>
+<li>Identify and validate required protocols (ADC, DCE, T2, RT)</li>
+<li>Standardize protocol directory names</li>
+<li>Split DCE series into timepoint directories</li>
+<li>Convert DICOM to MHA format</li>
+<li>Validate file integrity and dimensions</li>
+</ol>
+<p><strong>Key Functions:</strong></p>
+<ul>
+<li><code>preprocessPatientFiles()</code>: Main preprocessing orchestration</li>
+<li><code>getProtocolNameFromDICOMDir()</code>: Reads DICOM tags to identify protocol</li>
+<li><code>splitDCEDir()</code>: Splits 4D DCE into timepoint series</li>
+<li><code>validateDicomFilesLength()</code>: Checks file completeness</li>
+</ul>
+<p><strong>Output:</strong></p>
+<ul>
+<li>Standardized directory structure</li>
+<li>MHA format images</li>
+<li>Valid case list</li>
+</ul>
+<h3 id="52-step-2-normalization-and-registration">5.2 Step 2: Normalization and Registration</h3>
+<p><strong>Purpose</strong>: Normalize images and align to template</p>
+<p><strong>Tasks:</strong></p>
+<ol>
+<li>
+<p><strong>T2 Normalization</strong>:</p>
+<ul>
+<li>Calculate muscle reference region</li>
+<li>Normalize T2 signal intensity</li>
+<li>Save normalized images</li>
+</ul>
+</li>
+<li>
+<p><strong>DCE Normalization</strong>:</p>
+<ul>
+<li>Calculate muscle mean time course</li>
+<li>Save to <code>muscleMean.txt</code> for Java processing</li>
+</ul>
+</li>
+<li>
+<p><strong>Registration</strong> (if enabled):</p>
+<ul>
+<li>Check if registration needed (spatial mismatch)</li>
+<li>Register ADC and DCE to T2 template</li>
+<li>Use Elastix for deformable registration</li>
+<li>Fallback to rigid alignment if needed</li>
+</ul>
+</li>
+</ol>
+<p><strong>Key Functions:</strong></p>
+<ul>
+<li><code>normalizeStudyT2Series()</code>: T2 normalization</li>
+<li><code>registerStudySeries()</code>: Image registration</li>
+<li><code>checkRegistrationNeed()</code>: Registration decision logic</li>
+<li><code>registerWithElastix2D()</code>: Elastix registration wrapper</li>
+</ul>
+<p><strong>Output:</strong></p>
+<ul>
+<li>Normalized T2 images</li>
+<li>Registered ADC/DCE images</li>
+<li>Muscle reference files</li>
+</ul>
+<h3 id="53-step-3-java-processing">5.3 Step 3: Java Processing</h3>
+<p><strong>Purpose</strong>: Core HRS analysis computation</p>
+<p><strong>Tasks:</strong></p>
+<ol>
+<li>
+<p>Load images and masks (MHA format)</p>
+</li>
+<li>
+<p><strong>DCE Processing</strong> (if enabled):</p>
+<ul>
+<li>Run NMF on DCE time series</li>
+<li>Identify well-perfused regions</li>
+<li>Calculate DCE score and HRS values</li>
+<li>Generate DCE masks (1-10)</li>
+</ul>
+</li>
+<li>
+<p><strong>ADC Processing</strong> (if enabled):</p>
+<ul>
+<li>Apply zone-specific thresholds</li>
+<li>Calculate ADC HRS scores</li>
+<li>Generate ADC masks (1-10)</li>
+</ul>
+</li>
+<li>
+<p><strong>T2 Processing</strong> (if enabled):</p>
+<ul>
+<li>Apply zone-specific thresholds</li>
+<li>Calculate T2 HRS scores</li>
+<li>Generate T2 masks (1-10)</li>
+</ul>
+</li>
+<li>
+<p><strong>Integration</strong>:</p>
+<ul>
+<li>Alpha-weighted combination</li>
+<li>Generate final HRS masks (1-10)</li>
+<li>Volume cleaning (remove small components)</li>
+</ul>
+</li>
+</ol>
+<p><strong>Key Functions (Java):</strong></p>
+<ul>
+<li><code>runSession()</code>: Main processing session</li>
+<li><code>createDCEMasks()</code>: DCE analysis</li>
+<li><code>createADCMasks()</code>: ADC analysis</li>
+<li><code>createT2Masks()</code>: T2 analysis</li>
+</ul>
+<p><strong>Output:</strong></p>
+<ul>
+<li>MHA mask files in <code>Output/HRS_Masks/</code></li>
+<li>DCE graph images</li>
+<li>Processing logs</li>
+</ul>
+<h3 id="54-step-4-export-and-visualization">5.4 Step 4: Export and Visualization</h3>
+<p><strong>Purpose</strong>: Generate clinical outputs and visualizations</p>
+<p><strong>Tasks:</strong></p>
+<ol>
+<li>
+<p><strong>Mask Export</strong>:</p>
+<ul>
+<li>Read Java-generated masks</li>
+<li>Convert to label images</li>
+<li>Export as MHA files</li>
+</ul>
+</li>
+<li>
+<p><strong>Grid Generation</strong>:</p>
+<ul>
+<li>Create quadrant-based grid images</li>
+<li>Overlay contours and labels</li>
+<li>Generate PowerPoint presentations</li>
+</ul>
+</li>
+<li>
+<p><strong>Statistics Export</strong>:</p>
+<ul>
+<li>Calculate per-quadrant statistics</li>
+<li>Export to Excel files</li>
+<li>Generate ROC analysis</li>
+</ul>
+</li>
+<li>
+<p><strong>Report Generation</strong>:</p>
+<ul>
+<li>Create comprehensive reports</li>
+<li>Generate visualization overlays</li>
+<li>Export clinical metrics</li>
+</ul>
+</li>
+</ol>
+<p><strong>Key Functions:</strong></p>
+<ul>
+<li><code>exportStudyOutput()</code>: Main export function</li>
+<li><code>ExportHRSQuadrantsGrid()</code>: Grid image generation</li>
+<li><code>exportHRSMetricsTable()</code>: Statistics export</li>
+<li><code>exportQuadrantsGridPPT()</code>: PowerPoint generation</li>
+</ul>
+<p><strong>Output:</strong></p>
+<ul>
+<li>Grid images (PNG)</li>
+<li>PowerPoint presentations (PPTX)</li>
+<li>Excel statistics (XLSX)</li>
+<li>Label images (MHA)</li>
+<li>JSON metadata files</li>
+</ul>
+<hr>
+<h2 id="6-build-system-and-deployment">6. Build System and Deployment</h2>
+<h3 id="61-c-build-configuration">6.1 C++ Build Configuration</h3>
+<p><strong>Visual Studio Solution:</strong></p>
+<ul>
+<li><code>HRSParams.sln</code>: Main solution file</li>
+<li>Projects:
+<ul>
+<li><code>HRSParams</code>: GUI application</li>
+<li><code>HRSPipelineWriter</code>: Pipeline executable</li>
+<li><code>HRSReportsWriter</code>: Reports executable</li>
+<li><code>ModuleDrivers</code>: Shared library</li>
+<li><code>UnitTests</code>: Test suite</li>
+</ul>
+</li>
+</ul>
+<p><strong>Build Requirements:</strong></p>
+<ul>
+<li>Visual Studio 2022 or later</li>
+<li>Qt 6.x (with Qt Designer)</li>
+<li>ITK (Insight Toolkit)</li>
+<li>CMake (for ITK configuration)</li>
+</ul>
+<p><strong>Dependencies:</strong></p>
+<ul>
+<li>Qt6Core, Qt6Gui, Qt6Widgets</li>
+<li>ITK libraries</li>
+<li>QCustomPlot</li>
+<li>QXlsx</li>
+</ul>
+<h3 id="62-java-build-configuration">6.2 Java Build Configuration</h3>
+<p><strong>Project Structure:</strong></p>
+<ul>
+<li>IntelliJ IDEA project (<code>.iml</code> file)</li>
+<li>Maven/Gradle not used (manual dependency management)</li>
+<li>Dependencies in <code>lib/</code> directory</li>
+</ul>
+<p><strong>Build Process:</strong></p>
+<ol>
+<li>Compile Java sources</li>
+<li>Create JAR with dependencies</li>
+<li>Include SimpleITK DLL in resources</li>
+</ol>
+<p><strong>JAR Creation:</strong></p>
+<pre class="hljs"><code><div>javac -cp <span class="hljs-string">"lib/*"</span> -d out src/**/*.java
+jar cvf HRS2.jar -C out . -C lib .
+</div></code></pre>
+<p><strong>Manifest:</strong></p>
+<ul>
+<li>Main-Class: <code>launcher.Launcher</code></li>
+<li>Class-Path: Includes all lib JARs</li>
+</ul>
+<h3 id="63-dependencies">6.3 Dependencies</h3>
+<p><strong>C++ Dependencies:</strong></p>
+<ul>
+<li>Qt: GUI framework</li>
+<li>ITK: Image processing</li>
+<li>SimpleITK: Image I/O</li>
+<li>QCustomPlot: Graph generation</li>
+<li>QXlsx: Excel export</li>
+<li>Boost: Mathematical operations</li>
+</ul>
+<p><strong>Java Dependencies:</strong></p>
+<ul>
+<li>SimpleITK Java: Image I/O (<code>simpleitk-2.3.1.jar</code>)</li>
+<li>Apache Commons Math: Statistics (<code>commons-math3-3.5.jar</code>)</li>
+<li>WEKA: NNLS solver (<code>weka.jar</code>)</li>
+<li>JSON: Parameter parsing (<code>json-20230618.jar</code>)</li>
+<li>SimpleITK DLL: Native library (<code>SimpleITKJava.dll</code>)</li>
+</ul>
+<p><strong>System Requirements:</strong></p>
+<ul>
+<li>Windows 10/11 (primary platform)</li>
+<li>16GB+ RAM recommended</li>
+<li>SSD storage preferred</li>
+<li>Java 21 runtime</li>
+<li>Visual C++ Redistributables</li>
+</ul>
+<h3 id="64-deployment-process">6.4 Deployment Process</h3>
+<p><strong>Deployment Scripts:</strong></p>
+<ul>
+<li><code>Deploy/Deploy.bat</code>: Main deployment script</li>
+<li><code>Deploy/Pack.nsi</code>: NSIS installer script</li>
+</ul>
+<p><strong>Deployment Steps:</strong></p>
+<ol>
+<li>Build C++ projects (Release configuration)</li>
+<li>Build Java JAR file</li>
+<li>Copy executables to <code>Deploy/PreRequisites/</code></li>
+<li>Copy dependencies (DLLs, JARs)</li>
+<li>Create installer using NSIS</li>
+<li>Test installer on clean system</li>
+</ol>
+<p><strong>Deployment Structure:</strong></p>
+<pre class="hljs"><code><div>Deploy/
+├── PreRequisites/
+│   ├── HRSParams.exe
+│   ├── HRSPipelineWriter.exe
+│   ├── HRSReportsWriter.exe
+│   ├── HRS2.jar
+│   ├── SimpleITKJava.dll
+│   └── [Qt/ITK DLLs]
+└── Pack.nsi
+</div></code></pre>
+<hr>
+<h2 id="7-extension-points">7. Extension Points</h2>
+<h3 id="71-adding-new-parameters">7.1 Adding New Parameters</h3>
+<p><strong>C++ Side:</strong></p>
+<ol>
+<li>Add parameter to <code>HRSParams.h</code> member variables</li>
+<li>Add UI control in <code>HRSParams.ui</code></li>
+<li>Add getter/setter in <code>HRSParams.cpp</code></li>
+<li>Update <code>writeHRSParamsToJson()</code> and <code>readHRSParamsFromJson()</code></li>
+<li>Add validation in <code>validateHRSParams()</code></li>
+</ol>
+<p><strong>Java Side:</strong></p>
+<ol>
+<li>Add static variable in <code>Launcher.java</code></li>
+<li>Read from JSON in <code>readUserParamsFromJSONFile()</code></li>
+<li>Use in processing functions</li>
+</ol>
+<p><strong>Example:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment">// HRSParams.h</span>
+QString m_newParameter;
+
+<span class="hljs-comment">// HRSParams.cpp</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">HRSParams::writeHRSParamsToJson</span><span class="hljs-params">()</span> </span>{
+    json[<span class="hljs-string">"newParameter"</span>] = m_newParameter;
+}
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment">// Launcher.java</span>
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">float</span> newParameter;
+
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">readUserParamsFromJSONFile</span><span class="hljs-params">(String filePath)</span> </span>{
+    newParameter = (<span class="hljs-keyword">float</span>) jsonObj.getDouble(<span class="hljs-string">"newParameter"</span>);
+}
+</div></code></pre>
+<h3 id="72-custom-processing-steps">7.2 Custom Processing Steps</h3>
+<p><strong>Adding New Pipeline Step:</strong></p>
+<ol>
+<li>Create new step function in <code>HRSPipelineDriver</code></li>
+<li>Add to <code>processPatientPipeline()</code> sequence</li>
+<li>Update step numbering if inserting</li>
+</ol>
+<p><strong>Example:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">HRSPipelineDriver::executeStep5_CustomProcessing</span><span class="hljs-params">(<span class="hljs-keyword">const</span> QString&amp; patientID)</span> </span>{
+    <span class="hljs-comment">// Custom processing logic</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">HRSPipelineDriver::processPatientPipeline</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-comment">// ...</span>
+    executeStep5_CustomProcessing(patientID);
+    <span class="hljs-comment">// ...</span>
+}
+</div></code></pre>
+<h3 id="73-report-generation">7.3 Report Generation</h3>
+<p><strong>Adding New Report Type:</strong></p>
+<ol>
+<li>Add checkbox in <code>HRSParams.ui</code> for report type</li>
+<li>Add member variable and JSON key</li>
+<li>Implement report function in <code>HRSReportsDriver</code></li>
+<li>Call from <code>exportStudyReports()</code></li>
+</ol>
+<p><strong>Example:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">HRSReportsDriver::exportCustomReport</span><span class="hljs-params">(QStringList casesDirPaths)</span> </span>{
+    <span class="hljs-comment">// Custom report generation</span>
+}
+
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">HRSReportsDriver::exportStudyReports</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">if</span> (m_exportCustomReport) {
+        exportCustomReport(m_studyFolders);
+    }
+}
+</div></code></pre>
+<h3 id="74-algorithm-modifications">7.4 Algorithm Modifications</h3>
+<p><strong>Modifying NMF Algorithm:</strong></p>
+<ul>
+<li>Edit <code>pnet/NMFCostKL.java</code> for cost function changes</li>
+<li>Modify <code>nmf/NMFMatrixesComputation.java</code> for computation changes</li>
+<li>Update iteration count or convergence criteria</li>
+</ul>
+<p><strong>Modifying HRS Scoring:</strong></p>
+<ul>
+<li>Edit scoring functions in <code>Launcher.java</code>:
+<ul>
+<li><code>createDCEMasks()</code>: DCE scoring</li>
+<li><code>createADCMasks()</code>: ADC scoring</li>
+<li><code>createT2Masks()</code>: T2 scoring</li>
+<li>Alpha weighting combination</li>
+</ul>
+</li>
+</ul>
+<p><strong>Modifying Registration:</strong></p>
+<ul>
+<li>Edit <code>HRSPipelineDriver_Step2.cpp</code>:
+<ul>
+<li><code>registerImageToTemplate()</code>: Registration method</li>
+<li><code>checkRegistrationNeed()</code>: Registration decision</li>
+<li>Registration parameters</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="8-code-reference">8. Code Reference</h2>
+<h3 id="81-key-methods-and-functions">8.1 Key Methods and Functions</h3>
+<p><strong>HRSParams Class:</strong></p>
+<ul>
+<li><code>HRSParams::startHRSPipelineProcesses()</code>: Starts processing</li>
+<li><code>HRSParams::processFinished_slt()</code>: Handles completion</li>
+<li><code>HRSParams::saveHRSParamsToJson()</code>: Saves configuration</li>
+<li><code>HRSParams::validateHRSParams()</code>: Validates parameters</li>
+</ul>
+<p><strong>HRSPipelineDriver Class:</strong></p>
+<ul>
+<li><code>HRSPipelineDriver::processPatientPipeline()</code>: Main pipeline</li>
+<li><code>HRSPipelineDriver::executeStep1_Preprocessing()</code>: Step 1</li>
+<li><code>HRSPipelineDriver::executeStep2_NormalizationAndRegistration()</code>: Step 2</li>
+<li><code>HRSPipelineDriver::executeStep3_JavaProcessing()</code>: Step 3</li>
+<li><code>HRSPipelineDriver::executeStep4_Export()</code>: Step 4</li>
+</ul>
+<p><strong>Launcher Class (Java):</strong></p>
+<ul>
+<li><code>Launcher::main()</code>: Entry point</li>
+<li><code>Launcher::runSession()</code>: Processing session</li>
+<li><code>Launcher::createDCEMasks()</code>: DCE analysis</li>
+<li><code>Launcher::createADCMasks()</code>: ADC analysis</li>
+<li><code>Launcher::createT2Masks()</code>: T2 analysis</li>
+</ul>
+<p><strong>NMFMatrixesComputation Class:</strong></p>
+<ul>
+<li><code>NMFMatrixesComputation::computeWandS()</code>: NMF computation</li>
+<li><code>NMFMatrixesComputation::runNMF()</code>: NMF algorithm</li>
+</ul>
+<h3 id="82-data-structures">8.2 Data Structures</h3>
+<p><strong>C++:</strong></p>
+<ul>
+<li><code>VolumeImagePointer</code>: ITK 3D image (float)</li>
+<li><code>VolumeMaskImagePointer</code>: ITK 3D mask (unsigned char)</li>
+<li><code>RGBVolumePointer</code>: ITK 3D RGB image</li>
+<li><code>QStringList</code>: Qt string list</li>
+<li><code>QMap&lt;QString, T&gt;</code>: Qt associative array</li>
+</ul>
+<p><strong>Java:</strong></p>
+<ul>
+<li><code>Matrix</code>: 2D float matrix</li>
+<li><code>Matrix3D</code>: 3D float matrix</li>
+<li><code>UMImage</code>: Image wrapper</li>
+<li><code>UMMask</code>: Mask representation</li>
+<li><code>List&lt;UMMask&gt;</code>: Mask collection</li>
+</ul>
+<h3 id="83-constants-and-configuration">8.3 Constants and Configuration</h3>
+<p><strong>Processing Constants:</strong></p>
+<ul>
+<li><code>MAX_CONCURRENT_PATIENTS = 4</code>: Maximum parallel patients</li>
+<li><code>WINDOWS_PATH_LIMIT = 260</code>: Windows path length limit</li>
+<li><code>targetDCEMasksWithValues = 10</code>: Target DCE masks with data</li>
+</ul>
+<p><strong>Default Parameters:</strong></p>
+<ul>
+<li><code>curvesNumber = 3</code>: Default NMF curves</li>
+<li><code>thresholdPercentage = 0.6</code>: Default contribution threshold</li>
+<li><code>volumeCleanThreshold = 0.01</code>: Default volume cleaning (mL)</li>
+</ul>
+<p><strong>File Paths:</strong></p>
+<ul>
+<li>Log files: <code>%AppData%/HRSPipeline v2.0/logs/</code></li>
+<li>Parameter file: <code>%AppData%/HRSPipeline v2.0/HRSParams.json</code></li>
+<li>Output: User-specified output path</li>
+</ul>
+<hr>
+<h2 id="appendix-a-common-issues-and-solutions">Appendix A: Common Issues and Solutions</h2>
+<h3 id="issue-java-out-of-memory">Issue: Java Out of Memory</h3>
+<p><strong>Solution</strong>: Increase JVM heap size in <code>callJavaCode()</code>:</p>
+<pre class="hljs"><code><div>arguments &lt;&lt; <span class="hljs-string">"-Xmx16g"</span>  <span class="hljs-comment">// Increase from 8g to 16g</span>
+</div></code></pre>
+<h3 id="issue-process-hangs">Issue: Process Hangs</h3>
+<p><strong>Solution</strong>: Check semaphore acquisition, ensure Java process completes:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">if</span> (!m_javaSemaphore-&gt;acquire()) {
+    <span class="hljs-comment">// Handle timeout</span>
+}
+</div></code></pre>
+<h3 id="issue-registration-fails">Issue: Registration Fails</h3>
+<p><strong>Solution</strong>: Check Elastix installation, verify image dimensions match:</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">checkRegistrationNeed</span><span class="hljs-params">(...)</span> </span>{
+    <span class="hljs-comment">// Verify spatial properties match</span>
+}
+</div></code></pre>
+<h3 id="issue-mha-file-not-found">Issue: MHA File Not Found</h3>
+<p><strong>Solution</strong>: Verify directory structure, check file permissions:</p>
+<pre class="hljs"><code><div>File mhaFile = <span class="hljs-keyword">new</span> File(path);
+<span class="hljs-keyword">if</span> (!mhaFile.exists()) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IOException(<span class="hljs-string">"MHA file not found: "</span> + path);
+}
+</div></code></pre>
+<hr>
+<h2 id="appendix-b-performance-optimization">Appendix B: Performance Optimization</h2>
+<h3 id="memory-optimization">Memory Optimization</h3>
+<ul>
+<li>Process cases sequentially to limit memory usage</li>
+<li>Use semaphores to limit concurrent processes</li>
+<li>Clean up temporary files after processing</li>
+</ul>
+<h3 id="processing-speed">Processing Speed</h3>
+<ul>
+<li>Use SSD storage for faster I/O</li>
+<li>Enable parallel processing (multiple cases)</li>
+<li>Optimize NMF iterations (reduce if acceptable)</li>
+</ul>
+<h3 id="io-optimization">I/O Optimization</h3>
+<ul>
+<li>Batch MHA file operations</li>
+<li>Cache frequently accessed images</li>
+<li>Use memory-mapped files for large images</li>
+</ul>
+<hr>
+<p><em>End of Developer Documentation</em></p>
+<p><em>For user documentation, see <code>HRS_Documentation.md</code></em></p>
+
+</body>
+</html>

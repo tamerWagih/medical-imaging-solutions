@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MAST_Cases_T-Test_Experiments_Guide.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="mast-cases-t-test-experiments-user-guide">MAST Cases T-Test Experiments: User Guide</h1>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#prerequisites">Prerequisites</a></li>
+<li><a href="#understanding-the-experiment-structure">Understanding the Experiment Structure</a></li>
+<li><a href="#step-by-step-workflow">Step-by-Step Workflow</a></li>
+<li><a href="#feature-extraction">Feature Extraction</a></li>
+<li><a href="#t-test-analysis">T-Test Analysis</a></li>
+<li><a href="#understanding-results">Understanding Results</a></li>
+<li><a href="#advanced-analysis">Advanced Analysis</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+</ol>
+<hr>
+<h2 id="introduction">Introduction</h2>
+<h3 id="what-are-mast-cases">What are MAST Cases?</h3>
+<p>MAST cases are prostate cancer patient datasets used for HRS feature extraction and analysis. Each case contains:</p>
+<ul>
+<li><strong>DCE (Dynamic Contrast-Enhanced) MRI</strong> images</li>
+<li><strong>ADC (Apparent Diffusion Coefficient)</strong> images</li>
+<li><strong>HRS masks</strong> (10 different HRS masks numbered 1-10)</li>
+<li><strong>Prostate masks</strong> for segmentation</li>
+</ul>
+<h3 id="what-are-hrs-experiments">What are HRS Experiments?</h3>
+<p>HRS experiments involve processing MAST cases with different parameter combinations to:</p>
+<ol>
+<li>Extract quantitative imaging features</li>
+<li>Evaluate how parameter variations affect feature values</li>
+<li>Identify features that best distinguish between patient groups (using t-tests)</li>
+<li>Optimize parameter settings for clinical applications</li>
+</ol>
+<h3 id="what-are-t-test-experiments">What are T-Test Experiments?</h3>
+<p>T-test experiments statistically compare feature values between two patient groups (typically labeled 0 and 1) to identify features that show significant differences. This helps:</p>
+<ul>
+<li>Identify biomarkers for disease classification</li>
+<li>Understand parameter sensitivity</li>
+<li>Select optimal features for machine learning models</li>
+</ul>
+<hr>
+<h2 id="overview">Overview</h2>
+<h3 id="experiment-workflow">Experiment Workflow</h3>
+<pre class="hljs"><code><div>1. HRS Processing (External) → 2. Feature Extraction → 3. T-Test Analysis → 4. Results &amp; Visualization
+</div></code></pre>
+<h3 id="key-components">Key Components</h3>
+<ul>
+<li><strong>36 Experiments</strong>: Different parameter combinations (see <code>Experiment_Plan.csv</code>)</li>
+<li><strong>4 Time Points</strong>: Confirmatory, 12m, 24m, 36m</li>
+<li><strong>Multiple Features</strong>: HRS volumes, ratios, ADC statistics</li>
+<li><strong>Statistical Analysis</strong>: Two-sample t-tests comparing groups</li>
+</ul>
+<hr>
+<h2 id="prerequisites">Prerequisites</h2>
+<h3 id="required-software">Required Software</h3>
+<ol>
+<li>
+<p><strong>MATLAB</strong></p>
+<ul>
+<li>Statistics and Machine Learning Toolbox</li>
+<li>Image Processing Toolbox</li>
+</ul>
+</li>
+<li>
+<p><strong>Data Structure</strong></p>
+<ul>
+<li>HRS-processed MAST case folders (MAST001, MAST002, etc.)</li>
+<li>Each case should contain:
+<ul>
+<li><code>Output/MRI_Reformatted/ADC.mha</code></li>
+<li><code>Output/MRI_Reformatted/DCE.mha</code></li>
+<li><code>Output/.../HRS_1.mha</code> through <code>HRS_10.mha</code></li>
+<li><code>Output/.../Prostate.mha</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Labels File</strong></p>
+<ul>
+<li><code>CODE/Labels.csv</code> with columns: <code>mast_id</code>, <code>label</code></li>
+<li>Format: <code>M003,0</code> (patient ID, binary label)</li>
+</ul>
+</li>
+</ol>
+<h3 id="directory-structure">Directory Structure</h3>
+<pre class="hljs"><code><div>Project Root/
+├── CODE/
+│   ├── compute_HRS_features_t_test.m
+│   ├── Labels.csv
+│   ├── extract_specific_features.m
+│   ├── run_pvalue_analysis.m
+│   └── ... (other analysis scripts)
+├── Confirmatory/
+│   ├── Experiment001/
+│   │   ├── MAST001/
+│   │   ├── MAST002/
+│   │   └── ...
+│   ├── Experiment002/
+│   └── ...
+├── 12m/
+│   ├── Experiment001/
+│   └── ...
+├── 24m/
+└── 36m/
+</div></code></pre>
+<hr>
+<h2 id="understanding-the-experiment-structure">Understanding the Experiment Structure</h2>
+<h3 id="experiment-parameters">Experiment Parameters</h3>
+<p>The experiments vary two main parameter types:</p>
+<h4 id="1-washoutupper-dce-parameter">1. WashOutUpper (DCE Parameter)</h4>
+<ul>
+<li><strong>Purpose</strong>: Controls DCE washout threshold for HRS mask generation</li>
+<li><strong>Values Used</strong>: 2.0, 2.25, 2.5, 2.75, 3.0, 3.25, 3.5, 3.75, 4.0, 4.25, 4.5</li>
+<li><strong>Impact</strong>: Affects HRS mask volumes and DCE-based features</li>
+</ul>
+<h4 id="2-adc-pz-thresholds-adc-parameters">2. ADC PZ Thresholds (ADC Parameters)</h4>
+<ul>
+<li><strong>ADC PZ High</strong>: High threshold for peripheral zone (750-1000)</li>
+<li><strong>ADC PZ Medium</strong>: Medium threshold for peripheral zone (950-1200)</li>
+<li><strong>ADC PZ Low</strong>: Low threshold for peripheral zone (1100-1350)</li>
+<li><strong>Impact</strong>: Affects ADC-based feature calculations</li>
+</ul>
+<h3 id="experiment-plan">Experiment Plan</h3>
+<p>See <code>Experiment_Plan.csv</code> for all 36 experiment configurations.</p>
+<p><strong>Example Experiments:</strong></p>
+<ul>
+<li><strong>EXP001</strong>: WashOutUpper=4.0, ADC PZ=850/1050/1200 (Default)</li>
+<li><strong>EXP002</strong>: WashOutUpper=2.5, ADC PZ=850/1050/1200</li>
+<li><strong>EXP003</strong>: WashOutUpper=3.0, ADC PZ=850/1050/1200</li>
+<li><strong>EXP004</strong>: WashOutUpper=3.5, ADC PZ=850/1050/1200</li>
+</ul>
+<hr>
+<h2 id="step-by-step-workflow">Step-by-Step Workflow</h2>
+<h3 id="step-1-prepare-data-structure">Step 1: Prepare Data Structure</h3>
+<ol>
+<li>
+<p><strong>Organize HRS Output Folders</strong></p>
+<ul>
+<li>Each experiment should have its own folder: <code>Experiment001</code>, <code>Experiment002</code>, etc.</li>
+<li>Each experiment folder contains MAST case folders: <code>MAST001</code>, <code>MAST002</code>, etc.</li>
+</ul>
+</li>
+<li>
+<p><strong>Verify Labels File</strong></p>
+<ul>
+<li>Ensure <code>CODE/Labels.csv</code> contains all patient IDs with their labels</li>
+<li>Format: <code>mast_id,label</code> (e.g., <code>M003,0</code>)</li>
+</ul>
+</li>
+<li>
+<p><strong>Check File Structure</strong></p>
+<ul>
+<li>Verify each MAST case has required <code>.mha</code> files in the correct locations</li>
+</ul>
+</li>
+</ol>
+<h3 id="step-2-feature-extraction">Step 2: Feature Extraction</h3>
+<p>For each experiment and time point, extract features from processed HRS outputs.</p>
+<h4 id="using-computehrsfeaturesttestm">Using <code>compute_HRS_features_t_test.m</code></h4>
+<p><strong>Function Signature:</strong></p>
+<pre class="hljs"><code><div>compute_HRS_features_t_test(rootDir, labelsCsvPath, expNum)
+</div></code></pre>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>rootDir</code>: Path to directory containing MAST case folders</li>
+<li><code>labelsCsvPath</code>: Path to <code>Labels.csv</code> file</li>
+<li><code>expNum</code>: Experiment number as string (e.g., &quot;001&quot;)</li>
+</ul>
+<p><strong>Example Usage:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment">% For Confirmatory study, Experiment 001</span>
+rootDir = <span class="hljs-string">"D:\Classification\T-Test Experiments\Confirmatory HRS Output_Experiment001"</span>;
+labelsCsvPath = <span class="hljs-string">"D:\Classification\T-Test Experiments\CODE\Labels.csv"</span>;
+expNum = <span class="hljs-string">"001"</span>;
+compute_HRS_features_t_test(rootDir, labelsCsvPath, expNum);
+</div></code></pre>
+<p><strong>What It Does:</strong></p>
+<ol>
+<li>Scans all MAST folders in <code>rootDir</code></li>
+<li>Extracts features for each patient:
+<ul>
+<li><strong>10 HRS volumes</strong> (HRS1 through HRS10)</li>
+<li><strong>10 ratios</strong> (HRS2/HRS1, HRS3/HRS2, ..., HRS10/HRS9, HRS8/HRS6)</li>
+<li><strong>60 statistics</strong> per protocol (Mean, P10, P25, P50, P75, P90 for each HRS mask)</li>
+<li>For both <strong>ADC</strong> and <strong>DCE</strong> protocols</li>
+</ul>
+</li>
+<li>Performs t-tests comparing label 0 vs label 1 groups</li>
+<li>Saves results to Excel: <code>Results001.xlsx</code> (or <code>Results002.xlsx</code>, etc.)</li>
+</ol>
+<p><strong>Output:</strong></p>
+<ul>
+<li>Excel file with two sheets: <code>ADC</code> and <code>DCE</code></li>
+<li>Each sheet contains:
+<ul>
+<li>Patient rows with all extracted features</li>
+<li>Last row: p-values from t-tests</li>
+</ul>
+</li>
+</ul>
+<h3 id="step-3-extract-specific-features-optional">Step 3: Extract Specific Features (Optional)</h3>
+<p>If you only need specific features (HRS1_Volume, HRS6_Volume, HRS7_6_Ratio, ADC_Prostate_Mean, ADC_HRS1_Mean, ADC_HRS6_Mean):</p>
+<p><strong>Using <code>extract_specific_features.m</code>:</strong></p>
+<pre class="hljs"><code><div>extract_specific_features()
+</div></code></pre>
+<p>This function:</p>
+<ol>
+<li>Prompts you to select a study folder (Confirmatory, 12m, 24m, or 36m)</li>
+<li>Extracts 6 specific features from first 4 experiments</li>
+<li>Creates Excel file: <code>[StudyName]_Specific_Features.xlsx</code></li>
+<li>One sheet per experiment</li>
+</ol>
+<h3 id="step-4-combine-results-across-studies">Step 4: Combine Results Across Studies</h3>
+<p>After extracting features for all experiments and time points, combine them for analysis:</p>
+<p><strong>Using <code>combine_study_features.m</code>:</strong></p>
+<pre class="hljs"><code><div>combine_study_features()
+</div></code></pre>
+<p>This creates a combined Excel file with all studies and experiments.</p>
+<h3 id="step-5-t-test-analysis">Step 5: T-Test Analysis</h3>
+<p>Run comprehensive t-test analysis to identify best features:</p>
+<p><strong>Using <code>run_pvalue_analysis.m</code>:</strong></p>
+<pre class="hljs"><code><div>run_pvalue_analysis()
+</div></code></pre>
+<p>This master script:</p>
+<ol>
+<li><strong>Analyzes best features</strong> (<code>analyze_best_features.m</code>)
+<ul>
+<li>Identifies top 20 features based on significance frequency</li>
+<li>Ranks features by how often they show p &lt; 0.05 across experiments</li>
+</ul>
+</li>
+<li><strong>Extracts per-experiment data</strong> (<code>extract_per_experiment_data_v2.m</code>)
+<ul>
+<li>Prepares detailed data for visualization</li>
+</ul>
+</li>
+<li><strong>Creates 2D scatter plots</strong> (<code>create_2d_scatter_plots_v2.m</code>)
+<ul>
+<li>64 figures: 4 timepoints × 4 parameters × 4 figures</li>
+<li>Shows parameter vs p-value relationships</li>
+</ul>
+</li>
+<li><strong>Creates 3D scatter plots</strong> (<code>create_3d_scatter_plots_v2.m</code>)
+<ul>
+<li>80 figures: 20 features × 4 parameters</li>
+<li>Shows parameter, timepoint, and p-value relationships</li>
+</ul>
+</li>
+</ol>
+<p><strong>Output Files:</strong></p>
+<ul>
+<li><code>Top_20_Features.xlsx</code>: Selected features with statistics</li>
+<li><code>Feature_Analysis_Results.xlsx</code>: All significant features ranked</li>
+<li><code>best_features_data.mat</code>: Data for plotting</li>
+<li><code>2D_Scatter_Plots_v2/</code>: 64 PNG/FIG files</li>
+<li><code>3D_Scatter_Plots_v2/</code>: 80 PNG/FIG files</li>
+</ul>
+<hr>
+<h2 id="feature-extraction">Feature Extraction</h2>
+<h3 id="features-extracted">Features Extracted</h3>
+<h4 id="hrs-volumes-10-features">HRS Volumes (10 features)</h4>
+<ul>
+<li><code>ADC_HRS-V1</code> through <code>ADC_HRS-V10</code>: Volumes of HRS masks 1-10 (mL)</li>
+<li><code>DCE_HRS-V1</code> through <code>DCE_HRS-V10</code>: Volumes of HRS masks 1-10 (mL)</li>
+</ul>
+<h4 id="hrs-ratios-10-features">HRS Ratios (10 features)</h4>
+<ul>
+<li><code>ADC_HRS-R2_1</code>, <code>ADC_HRS-R3_2</code>, ..., <code>ADC_HRS-R10_9</code>: Sequential ratios</li>
+<li><code>ADC_HRS-R8_6</code>: HRS8/HRS6 ratio</li>
+<li>Same for DCE protocol</li>
+</ul>
+<h4 id="statistics-60-features-per-protocol">Statistics (60 features per protocol)</h4>
+<p>For each HRS mask (1-10) and each protocol (ADC, DCE):</p>
+<ul>
+<li><strong>Mean</strong>: Average value within mask</li>
+<li><strong>P10</strong>: 10th percentile</li>
+<li><strong>P25</strong>: 25th percentile</li>
+<li><strong>P50</strong>: 50th percentile (median)</li>
+<li><strong>P75</strong>: 75th percentile</li>
+<li><strong>P90</strong>: 90th percentile</li>
+</ul>
+<p><strong>Total Features</strong>: 2 protocols × (10 volumes + 10 ratios + 60 statistics) = <strong>160 features per experiment</strong></p>
+<h3 id="key-features-for-analysis">Key Features for Analysis</h3>
+<p>The most commonly analyzed features are:</p>
+<ol>
+<li><strong>HRS1_Volume</strong>: Volume of highest HRS score region</li>
+<li><strong>HRS6_Volume</strong>: Volume of medium HRS score region</li>
+<li><strong>HRS7_6_Ratio</strong>: Ratio of HRS7 to HRS6 volumes</li>
+<li><strong>ADC_Prostate_Mean</strong>: Mean ADC within entire prostate</li>
+<li><strong>ADC_HRS1_Mean</strong>: Mean ADC within HRS1 mask</li>
+<li><strong>ADC_HRS6_Mean</strong>: Mean ADC within HRS6 mask</li>
+</ol>
+<hr>
+<h2 id="t-test-analysis">T-Test Analysis</h2>
+<h3 id="statistical-method">Statistical Method</h3>
+<p><strong>Two-Sample T-Test</strong> (independent samples):</p>
+<ul>
+<li><strong>Group 0</strong>: Patients with label = 0</li>
+<li><strong>Group 1</strong>: Patients with label = 1</li>
+<li><strong>Null Hypothesis</strong>: No difference between groups</li>
+<li><strong>Alternative Hypothesis</strong>: Groups differ significantly</li>
+<li><strong>Significance Level</strong>: p &lt; 0.05</li>
+</ul>
+<h3 id="how-t-tests-are-performed">How T-Tests Are Performed</h3>
+<p>For each feature in each experiment:</p>
+<ol>
+<li>Extract values for Group 0 (label=0)</li>
+<li>Extract values for Group 1 (label=1)</li>
+<li>Remove NaN values</li>
+<li>Perform <code>ttest2(group0, group1)</code> in MATLAB</li>
+<li>Store p-value in results table</li>
+</ol>
+<h3 id="interpreting-p-values">Interpreting P-Values</h3>
+<ul>
+<li><strong>p &lt; 0.05</strong>: Feature shows significant difference between groups</li>
+<li><strong>p ≥ 0.05</strong>: No significant difference (or insufficient evidence)</li>
+<li><strong>Lower p-values</strong>: Stronger evidence of difference</li>
+</ul>
+<h3 id="feature-ranking">Feature Ranking</h3>
+<p>Features are ranked by:</p>
+<ol>
+<li><strong>Frequency of significance</strong>: How many experiments show p &lt; 0.05</li>
+<li><strong>Average p-value</strong>: Lower is better</li>
+<li><strong>Minimum p-value</strong>: Best single result</li>
+</ol>
+<hr>
+<h2 id="understanding-results">Understanding Results</h2>
+<h3 id="excel-output-structure">Excel Output Structure</h3>
+<h4 id="sheet-adc-or-dce">Sheet: ADC (or DCE)</h4>
+<pre class="hljs"><code><div>| mast_id | label | ADC_HRS-V1 | ADC_HRS-V2 | ... | ADC_HRS1_Mean | ... | p-value |
+|---------|-------|------------|------------|-----|---------------|-----|---------|
+| M003    | 0     | 12.5       | 8.3        | ... | 1250.5        | ... | 0.023   |
+| M005    | 0     | 15.2       | 9.1        | ... | 1320.8        | ... | 0.023   |
+| ...     | ...   | ...        | ...        | ... | ...           | ... | ...     |
+| M010    | 1     | 18.7       | 12.4       | ... | 1450.2        | ... | 0.023   |
+| p-value | NaN   | 0.023      | 0.156      | ... | 0.001         | ... | NaN     |
+</div></code></pre>
+<p><strong>Last Row</strong>: Contains p-values for each feature column</p>
+<h3 id="key-result-files">Key Result Files</h3>
+<ol>
+<li>
+<p><strong>Results001.xlsx, Results002.xlsx, ...</strong></p>
+<ul>
+<li>Individual experiment results</li>
+<li>Location: Same directory as experiment data</li>
+</ul>
+</li>
+<li>
+<p><strong>Top_20_Features.xlsx</strong></p>
+<ul>
+<li>Best 20 features across all experiments</li>
+<li>Ranked by significance frequency</li>
+</ul>
+</li>
+<li>
+<p><strong>Feature_Analysis_Results.xlsx</strong></p>
+<ul>
+<li>Complete ranking of all significant features</li>
+<li>Includes statistics for each feature</li>
+</ul>
+</li>
+<li>
+<p><strong>Combined_Mast_All_Studies_Features.xlsx</strong></p>
+<ul>
+<li>Combined results across all studies and experiments</li>
+<li>One sheet per feature</li>
+</ul>
+</li>
+</ol>
+<h3 id="understanding-parameter-impact">Understanding Parameter Impact</h3>
+<p><strong>WashOutUpper Parameter:</strong></p>
+<ul>
+<li>Affects: HRS volumes, HRS ratios, DCE-based statistics</li>
+<li>Mechanism: Changes DCE mask → HRS mask → Feature values</li>
+<li>Expected: Different values should produce different results</li>
+</ul>
+<p><strong>ADC PZ Thresholds:</strong></p>
+<ul>
+<li>Affects: ADC-based features (ADC_HRS1_Mean, ADC_HRS6_Mean)</li>
+<li>Mechanism: Direct ADC value calculation within HRS regions</li>
+<li>Expected: Different thresholds should produce different ADC statistics</li>
+</ul>
+<p><strong>Note</strong>: <code>ADC_Prostate_Mean</code> is typically NOT affected by parameters (expected behavior).</p>
+<hr>
+<h2 id="advanced-analysis">Advanced Analysis</h2>
+<h3 id="comparing-experiments">Comparing Experiments</h3>
+<p><strong>Using <code>compare_experiments_properly.m</code>:</strong></p>
+<pre class="hljs"><code><div>compare_experiments_properly()
+</div></code></pre>
+<p>This analyzes how the same patient/study shows different values across experiments, helping identify:</p>
+<ul>
+<li>Parameter sensitivity</li>
+<li>Identical value patterns</li>
+<li>Expected vs unexpected variations</li>
+</ul>
+<h3 id="creating-visualizations">Creating Visualizations</h3>
+<h4 id="2d-scatter-plots">2D Scatter Plots</h4>
+<ul>
+<li><strong>X-axis</strong>: Parameter value (WashOutUpper or ADC PZ threshold)</li>
+<li><strong>Y-axis</strong>: P-value</li>
+<li><strong>Purpose</strong>: Visualize parameter sensitivity</li>
+</ul>
+<h4 id="3d-scatter-plots">3D Scatter Plots</h4>
+<ul>
+<li><strong>X-axis</strong>: Parameter value</li>
+<li><strong>Y-axis</strong>: Time point (Confirmatory, 12m, 24m, 36m)</li>
+<li><strong>Z-axis</strong>: P-value</li>
+<li><strong>Reference plane</strong>: p = 0.05</li>
+<li><strong>Purpose</strong>: Multi-dimensional parameter analysis</li>
+</ul>
+<h3 id="generating-presentations">Generating Presentations</h3>
+<p><strong>Using <code>generate_analysis_ppt.m</code>:</strong></p>
+<pre class="hljs"><code><div>generate_analysis_ppt()
+</div></code></pre>
+<p>Creates PowerPoint presentation with:</p>
+<ul>
+<li>Overview slides</li>
+<li>One slide per plot</li>
+<li>Analysis summary</li>
+</ul>
+<p><strong>Requirements</strong>: Windows with PowerPoint installed</p>
+<hr>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="common-issues">Common Issues</h3>
+<h4 id="1-%22no-mast-folders-found%22">1. &quot;No MAST folders found&quot;</h4>
+<p><strong>Problem</strong>: <code>compute_HRS_features_t_test</code> can't find patient folders</p>
+<p><strong>Solutions</strong>:</p>
+<ul>
+<li>Verify <code>rootDir</code> path is correct</li>
+<li>Check folder names start with &quot;MAST&quot; (case-sensitive)</li>
+<li>Ensure folders are in the specified directory</li>
+</ul>
+<h4 id="2-%22labelscsv-not-found%22">2. &quot;Labels.csv not found&quot;</h4>
+<p><strong>Problem</strong>: Labels file path is incorrect</p>
+<p><strong>Solutions</strong>:</p>
+<ul>
+<li>Use absolute path: <code>&quot;C:\Full\Path\To\CODE\Labels.csv&quot;</code></li>
+<li>Verify file exists and has correct format</li>
+<li>Check CSV has <code>mast_id,label</code> header</li>
+</ul>
+<h4 id="3-%22missing-mha-files%22">3. &quot;Missing .mha files&quot;</h4>
+<p><strong>Problem</strong>: Required image files not found</p>
+<p><strong>Solutions</strong>:</p>
+<ul>
+<li>Verify HRS processing completed successfully</li>
+<li>Check file paths: <code>Output/MRI_Reformatted/ADC.mha</code></li>
+<li>Ensure HRS mask files exist: <code>HRS_1.mha</code> through <code>HRS_10.mha</code></li>
+</ul>
+<h4 id="4-%22all-p-values-are-nan%22">4. &quot;All p-values are NaN&quot;</h4>
+<p><strong>Problem</strong>: Insufficient data for t-test</p>
+<p><strong>Solutions</strong>:</p>
+<ul>
+<li>Check that both groups (label 0 and 1) have patients</li>
+<li>Verify feature values are not all NaN</li>
+<li>Ensure at least 2 patients per group</li>
+</ul>
+<h4 id="5-%22identical-values-across-experiments%22">5. &quot;Identical values across experiments&quot;</h4>
+<p><strong>Problem</strong>: Some patients show identical values</p>
+<p><strong>Explanation</strong>: This is <strong>expected behavior</strong> when:</p>
+<ul>
+<li>Patients have similar DCEFeatureSum values</li>
+<li>DCEScore calculation produces identical results</li>
+<li>Parameters don't affect certain features (e.g., ADC_Prostate_Mean)</li>
+</ul>
+<p><strong>Not a bug</strong>: The algorithm is deterministic - identical parameters = identical results</p>
+<h3 id="performance-tips">Performance Tips</h3>
+<ol>
+<li>
+<p><strong>Batch Processing</strong>: Process experiments in loops</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">for</span> expNum = <span class="hljs-number">1</span>:<span class="hljs-number">36</span>
+    expStr = sprintf(<span class="hljs-string">'%03d'</span>, expNum);
+    rootDir = sprintf(<span class="hljs-string">'Path/To/Experiment%s'</span>, expStr);
+    compute_HRS_features_t_test(rootDir, labelsPath, expStr);
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+</li>
+<li>
+<p><strong>Memory Management</strong>: Process one experiment at a time for large datasets</p>
+</li>
+<li>
+<p><strong>Parallel Processing</strong>: Use <code>parfor</code> for independent experiments (if available)</p>
+</li>
+</ol>
+<h3 id="getting-help">Getting Help</h3>
+<ol>
+<li><strong>Check MATLAB Command Window</strong>: Error messages provide specific information</li>
+<li><strong>Verify File Paths</strong>: Use absolute paths to avoid path issues</li>
+<li><strong>Review Documentation</strong>: Check function help text: <code>help compute_HRS_features_t_test</code></li>
+<li><strong>Check Data Structure</strong>: Verify folder organization matches expected structure</li>
+</ol>
+<hr>
+<h2 id="quick-reference">Quick Reference</h2>
+<h3 id="essential-functions">Essential Functions</h3>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Purpose</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>compute_HRS_features_t_test</code></td>
+<td>Extract features + t-tests</td>
+<td><code>compute_HRS_features_t_test(rootDir, labelsPath, &quot;001&quot;)</code></td>
+</tr>
+<tr>
+<td><code>extract_specific_features</code></td>
+<td>Extract 6 key features</td>
+<td><code>extract_specific_features()</code></td>
+</tr>
+<tr>
+<td><code>run_pvalue_analysis</code></td>
+<td>Full analysis pipeline</td>
+<td><code>run_pvalue_analysis()</code></td>
+</tr>
+<tr>
+<td><code>combine_study_features</code></td>
+<td>Combine all studies</td>
+<td><code>combine_study_features()</code></td>
+</tr>
+<tr>
+<td><code>compare_experiments_properly</code></td>
+<td>Compare experiments</td>
+<td><code>compare_experiments_properly()</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="key-files">Key Files</h3>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Labels.csv</code></td>
+<td>Patient labels (0/1)</td>
+</tr>
+<tr>
+<td><code>Experiment_Plan.csv</code></td>
+<td>Parameter configurations</td>
+</tr>
+<tr>
+<td><code>Results001.xlsx</code></td>
+<td>Experiment 1 results</td>
+</tr>
+<tr>
+<td><code>Top_20_Features.xlsx</code></td>
+<td>Best features ranking</td>
+</tr>
+</tbody>
+</table>
+<h3 id="typical-workflow">Typical Workflow</h3>
+<ol>
+<li><strong>Extract features</strong> for all experiments: <code>compute_HRS_features_t_test(...)</code></li>
+<li><strong>Combine results</strong>: <code>combine_study_features()</code></li>
+<li><strong>Run analysis</strong>: <code>run_pvalue_analysis()</code></li>
+<li><strong>Review results</strong>: Check <code>Top_20_Features.xlsx</code> and plots</li>
+<li><strong>Generate presentation</strong>: <code>generate_analysis_ppt()</code></li>
+</ol>
+<hr>
+<h2 id="appendix">Appendix</h2>
+<h3 id="parameter-impact-summary">Parameter Impact Summary</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Affected By</th>
+<th>Expected Variation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HRS1_Volume</td>
+<td>WashOutUpper + ADC PZ</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>HRS6_Volume</td>
+<td>WashOutUpper + ADC PZ</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>HRS7_6_Ratio</td>
+<td>WashOutUpper + ADC PZ</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>ADC_Prostate_Mean</td>
+<td>None (expected)</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ADC_HRS1_Mean</td>
+<td>WashOutUpper + ADC PZ</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>ADC_HRS6_Mean</td>
+<td>WashOutUpper + ADC PZ</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="file-naming-conventions">File Naming Conventions</h3>
+<ul>
+<li><strong>Experiments</strong>: <code>Experiment001</code>, <code>Experiment002</code>, ..., <code>Experiment036</code></li>
+<li><strong>Results</strong>: <code>Results001.xlsx</code>, <code>Results002.xlsx</code>, etc.</li>
+<li><strong>Patients</strong>: <code>MAST001</code>, <code>MAST002</code>, etc. (in code: <code>M001</code>, <code>M002</code>)</li>
+<li><strong>Studies</strong>: <code>Confirmatory</code>, <code>12m</code>, <code>24m</code>, <code>36m</code></li>
+</ul>
+<hr>
+<h2 id="contact--support">Contact &amp; Support</h2>
+<p>For questions or issues:</p>
+<ol>
+<li>Review this guide and function documentation</li>
+<li>Check MATLAB error messages</li>
+<li>Verify data structure matches requirements</li>
+<li>Review example outputs in the project directory</li>
+</ol>
+<hr>
+<p><strong>Last Updated</strong>: Based on codebase review and analysis documentation
+<strong>Version</strong>: 1.0</p>
+
+</body>
+</html>

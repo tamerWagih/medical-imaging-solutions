@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Quick_Start_Guide.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="quick-start-guide-mast-cases-t-test-experiments">Quick Start Guide: MAST Cases T-Test Experiments</h1>
+<h2 id="%F0%9F%9A%80-quick-start-5-steps">🚀 Quick Start (5 Steps)</h2>
+<h3 id="step-1-prepare-your-data">Step 1: Prepare Your Data</h3>
+<pre class="hljs"><code><div>✓ HRS-processed MAST cases in experiment folders
+✓ Labels.csv file with patient IDs and labels
+✓ MATLAB with required toolboxes
+</div></code></pre>
+<h3 id="step-2-extract-features-for-one-experiment">Step 2: Extract Features for One Experiment</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">% Example: Extract features for Confirmatory study, Experiment 001</span>
+rootDir = <span class="hljs-string">"D:\Path\To\Confirmatory HRS Output_Experiment001"</span>;
+labelsPath = <span class="hljs-string">"D:\Path\To\CODE\Labels.csv"</span>;
+compute_HRS_features_t_test(rootDir, labelsPath, <span class="hljs-string">"001"</span>);
+</div></code></pre>
+<p><strong>Output</strong>: <code>Results001.xlsx</code> in the experiment folder</p>
+<h3 id="step-3-repeat-for-all-experiments">Step 3: Repeat for All Experiments</h3>
+<p>Process all 36 experiments (or your subset) for each time point:</p>
+<ul>
+<li>Confirmatory</li>
+<li>12m</li>
+<li>24m</li>
+<li>36m</li>
+</ul>
+<h3 id="step-4-run-analysis">Step 4: Run Analysis</h3>
+<pre class="hljs"><code><div>run_pvalue_analysis()
+</div></code></pre>
+<p><strong>Output</strong>:</p>
+<ul>
+<li><code>Top_20_Features.xlsx</code></li>
+<li>2D and 3D scatter plots</li>
+<li>Analysis results</li>
+</ul>
+<h3 id="step-5-review-results">Step 5: Review Results</h3>
+<ul>
+<li>Open <code>Top_20_Features.xlsx</code> to see best features</li>
+<li>Check plots in <code>2D_Scatter_Plots_v2/</code> and <code>3D_Scatter_Plots_v2/</code></li>
+<li>Review <code>Feature_Analysis_Results.xlsx</code> for complete ranking</li>
+</ul>
+<hr>
+<h2 id="%F0%9F%93%8B-essential-information">📋 Essential Information</h2>
+<h3 id="key-features-extracted">Key Features Extracted</h3>
+<ol>
+<li><strong>HRS1_Volume</strong> - Volume of highest HRS region</li>
+<li><strong>HRS6_Volume</strong> - Volume of medium HRS region</li>
+<li><strong>HRS7_6_Ratio</strong> - Ratio of HRS7/HRS6 volumes</li>
+<li><strong>ADC_Prostate_Mean</strong> - Mean ADC in prostate</li>
+<li><strong>ADC_HRS1_Mean</strong> - Mean ADC in HRS1 mask</li>
+<li><strong>ADC_HRS6_Mean</strong> - Mean ADC in HRS6 mask</li>
+</ol>
+<h3 id="experiment-parameters">Experiment Parameters</h3>
+<ul>
+<li><strong>WashOutUpper</strong>: 2.0 to 4.5 (affects DCE-based features)</li>
+<li><strong>ADC PZ Thresholds</strong>: High/Medium/Low (affects ADC-based features)</li>
+<li>See <code>Experiment_Plan.csv</code> for all 36 configurations</li>
+</ul>
+<h3 id="what-t-tests-do">What T-Tests Do</h3>
+<p>Compare feature values between two patient groups (label 0 vs label 1) to find features that show significant differences (p &lt; 0.05).</p>
+<hr>
+<h2 id="%F0%9F%94%A7-common-commands">🔧 Common Commands</h2>
+<pre class="hljs"><code><div><span class="hljs-comment">% Extract features</span>
+compute_HRS_features_t_test(rootDir, labelsPath, <span class="hljs-string">"001"</span>);
+
+<span class="hljs-comment">% Extract only 6 key features</span>
+extract_specific_features();
+
+<span class="hljs-comment">% Full analysis pipeline</span>
+run_pvalue_analysis();
+
+<span class="hljs-comment">% Combine all studies</span>
+combine_study_features();
+
+<span class="hljs-comment">% Compare experiments</span>
+compare_experiments_properly();
+</div></code></pre>
+<hr>
+<h2 id="%F0%9F%93%81-expected-file-structure">📁 Expected File Structure</h2>
+<pre class="hljs"><code><div>Project/
+├── CODE/
+│   ├── compute_HRS_features_t_test.m
+│   ├── Labels.csv
+│   └── ...
+├── Confirmatory/
+│   ├── Experiment001/
+│   │   ├── MAST001/
+│   │   └── MAST002/
+│   └── Experiment002/
+├── 12m/
+├── 24m/
+└── 36m/
+</div></code></pre>
+<hr>
+<h2 id="%E2%9A%A0%EF%B8%8F-troubleshooting">⚠️ Troubleshooting</h2>
+<p><strong>Problem</strong>: &quot;No MAST folders found&quot;</p>
+<ul>
+<li>Check <code>rootDir</code> path is correct</li>
+<li>Verify folders start with &quot;MAST&quot;</li>
+</ul>
+<p><strong>Problem</strong>: &quot;Labels.csv not found&quot;</p>
+<ul>
+<li>Use absolute path</li>
+<li>Check file exists and has <code>mast_id,label</code> header</li>
+</ul>
+<p><strong>Problem</strong>: &quot;All p-values are NaN&quot;</p>
+<ul>
+<li>Ensure both groups (0 and 1) have patients</li>
+<li>Check feature values aren't all NaN</li>
+</ul>
+<p><strong>Problem</strong>: Identical values across experiments</p>
+<ul>
+<li><strong>This is normal!</strong> Some patients naturally have similar values</li>
+<li>Identical parameters = identical results (algorithm is deterministic)</li>
+</ul>
+<hr>
+<h2 id="%F0%9F%93%96-full-documentation">📖 Full Documentation</h2>
+<p>See <code>MAST_Cases_T-Test_Experiments_Guide.md</code> for complete documentation.</p>
+<hr>
+<p><strong>Quick Reference Version</strong>: 1.0</p>
+
+</body>
+</html>

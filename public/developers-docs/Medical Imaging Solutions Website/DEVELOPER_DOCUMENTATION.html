@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>DEVELOPER_DOCUMENTATION.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="medical-imaging-solutions---developer-documentation">Medical Imaging Solutions - Developer Documentation</h1>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li><a href="#project-overview">Project Overview</a></li>
+<li><a href="#architecture--technology-stack">Architecture &amp; Technology Stack</a></li>
+<li><a href="#project-structure">Project Structure</a></li>
+<li><a href="#key-components">Key Components</a></li>
+<li><a href="#data-management">Data Management</a></li>
+<li><a href="#styling-system">Styling System</a></li>
+<li><a href="#development-workflow">Development Workflow</a></li>
+<li><a href="#deployment">Deployment</a></li>
+<li><a href="#api--integration-points">API &amp; Integration Points</a></li>
+<li><a href="#best-practices">Best Practices</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+<li><a href="#contributing">Contributing</a></li>
+</ol>
+<hr>
+<h2 id="project-overview">Project Overview</h2>
+<h3 id="purpose">Purpose</h3>
+<p>The Medical Imaging Solutions website is a comprehensive Next.js application showcasing two specialized medical imaging platforms:</p>
+<ul>
+<li><strong>RadView</strong>: Comprehensive radiomics feature extraction and visualization platform</li>
+<li><strong>HRS (Habitat Risk Scoring)</strong>: Advanced multi-parametric prostate MRI analysis platform</li>
+</ul>
+<p>Both platforms are available as desktop applications and web-based solutions, targeting medical professionals, researchers, and healthcare institutions.</p>
+<h3 id="key-features">Key Features</h3>
+<ul>
+<li><strong>Product Showcase</strong>: Detailed information about RadView and HRS platforms</li>
+<li><strong>Interactive Documentation</strong>: Comprehensive documentation system with searchable content</li>
+<li><strong>Responsive Design</strong>: Mobile-first approach with modern UI/UX</li>
+<li><strong>Performance Optimized</strong>: Server-side rendering with Next.js App Router</li>
+<li><strong>Type-Safe</strong>: Full TypeScript implementation</li>
+<li><strong>Accessible</strong>: WCAG-compliant design patterns</li>
+</ul>
+<h3 id="target-audience">Target Audience</h3>
+<ul>
+<li>Medical researchers</li>
+<li>Radiologists</li>
+<li>Healthcare institutions</li>
+<li>Software developers working on medical imaging solutions</li>
+</ul>
+<hr>
+<h2 id="architecture--technology-stack">Architecture &amp; Technology Stack</h2>
+<h3 id="core-technologies">Core Technologies</h3>
+<h4 id="frontend-framework">Frontend Framework</h4>
+<ul>
+<li><strong>Next.js 15.5.5</strong> (App Router)
+<ul>
+<li>Server-side rendering (SSR)</li>
+<li>Static site generation (SSG)</li>
+<li>API routes support</li>
+<li>Image optimization</li>
+<li>Font optimization</li>
+</ul>
+</li>
+</ul>
+<h4 id="react--typescript">React &amp; TypeScript</h4>
+<ul>
+<li><strong>React 19.1.0</strong>: Latest React with concurrent features</li>
+<li><strong>TypeScript 5</strong>: Full type safety</li>
+<li><strong>React DOM 19.1.0</strong>: Server and client rendering</li>
+</ul>
+<h4 id="styling">Styling</h4>
+<ul>
+<li><strong>Tailwind CSS 4</strong>: Utility-first CSS framework</li>
+<li><strong>Custom CSS Variables</strong>: Theme system with CSS custom properties</li>
+<li><strong>PostCSS</strong>: CSS processing and optimization</li>
+<li><strong>Responsive Design</strong>: Mobile-first breakpoints</li>
+</ul>
+<h4 id="ui-libraries">UI Libraries</h4>
+<ul>
+<li><strong>Lucide React 0.545.0</strong>: Icon library (replaces Feather Icons)</li>
+<li><strong>Framer Motion 12.23.24</strong>: Animation library</li>
+<li><strong>React Hook Form 7.65.0</strong>: Form handling (for contact/newsletter)</li>
+</ul>
+<h4 id="utilities">Utilities</h4>
+<ul>
+<li><strong>clsx 2.1.1</strong>: Conditional class names</li>
+<li><strong>tailwind-merge 3.3.1</strong>: Merge Tailwind classes intelligently</li>
+</ul>
+<h3 id="development-tools">Development Tools</h3>
+<ul>
+<li><strong>Node.js 18+</strong>: Runtime environment</li>
+<li><strong>npm</strong>: Package manager</li>
+<li><strong>TypeScript</strong>: Type checking</li>
+<li><strong>ESLint</strong>: Code linting (if configured)</li>
+</ul>
+<h3 id="build--deployment">Build &amp; Deployment</h3>
+<ul>
+<li><strong>Next.js Build System</strong>: Optimized production builds</li>
+<li><strong>Turbopack</strong>: Fast development bundler (optional)</li>
+<li><strong>Vercel</strong>: Recommended deployment platform</li>
+</ul>
+<hr>
+<h2 id="project-structure">Project Structure</h2>
+<pre class="hljs"><code><div>medical-imaging-solutions/
+├── app/                          # Next.js App Router directory
+│   ├── layout.tsx               # Root layout with fonts and metadata
+│   ├── page.tsx                 # Homepage
+│   ├── globals.css              # Global styles and CSS variables
+│   ├── not-found.tsx            # 404 page
+│   │
+│   ├── about/                   # About page
+│   │   ├── page.tsx
+│   │   └── about.css
+│   │
+│   ├── contact/                 # Contact page
+│   │   ├── page.tsx
+│   │   └── contact.css
+│   │
+│   ├── documentation/           # Documentation system
+│   │   ├── page.tsx             # Main documentation page (4500+ lines)
+│   │   ├── documentation.css    # Documentation-specific styles
+│   │   ├── hrs/                 # HRS documentation
+│   │   │   └── page.tsx
+│   │   ├── radview/             # RadView documentation
+│   │   │   └── page.tsx
+│   │   └── research-papers/    # Research papers section
+│   │       ├── page.tsx
+│   │       └── research-papers.css
+│   │
+│   └── products/                # Product pages
+│       ├── hrs/
+│       │   └── page.tsx         # HRS product page
+│       └── radview/
+│           └── page.tsx         # RadView product page
+│
+├── components/                   # React components
+│   ├── layout/                  # Layout components
+│   │   ├── header.tsx           # Navigation header
+│   │   └── footer.tsx           # Site footer
+│   │
+│   ├── sections/                 # Page sections
+│   │   ├── hero.tsx             # Hero section
+│   │   ├── features.tsx         # Features showcase
+│   │   ├── product-showcase.tsx # Product cards
+│   │   ├── why-choose-us.tsx    # Why choose us section
+│   │   ├── testimonials.tsx     # Testimonials
+│   │   └── cta.tsx              # Call-to-action
+│   │
+│   └── ui/                      # Reusable UI components
+│       ├── badge.tsx
+│       ├── button.tsx
+│       ├── card.tsx
+│       ├── input.tsx
+│       └── textarea.tsx
+│
+├── lib/                          # Utilities and data
+│   ├── constants.ts             # App-wide constants (company info, nav, products)
+│   ├── utils.ts                 # Utility functions (cn, etc.)
+│   ├── hrs-data.ts              # HRS product data and parameters
+│   └── radview-data.ts          # RadView product data
+│
+├── public/                       # Static assets
+│   ├── images/                  # Image assets
+│   ├── products/                # Product-specific assets
+│   │   ├── *.mp4               # Demo videos
+│   │   └── *.png               # Screenshots
+│   └── videos/                  # Video assets
+│
+├── package.json                  # Dependencies and scripts
+├── tsconfig.json                 # TypeScript configuration
+├── next.config.ts                # Next.js configuration
+├── tailwind.config.ts            # Tailwind CSS configuration
+├── postcss.config.mjs            # PostCSS configuration
+├── BUILD_GUIDE.txt               # Quick build instructions
+└── README.md                     # Project readme
+</div></code></pre>
+<h3 id="key-directories-explained">Key Directories Explained</h3>
+<h4 id="app"><code>/app</code></h4>
+<p>Next.js 13+ App Router directory. Each subdirectory represents a route:</p>
+<ul>
+<li><code>page.tsx</code>: Route component</li>
+<li><code>layout.tsx</code>: Layout wrapper (inherited from parent)</li>
+<li><code>loading.tsx</code>: Loading UI (optional)</li>
+<li><code>error.tsx</code>: Error boundary (optional)</li>
+</ul>
+<h4 id="components"><code>/components</code></h4>
+<p>Reusable React components organized by purpose:</p>
+<ul>
+<li><strong>layout/</strong>: Site-wide layout components</li>
+<li><strong>sections/</strong>: Page section components</li>
+<li><strong>ui/</strong>: Atomic UI components</li>
+</ul>
+<h4 id="lib"><code>/lib</code></h4>
+<p>Shared utilities and data:</p>
+<ul>
+<li><strong>constants.ts</strong>: Centralized configuration</li>
+<li><strong>utils.ts</strong>: Helper functions</li>
+<li>*<strong>-data.ts</strong>: Product-specific data structures</li>
+</ul>
+<h4 id="public"><code>/public</code></h4>
+<p>Static files served at root URL:</p>
+<ul>
+<li>Images, videos, fonts</li>
+<li>Accessible via <code>/filename.ext</code></li>
+</ul>
+<hr>
+<h2 id="key-components">Key Components</h2>
+<h3 id="layout-components">Layout Components</h3>
+<h4 id="header-componentslayoutheadertsx">Header (<code>components/layout/header.tsx</code>)</h4>
+<p><strong>Purpose</strong>: Main navigation header with responsive menu</p>
+<p><strong>Features</strong>:</p>
+<ul>
+<li>Desktop dropdown navigation</li>
+<li>Mobile hamburger menu</li>
+<li>Smooth animations</li>
+<li>Active state management</li>
+<li>Logo with company branding</li>
+</ul>
+<p><strong>Key Props</strong>: None (uses constants from <code>lib/constants.ts</code>)</p>
+<p><strong>State Management</strong>:</p>
+<ul>
+<li><code>mobileMenuOpen</code>: Controls mobile menu visibility</li>
+<li><code>openDropdown</code>: Tracks open desktop dropdown</li>
+<li><code>mobileOpenDropdown</code>: Tracks open mobile dropdown</li>
+</ul>
+<p><strong>Usage</strong>:</p>
+<pre class="hljs"><code><div>import { Header } from &quot;@/components/layout/header&quot;;
+
+// Automatically included in root layout
+</div></code></pre>
+<h4 id="footer-componentslayoutfootertsx">Footer (<code>components/layout/footer.tsx</code>)</h4>
+<p><strong>Purpose</strong>: Site footer with newsletter subscription</p>
+<p><strong>Features</strong>:</p>
+<ul>
+<li>Company information</li>
+<li>Quick links</li>
+<li>Newsletter subscription form</li>
+<li>Client-side form handling</li>
+</ul>
+<p><strong>State Management</strong>:</p>
+<ul>
+<li><code>email</code>: Newsletter email input</li>
+<li><code>isSubmitting</code>: Form submission state</li>
+<li><code>message</code>: Success/error messages</li>
+</ul>
+<h3 id="section-components">Section Components</h3>
+<h4 id="hero-componentssectionsherotsx">Hero (<code>components/sections/hero.tsx</code>)</h4>
+<p><strong>Purpose</strong>: Homepage hero section with CTA</p>
+<p><strong>Features</strong>:</p>
+<ul>
+<li>Gradient title</li>
+<li>Call-to-action buttons</li>
+<li>Statistics display</li>
+<li>Floating badges</li>
+<li>Video placeholder</li>
+</ul>
+<p><strong>Data Source</strong>: <code>lib/constants.ts</code> (COMPANY)</p>
+<h4 id="product-showcase-componentssectionsproduct-showcasetsx">Product Showcase (<code>components/sections/product-showcase.tsx</code>)</h4>
+<p><strong>Purpose</strong>: Display product cards on homepage</p>
+<p><strong>Features</strong>:</p>
+<ul>
+<li>Dynamic product rendering</li>
+<li>Icon mapping</li>
+<li>Feature lists</li>
+<li>Link to product pages</li>
+</ul>
+<p><strong>Data Source</strong>: <code>lib/constants.ts</code> (PRODUCTS array)</p>
+<h3 id="documentation-system">Documentation System</h3>
+<h4 id="documentation-page-appdocumentationpagetsx">Documentation Page (<code>app/documentation/page.tsx</code>)</h4>
+<p><strong>Purpose</strong>: Comprehensive documentation viewer with search and navigation</p>
+<p><strong>Key Features</strong>:</p>
+<ul>
+<li><strong>Hierarchical Navigation</strong>: Tree structure for RadView and HRS</li>
+<li><strong>Search Functionality</strong>: Real-time content search</li>
+<li><strong>Section Management</strong>: Expandable/collapsible sections</li>
+<li><strong>URL Parameters</strong>: Deep linking to specific sections</li>
+<li><strong>Responsive Design</strong>: Mobile-friendly interface</li>
+</ul>
+<p><strong>Data Structure</strong>:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">const</span> documentationStructure = {
+  radview: {
+    title: <span class="hljs-string">"RadView"</span>,
+    icon: Monitor,
+    subsections: {
+      desktop: { ... },
+      cloud: { ... }
+    }
+  },
+  hrs: { ... }
+}
+</div></code></pre>
+<p><strong>Content Management</strong>:</p>
+<ul>
+<li>Content stored in <code>contentData</code> object</li>
+<li>HTML content with rich formatting</li>
+<li>Supports code blocks, lists, tables</li>
+<li>Info boxes and warnings</li>
+</ul>
+<p><strong>Search Implementation</strong>:</p>
+<ul>
+<li>Client-side search across all content</li>
+<li>Highlights matching terms</li>
+<li>Filters sections dynamically</li>
+</ul>
+<hr>
+<h2 id="data-management">Data Management</h2>
+<h3 id="constants-libconstantsts">Constants (<code>lib/constants.ts</code>)</h3>
+<h4 id="company-information">Company Information</h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> COMPANY = {
+  name: <span class="hljs-string">"CStride"</span>,
+  tagline: <span class="hljs-string">"Medical Imaging Solutions"</span>,
+  description: <span class="hljs-string">"..."</span>,
+  email: <span class="hljs-string">"dev@cstride.com"</span>,
+  <span class="hljs-comment">// ... address, departments, etc.</span>
+}
+</div></code></pre>
+<h4 id="navigation-items">Navigation Items</h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> NAV_ITEMS = [
+  { label: <span class="hljs-string">"Home"</span>, href: <span class="hljs-string">"/"</span> },
+  {
+    label: <span class="hljs-string">"Products"</span>,
+    items: [
+      { label: <span class="hljs-string">"RadView"</span>, href: <span class="hljs-string">"/products/radview"</span>, ... },
+      { label: <span class="hljs-string">"HRS"</span>, href: <span class="hljs-string">"/products/hrs"</span>, ... }
+    ]
+  },
+  <span class="hljs-comment">// ...</span>
+]
+</div></code></pre>
+<h4 id="products-overview">Products Overview</h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> PRODUCTS = [
+  {
+    id: <span class="hljs-string">"radview"</span>,
+    name: <span class="hljs-string">"RadView"</span>,
+    tagline: <span class="hljs-string">"..."</span>,
+    description: <span class="hljs-string">"..."</span>,
+    features: [...],
+    <span class="hljs-comment">// ...</span>
+  },
+  <span class="hljs-comment">// ...</span>
+]
+</div></code></pre>
+<h3 id="product-data">Product Data</h3>
+<h4 id="radview-data-libradview-datats">RadView Data (<code>lib/radview-data.ts</code>)</h4>
+<p>Comprehensive data structure including:</p>
+<ul>
+<li>Version information</li>
+<li>System requirements</li>
+<li>Module descriptions</li>
+<li>Feature lists</li>
+<li>Workflow steps</li>
+<li>Use cases</li>
+</ul>
+<p><strong>Structure</strong>:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> RADVIEW_DESKTOP = {
+  version: <span class="hljs-string">"3.4"</span>,
+  releaseDate: <span class="hljs-string">"July 2025"</span>,
+  hero: { ... },
+  overview: { ... },
+  modules: [ ... ],
+  workflow: { ... },
+  useCases: [ ... ]
+}
+</div></code></pre>
+<h4 id="hrs-data-libhrs-datats">HRS Data (<code>lib/hrs-data.ts</code>)</h4>
+<p>Includes:</p>
+<ul>
+<li>Product information</li>
+<li>Features and validation</li>
+<li>Analysis components</li>
+<li>Workflow steps</li>
+<li>Platform comparison</li>
+<li>Parameters reference</li>
+</ul>
+<p><strong>Structure</strong>:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> HRS_DATA = {
+  name: <span class="hljs-string">"HRS - Habitat Risk Scoring"</span>,
+  features: [ ... ],
+  validation: { ... },
+  components: [ ... ],
+  workflow: [ ... ],
+  platforms: [ ... ],
+  <span class="hljs-comment">// ...</span>
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> HRS_PARAMETERS = {
+  dce: [ ... ],
+  adc: [ ... ],
+  t2: [ ... ],
+  alpha: [ ... ]
+}
+</div></code></pre>
+<h3 id="utilities-libutilsts">Utilities (<code>lib/utils.ts</code>)</h3>
+<h4 id="class-name-utility">Class Name Utility</h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cn</span>(<span class="hljs-params">...inputs: ClassValue[]</span>) </span>{
+  <span class="hljs-keyword">return</span> twMerge(clsx(inputs));
+}
+</div></code></pre>
+<p><strong>Usage</strong>: Merge Tailwind classes conditionally</p>
+<pre class="hljs"><code><div>&lt;div className={cn(&quot;base-class&quot;, condition &amp;&amp; &quot;conditional-class&quot;)} /&gt;
+</div></code></pre>
+<hr>
+<h2 id="styling-system">Styling System</h2>
+<h3 id="css-architecture">CSS Architecture</h3>
+<h4 id="global-styles-appglobalscss">Global Styles (<code>app/globals.css</code>)</h4>
+<p><strong>CSS Variables</strong>: Theme system using custom properties</p>
+<pre class="hljs"><code><div><span class="hljs-selector-pseudo">:root</span> {
+  <span class="hljs-attribute">--primary</span>: <span class="hljs-number">#4F46E5</span>;
+  <span class="hljs-attribute">--primary-light</span>: <span class="hljs-number">#818CF8</span>;
+  <span class="hljs-attribute">--primary-dark</span>: <span class="hljs-number">#3730A3</span>;
+  <span class="hljs-attribute">--secondary</span>: <span class="hljs-number">#06B6D4</span>;
+  <span class="hljs-comment">/* ... more variables ... */</span>
+}
+</div></code></pre>
+<p><strong>Color Palette</strong>:</p>
+<ul>
+<li><strong>Primary</strong>: Indigo (#4F46E5) - Main brand color</li>
+<li><strong>Secondary</strong>: Cyan (#06B6D4) - Accent color</li>
+<li><strong>Accent</strong>: Emerald (#10B981) - Success/CTA color</li>
+<li><strong>Neutrals</strong>: Gray scale for text and backgrounds</li>
+</ul>
+<p><strong>Typography</strong>:</p>
+<ul>
+<li><strong>Body Font</strong>: Inter (sans-serif)</li>
+<li><strong>Heading Font</strong>: Poppins (sans-serif)</li>
+<li>Fonts loaded via <code>next/font/google</code> for optimization</li>
+</ul>
+<p><strong>Shadows</strong>: Soft, layered shadows for depth
+<strong>Borders</strong>: Light borders for subtle separation</p>
+<h3 id="tailwind-configuration">Tailwind Configuration</h3>
+<h4 id="theme-extension-tailwindconfigts">Theme Extension (<code>tailwind.config.ts</code>)</h4>
+<pre class="hljs"><code><div>theme: {
+  extend: {
+    colors: {
+      primary: {
+        DEFAULT: <span class="hljs-string">"var(--primary)"</span>,
+        light: <span class="hljs-string">"var(--primary-light)"</span>,
+        dark: <span class="hljs-string">"var(--primary-dark)"</span>,
+      },
+      <span class="hljs-comment">// ...</span>
+    },
+    fontFamily: {
+      sans: [<span class="hljs-string">'Inter'</span>, <span class="hljs-string">'sans-serif'</span>],
+      heading: [<span class="hljs-string">'Poppins'</span>, <span class="hljs-string">'sans-serif'</span>],
+    }
+  }
+}
+</div></code></pre>
+<h3 id="component-specific-styles">Component-Specific Styles</h3>
+<h4 id="page-level-css">Page-Level CSS</h4>
+<p>Each major page has its own CSS file:</p>
+<ul>
+<li><code>about.css</code>: About page styles</li>
+<li><code>contact.css</code>: Contact page styles</li>
+<li><code>documentation.css</code>: Documentation viewer styles</li>
+<li><code>research-papers.css</code>: Research papers styles</li>
+</ul>
+<p><strong>Naming Convention</strong>: BEM-like with prefix</p>
+<ul>
+<li><code>medical-*</code>: Medical theme components</li>
+<li><code>hero-*</code>: Hero section styles</li>
+<li><code>product-*</code>: Product card styles</li>
+<li><code>feature-*</code>: Feature card styles</li>
+</ul>
+<h3 id="responsive-design">Responsive Design</h3>
+<p><strong>Breakpoints</strong> (Tailwind defaults):</p>
+<ul>
+<li><code>sm</code>: 640px</li>
+<li><code>md</code>: 768px</li>
+<li><code>lg</code>: 1024px</li>
+<li><code>xl</code>: 1280px</li>
+<li><code>2xl</code>: 1536px</li>
+</ul>
+<p><strong>Mobile-First Approach</strong>: Base styles for mobile, enhanced for larger screens</p>
+<hr>
+<h2 id="development-workflow">Development Workflow</h2>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li><strong>Node.js</strong>: 18.0.0 or higher</li>
+<li><strong>npm</strong>: Latest version (comes with Node.js)</li>
+<li><strong>Git</strong>: For version control (optional)</li>
+</ul>
+<h3 id="initial-setup">Initial Setup</h3>
+<ol>
+<li>
+<p><strong>Clone/Navigate to Project</strong></p>
+<pre class="hljs"><code><div><span class="hljs-built_in">cd</span> medical-imaging-solutions
+</div></code></pre>
+</li>
+<li>
+<p><strong>Install Dependencies</strong></p>
+<pre class="hljs"><code><div>npm install
+</div></code></pre>
+</li>
+<li>
+<p><strong>Start Development Server</strong></p>
+<pre class="hljs"><code><div>npm run dev
+</div></code></pre>
+<ul>
+<li>Server runs on <code>http://localhost:5000</code> (default)</li>
+<li>Uses Turbopack for fast HMR</li>
+<li>Auto-reloads on file changes</li>
+</ul>
+</li>
+</ol>
+<h3 id="available-scripts">Available Scripts</h3>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"dev"</span>: <span class="hljs-string">"next dev --turbopack -p 5000"</span>,
+  <span class="hljs-attr">"build"</span>: <span class="hljs-string">"next build"</span>,
+  <span class="hljs-attr">"start"</span>: <span class="hljs-string">"next start"</span>
+}
+</div></code></pre>
+<p><strong>Development</strong> (<code>npm run dev</code>):</p>
+<ul>
+<li>Fast refresh enabled</li>
+<li>Source maps for debugging</li>
+<li>Error overlay in browser</li>
+<li>Port 5000 (or next available)</li>
+</ul>
+<p><strong>Build</strong> (<code>npm run build</code>):</p>
+<ul>
+<li>Production optimization</li>
+<li>Static page generation</li>
+<li>Code splitting</li>
+<li>Output in <code>.next/</code> directory</li>
+</ul>
+<p><strong>Start</strong> (<code>npm run start</code>):</p>
+<ul>
+<li>Production server</li>
+<li>Requires <code>npm run build</code> first</li>
+<li>Optimized for performance</li>
+</ul>
+<h3 id="development-best-practices">Development Best Practices</h3>
+<h4 id="file-organization">File Organization</h4>
+<ul>
+<li>Keep components small and focused</li>
+<li>Use TypeScript for type safety</li>
+<li>Follow existing naming conventions</li>
+<li>Group related files together</li>
+</ul>
+<h4 id="component-development">Component Development</h4>
+<pre class="hljs"><code><div>// Good: Small, focused component
+export function FeatureCard({ title, description }: Props) {
+  return (
+    &lt;div className=&quot;feature-card&quot;&gt;
+      &lt;h3&gt;{title}&lt;/h3&gt;
+      &lt;p&gt;{description}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+
+// Bad: Large, monolithic component
+export function Everything() {
+  // 500+ lines of code
+}
+</div></code></pre>
+<h4 id="typescript-usage">TypeScript Usage</h4>
+<pre class="hljs"><code><div><span class="hljs-comment">// Define interfaces for props</span>
+<span class="hljs-keyword">interface</span> ProductCardProps {
+  id: <span class="hljs-built_in">string</span>;
+  name: <span class="hljs-built_in">string</span>;
+  description: <span class="hljs-built_in">string</span>;
+  features: <span class="hljs-built_in">string</span>[];
+  href: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-comment">// Use type inference where appropriate</span>
+<span class="hljs-keyword">const</span> products = PRODUCTS; <span class="hljs-comment">// Type inferred from import</span>
+</div></code></pre>
+<h4 id="state-management">State Management</h4>
+<ul>
+<li>Use React hooks (<code>useState</code>, <code>useEffect</code>)</li>
+<li>Keep state local when possible</li>
+<li>Lift state only when necessary</li>
+<li>Consider context for global state</li>
+</ul>
+<h3 id="code-style">Code Style</h3>
+<h4 id="naming-conventions">Naming Conventions</h4>
+<ul>
+<li><strong>Components</strong>: PascalCase (<code>ProductCard.tsx</code>)</li>
+<li><strong>Files</strong>: Match component name</li>
+<li><strong>Functions</strong>: camelCase (<code>handleSubmit</code>)</li>
+<li><strong>Constants</strong>: UPPER_SNAKE_CASE (<code>NAV_ITEMS</code>)</li>
+<li><strong>CSS Classes</strong>: kebab-case with prefix (<code>medical-nav-link</code>)</li>
+</ul>
+<h4 id="import-organization">Import Organization</h4>
+<pre class="hljs"><code><div>// 1. React/Next.js imports
+import { useState } from &quot;react&quot;;
+import Link from &quot;next/link&quot;;
+
+// 2. Third-party libraries
+import { Activity } from &quot;lucide-react&quot;;
+
+// 3. Internal components
+import { Header } from &quot;@/components/layout/header&quot;;
+
+// 4. Utilities and constants
+import { COMPANY } from &quot;@/lib/constants&quot;;
+
+// 5. Styles
+import &quot;./page.css&quot;;
+</div></code></pre>
+<hr>
+<h2 id="deployment">Deployment</h2>
+<h3 id="build-process">Build Process</h3>
+<ol>
+<li>
+<p><strong>Production Build</strong></p>
+<pre class="hljs"><code><div>npm run build
+</div></code></pre>
+<ul>
+<li>Compiles TypeScript</li>
+<li>Optimizes images</li>
+<li>Generates static pages</li>
+<li>Creates production bundle</li>
+</ul>
+</li>
+<li>
+<p><strong>Verify Build</strong></p>
+<pre class="hljs"><code><div>npm run start
+</div></code></pre>
+<ul>
+<li>Test production build locally</li>
+<li>Check for errors</li>
+<li>Verify all routes work</li>
+</ul>
+</li>
+</ol>
+<h3 id="deployment-platforms">Deployment Platforms</h3>
+<h4 id="vercel-recommended">Vercel (Recommended)</h4>
+<ol>
+<li>Connect GitHub repository</li>
+<li>Vercel auto-detects Next.js</li>
+<li>Configure environment variables (if needed)</li>
+<li>Deploy automatically on push</li>
+</ol>
+<p><strong>Advantages</strong>:</p>
+<ul>
+<li>Zero-config deployment</li>
+<li>Automatic HTTPS</li>
+<li>Global CDN</li>
+<li>Preview deployments for PRs</li>
+</ul>
+<h4 id="other-platforms">Other Platforms</h4>
+<ul>
+<li><strong>Netlify</strong>: Similar to Vercel</li>
+<li><strong>AWS Amplify</strong>: AWS integration</li>
+<li><strong>Docker</strong>: Container deployment</li>
+<li><strong>Self-hosted</strong>: Node.js server</li>
+</ul>
+<h3 id="environment-variables">Environment Variables</h3>
+<p>Create <code>.env.local</code> for local development:</p>
+<pre class="hljs"><code><div># Example (if needed)
+NEXT_PUBLIC_API_URL=http://localhost:3000
+</div></code></pre>
+<p><strong>Note</strong>: Currently, no environment variables are required.</p>
+<h3 id="production-checklist">Production Checklist</h3>
+<ul>
+<li><input type="checkbox" id="checkbox0"><label for="checkbox0">Run </label><code>npm run build</code> successfully</li>
+<li><input type="checkbox" id="checkbox1"><label for="checkbox1">Test all routes</label></li>
+<li><input type="checkbox" id="checkbox2"><label for="checkbox2">Verify images load correctly</label></li>
+<li><input type="checkbox" id="checkbox3"><label for="checkbox3">Check mobile responsiveness</label></li>
+<li><input type="checkbox" id="checkbox4"><label for="checkbox4">Test form submissions</label></li>
+<li><input type="checkbox" id="checkbox5"><label for="checkbox5">Verify SEO metadata</label></li>
+<li><input type="checkbox" id="checkbox6"><label for="checkbox6">Check performance (Lighthouse)</label></li>
+<li><input type="checkbox" id="checkbox7"><label for="checkbox7">Test accessibility (WAVE, axe)</label></li>
+</ul>
+<hr>
+<h2 id="api--integration-points">API &amp; Integration Points</h2>
+<h3 id="current-state">Current State</h3>
+<p>The application is primarily a <strong>static marketing website</strong> with minimal API requirements.</p>
+<h3 id="potential-integration-points">Potential Integration Points</h3>
+<h4 id="contact-form">Contact Form</h4>
+<p>Currently uses client-side form handling. Could integrate with:</p>
+<ul>
+<li>Email service (SendGrid, Mailgun)</li>
+<li>Form service (Formspree, Netlify Forms)</li>
+<li>Backend API</li>
+</ul>
+<p><strong>Example Integration</strong>:</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// app/api/contact/route.ts</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">POST</span>(<span class="hljs-params">request: Request</span>) </span>{
+  <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> request.json();
+  <span class="hljs-comment">// Send email or save to database</span>
+  <span class="hljs-keyword">return</span> Response.json({ success: <span class="hljs-literal">true</span> });
+}
+</div></code></pre>
+<h4 id="newsletter-subscription">Newsletter Subscription</h4>
+<p>Footer newsletter form could connect to:</p>
+<ul>
+<li>Email marketing service (Mailchimp, ConvertKit)</li>
+<li>Database for email storage</li>
+<li>Backend API endpoint</li>
+</ul>
+<h3 id="future-api-routes">Future API Routes</h3>
+<p>If backend functionality is added:</p>
+<pre class="hljs"><code><div>app/api/
+├── contact/
+│   └── route.ts        # Contact form submission
+├── newsletter/
+│   └── route.ts        # Newsletter subscription
+└── products/
+    └── route.ts        # Product data API
+</div></code></pre>
+<hr>
+<h2 id="best-practices">Best Practices</h2>
+<h3 id="performance-optimization">Performance Optimization</h3>
+<h4 id="image-optimization">Image Optimization</h4>
+<pre class="hljs"><code><div>import Image from &quot;next/image&quot;;
+
+&lt;Image
+  src=&quot;/products/radview.png&quot;
+  alt=&quot;RadView&quot;
+  width={800}
+  height={600}
+  priority // For above-the-fold images
+/&gt;
+</div></code></pre>
+<h4 id="code-splitting">Code Splitting</h4>
+<ul>
+<li>Next.js automatically code-splits by route</li>
+<li>Use dynamic imports for heavy components:</li>
+</ul>
+<pre class="hljs"><code><div>const HeavyComponent = dynamic(() =&gt; import('./HeavyComponent'), {
+  loading: () =&gt; &lt;p&gt;Loading...&lt;/p&gt;
+});
+</div></code></pre>
+<h4 id="font-optimization">Font Optimization</h4>
+<p>Fonts loaded via <code>next/font/google</code> are automatically optimized:</p>
+<pre class="hljs"><code><div>const inter = Inter({
+  subsets: [&quot;latin&quot;],
+  display: &quot;swap&quot;, // Prevents layout shift
+});
+</div></code></pre>
+<h3 id="accessibility">Accessibility</h3>
+<h4 id="semantic-html">Semantic HTML</h4>
+<pre class="hljs"><code><div>// Good
+&lt;nav aria-label=&quot;Main navigation&quot;&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&quot;/&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+
+// Bad
+&lt;div onClick={handleClick}&gt;Home&lt;/div&gt;
+</div></code></pre>
+<h4 id="aria-labels">ARIA Labels</h4>
+<pre class="hljs"><code><div>&lt;button
+  aria-label=&quot;Toggle mobile menu&quot;
+  aria-expanded={isOpen}
+&gt;
+  &lt;Menu /&gt;
+&lt;/button&gt;
+</div></code></pre>
+<h4 id="keyboard-navigation">Keyboard Navigation</h4>
+<ul>
+<li>All interactive elements should be keyboard accessible</li>
+<li>Focus states visible</li>
+<li>Tab order logical</li>
+</ul>
+<h3 id="seo">SEO</h3>
+<h4 id="metadata">Metadata</h4>
+<p>Defined in <code>app/layout.tsx</code>:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> metadata: Metadata = {
+  title: <span class="hljs-string">"CStride - Medical Imaging Solutions"</span>,
+  description: <span class="hljs-string">"Professional-grade medical imaging software..."</span>,
+};
+</div></code></pre>
+<h4 id="page-specific-metadata">Page-Specific Metadata</h4>
+<pre class="hljs"><code><div><span class="hljs-comment">// app/products/radview/page.tsx</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> metadata = {
+  title: <span class="hljs-string">"RadView - Radiomics Analysis Platform"</span>,
+  description: <span class="hljs-string">"..."</span>,
+};
+</div></code></pre>
+<h3 id="security">Security</h3>
+<h4 id="input-validation">Input Validation</h4>
+<pre class="hljs"><code><div><span class="hljs-comment">// Validate email format</span>
+<span class="hljs-keyword">if</span> (!<span class="hljs-regexp">/^[^\s@]+@[^\s@]+\.[^\s@]+$/</span>.test(email)) {
+  setMessage(<span class="hljs-string">"Please enter a valid email address"</span>);
+  <span class="hljs-keyword">return</span>;
+}
+</div></code></pre>
+<h4 id="xss-prevention">XSS Prevention</h4>
+<ul>
+<li>React automatically escapes content</li>
+<li>Use <code>dangerouslySetInnerHTML</code> only when necessary</li>
+<li>Sanitize user input</li>
+</ul>
+<h3 id="code-quality">Code Quality</h3>
+<h4 id="typescript">TypeScript</h4>
+<ul>
+<li>Enable strict mode</li>
+<li>Use interfaces for props</li>
+<li>Avoid <code>any</code> type</li>
+<li>Use type inference where appropriate</li>
+</ul>
+<h4 id="component-design">Component Design</h4>
+<ul>
+<li>Single responsibility principle</li>
+<li>Reusable components</li>
+<li>Props interface documentation</li>
+<li>Default props where appropriate</li>
+</ul>
+<hr>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="common-issues">Common Issues</h3>
+<h4 id="port-already-in-use">Port Already in Use</h4>
+<p><strong>Error</strong>: <code>Port 5000 is already in use</code></p>
+<p><strong>Solution</strong>:</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Use different port</span>
+npm run dev -- -p 3001
+
+<span class="hljs-comment"># Or kill process on port 5000</span>
+<span class="hljs-comment"># Windows</span>
+netstat -ano | findstr :5000
+taskkill /PID &lt;PID&gt; /F
+
+<span class="hljs-comment"># Mac/Linux</span>
+lsof -ti:5000 | xargs <span class="hljs-built_in">kill</span>
+</div></code></pre>
+<h4 id="build-errors">Build Errors</h4>
+<p><strong>TypeScript Errors</strong>:</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Check TypeScript version</span>
+npx tsc --version
+
+<span class="hljs-comment"># Clear cache and rebuild</span>
+rm -rf .next node_modules
+npm install
+npm run build
+</div></code></pre>
+<p><strong>Module Not Found</strong>:</p>
+<ul>
+<li>Check import paths (use <code>@/</code> alias)</li>
+<li>Verify file exists</li>
+<li>Check <code>tsconfig.json</code> paths configuration</li>
+</ul>
+<h4 id="styling-issues">Styling Issues</h4>
+<p><strong>Styles Not Applying</strong>:</p>
+<ul>
+<li>Check CSS file is imported</li>
+<li>Verify Tailwind classes are valid</li>
+<li>Check for CSS specificity conflicts</li>
+<li>Clear browser cache</li>
+</ul>
+<p><strong>CSS Variables Not Working</strong>:</p>
+<ul>
+<li>Verify <code>:root</code> definition in <code>globals.css</code></li>
+<li>Check variable names match</li>
+<li>Ensure CSS file is loaded</li>
+</ul>
+<h4 id="performance-issues">Performance Issues</h4>
+<p><strong>Slow Development Server</strong>:</p>
+<ul>
+<li>Use Turbopack: <code>npm run dev --turbopack</code></li>
+<li>Close unnecessary browser tabs</li>
+<li>Check for large files in <code>public/</code></li>
+</ul>
+<p><strong>Large Bundle Size</strong>:</p>
+<ul>
+<li>Use dynamic imports for heavy components</li>
+<li>Optimize images</li>
+<li>Check for unused dependencies</li>
+</ul>
+<h3 id="debugging-tips">Debugging Tips</h3>
+<h4 id="react-devtools">React DevTools</h4>
+<ul>
+<li>Install React DevTools browser extension</li>
+<li>Inspect component tree</li>
+<li>Check props and state</li>
+</ul>
+<h4 id="nextjs-debugging">Next.js Debugging</h4>
+<pre class="hljs"><code><div><span class="hljs-comment"># Verbose logging</span>
+DEBUG=* npm run dev
+
+<span class="hljs-comment"># Check build output</span>
+npm run build
+<span class="hljs-comment"># Review .next/ directory</span>
+</div></code></pre>
+<h4 id="browser-devtools">Browser DevTools</h4>
+<ul>
+<li>Network tab: Check resource loading</li>
+<li>Console: JavaScript errors</li>
+<li>Performance tab: Identify bottlenecks</li>
+<li>Lighthouse: Overall performance audit</li>
+</ul>
+<h3 id="getting-help">Getting Help</h3>
+<ol>
+<li><strong>Check Documentation</strong>: Review this file and Next.js docs</li>
+<li><strong>Search Issues</strong>: Check for similar problems online</li>
+<li><strong>Console Errors</strong>: Read error messages carefully</li>
+<li><strong>Minimal Reproduction</strong>: Create small test case</li>
+<li><strong>Ask for Help</strong>: Provide error messages and context</li>
+</ol>
+<hr>
+<h2 id="contributing">Contributing</h2>
+<h3 id="development-setup">Development Setup</h3>
+<ol>
+<li>Fork/clone repository</li>
+<li>Create feature branch: <code>git checkout -b feature/new-feature</code></li>
+<li>Make changes following code style</li>
+<li>Test thoroughly</li>
+<li>Commit with descriptive messages</li>
+<li>Push and create pull request</li>
+</ol>
+<h3 id="code-review-checklist">Code Review Checklist</h3>
+<ul>
+<li><input type="checkbox" id="checkbox8"><label for="checkbox8">TypeScript types defined</label></li>
+<li><input type="checkbox" id="checkbox9"><label for="checkbox9">No console.logs in production code</label></li>
+<li><input type="checkbox" id="checkbox10"><label for="checkbox10">Responsive design tested</label></li>
+<li><input type="checkbox" id="checkbox11"><label for="checkbox11">Accessibility considered</label></li>
+<li><input type="checkbox" id="checkbox12"><label for="checkbox12">Performance impact assessed</label></li>
+<li><input type="checkbox" id="checkbox13"><label for="checkbox13">Documentation updated (if needed)</label></li>
+</ul>
+<h3 id="commit-messages">Commit Messages</h3>
+<pre class="hljs"><code><div>feat: Add new product showcase section
+fix: Resolve mobile menu animation issue
+docs: Update developer documentation
+style: Format code with Prettier
+refactor: Extract common component logic
+</div></code></pre>
+<hr>
+<h2 id="additional-resources">Additional Resources</h2>
+<h3 id="documentation">Documentation</h3>
+<ul>
+<li><a href="https://nextjs.org/docs">Next.js Documentation</a></li>
+<li><a href="https://react.dev">React Documentation</a></li>
+<li><a href="https://www.typescriptlang.org/docs/">TypeScript Handbook</a></li>
+<li><a href="https://tailwindcss.com/docs">Tailwind CSS Docs</a></li>
+</ul>
+<h3 id="tools">Tools</h3>
+<ul>
+<li><a href="https://nextjs.org/docs/app/building-your-application/configuring/devtools">Next.js DevTools</a></li>
+<li><a href="https://react.dev/learn/react-developer-tools">React DevTools</a></li>
+<li><a href="https://www.typescriptlang.org/play">TypeScript Playground</a></li>
+</ul>
+<h3 id="design-resources">Design Resources</h3>
+<ul>
+<li><a href="https://lucide.dev">Lucide Icons</a></li>
+<li><a href="https://fonts.google.com">Google Fonts</a></li>
+<li><a href="https://coolors.co">Color Palette Generator</a></li>
+</ul>
+<hr>
+<h2 id="version-history">Version History</h2>
+<h3 id="current-version">Current Version</h3>
+<ul>
+<li><strong>Next.js</strong>: 15.5.5</li>
+<li><strong>React</strong>: 19.1.0</li>
+<li><strong>TypeScript</strong>: 5.x</li>
+<li><strong>Tailwind CSS</strong>: 4.x</li>
+</ul>
+<h3 id="changelog">Changelog</h3>
+<ul>
+<li>Initial release with RadView and HRS product pages</li>
+<li>Comprehensive documentation system</li>
+<li>Responsive design implementation</li>
+<li>TypeScript migration</li>
+<li>Performance optimizations</li>
+</ul>
+<hr>
+<h2 id="support--contact">Support &amp; Contact</h2>
+<p>For technical questions or issues:</p>
+<ul>
+<li><strong>Email</strong>: dev@cstride.com</li>
+<li><strong>Documentation</strong>: See <code>/documentation</code> route</li>
+<li><strong>Issues</strong>: Create GitHub issue (if repository is public)</li>
+</ul>
+<hr>
+<p><strong>Last Updated</strong>: November 2025
+<strong>Maintained By</strong>: CStride Development Team</p>
+
+</body>
+</html>
