@@ -1,0 +1,228 @@
+================================================================================
+              ENVIRONMENT VARIABLES SETUP GUIDE
+================================================================================
+
+This guide explains how to set up environment variables for the Developer
+Documentation authentication system.
+
+================================================================================
+PART 1: LOCAL DEVELOPMENT (.env.local)
+================================================================================
+
+STEP 1: Create the File
+------------------------
+1. Go to your project root folder (same folder as package.json)
+2. Create a new file named exactly: .env.local
+   - Important: The file name must start with a dot (.)
+   - No file extension (.txt, .env, etc.)
+   - Exact name: .env.local
+
+STEP 2: Add Environment Variables
+-----------------------------------
+Open .env.local and add these two lines:
+
+DEV_USERNAME=your_username_here
+DEV_PASSWORD=your_password_here
+
+Replace "your_username_here" and "your_password_here" with your actual
+credentials.
+
+Format Rules:
+- No spaces around the = sign
+- No quotes needed
+- One variable per line
+- No empty lines between variables
+
+Example (with placeholders):
+DEV_USERNAME=developer
+DEV_PASSWORD=your_secure_password
+
+STEP 3: Restart Development Server
+------------------------------------
+After creating or modifying .env.local, you MUST restart the development server:
+
+1. Stop the current server (press Ctrl+C in terminal)
+2. Start it again: npm run dev
+
+Environment variables are loaded when the server starts, so a restart is required.
+
+STEP 4: Verify
+--------------
+1. Start the dev server: npm run dev
+2. Visit: http://localhost:5000/documentation/developers/login
+3. Try logging in with your credentials
+4. Should work if variables are loaded correctly
+
+================================================================================
+PART 2: PRODUCTION (Vercel)
+================================================================================
+
+STEP 1: Go to Vercel Dashboard
+-------------------------------
+1. Visit: https://vercel.com/dashboard
+2. Sign in to your account
+3. Select your project: medical-imaging-solutions
+
+STEP 2: Navigate to Environment Variables
+------------------------------------------
+1. Click on your project
+2. Click the "Settings" tab (top navigation)
+3. Click "Environment Variables" in the left sidebar
+
+STEP 3: Add Environment Variables
+----------------------------------
+For each variable, follow these steps:
+
+Variable 1: DEV_USERNAME
+------------------------
+1. Click the "Add New" button
+2. In the "Key" field, enter: DEV_USERNAME
+3. In the "Value" field, enter: your_username_here
+4. Under "Environment", select:
+   - Production (required)
+   - Preview (optional)
+   - Development (optional)
+5. Click "Save"
+
+Variable 2: DEV_PASSWORD
+------------------------
+1. Click the "Add New" button again
+2. In the "Key" field, enter: DEV_PASSWORD
+3. In the "Value" field, enter: your_password_here
+4. Under "Environment", select:
+   - Production (required)
+   - Preview (optional)
+   - Development (optional)
+5. Click "Save"
+
+STEP 4: Redeploy
+----------------
+After adding environment variables, you MUST redeploy:
+
+Option A: Via Dashboard
+1. Go to "Deployments" tab
+2. Find the latest deployment
+3. Click the "..." menu (three dots)
+4. Select "Redeploy"
+5. Confirm redeployment
+
+Option B: Via Git Push
+1. Make any small change (or just push a new commit)
+2. Vercel will automatically redeploy with new environment variables
+
+IMPORTANT: Environment variables only take effect after redeployment!
+
+================================================================================
+PART 3: OTHER HOSTING SERVICES
+================================================================================
+
+NETLIFY
+-------
+1. Go to Site Settings → Environment Variables
+2. Add: DEV_USERNAME and DEV_PASSWORD
+3. Redeploy site
+
+RAILWAY
+-------
+1. Go to Project → Variables
+2. Add: DEV_USERNAME and DEV_PASSWORD
+3. Redeploy service
+
+AWS AMPLIFY
+-----------
+1. Go to App Settings → Environment Variables
+2. Add: DEV_USERNAME and DEV_PASSWORD
+3. Redeploy app
+
+GENERAL STEPS (Any Hosting Service)
+------------------------------------
+1. Find "Environment Variables" or "Config" section
+2. Add DEV_USERNAME with your username value
+3. Add DEV_PASSWORD with your password value
+4. Save changes
+5. Redeploy/restart the application
+
+================================================================================
+PART 4: VARIABLE NAMES REFERENCE
+================================================================================
+
+Required Variables:
+------------------
+DEV_USERNAME    - Username for developer documentation login
+DEV_PASSWORD    - Password for developer documentation login
+
+Variable Format:
+---------------
+- Names are case-sensitive
+- Must be exactly: DEV_USERNAME and DEV_PASSWORD
+- No spaces in variable names
+- Values can contain any characters (no quotes needed)
+
+================================================================================
+PART 5: TROUBLESHOOTING
+================================================================================
+
+Problem: Login not working locally
+-----------------------------------
+Solution:
+1. Check .env.local file exists in project root
+2. Check file name is exactly .env.local (with dot)
+3. Check variables are formatted correctly (no spaces around =)
+4. Restart development server (npm run dev)
+5. Verify variables are set: Check terminal for any errors
+
+Problem: Login not working in production
+-----------------------------------------
+Solution:
+1. Check Vercel dashboard - variables are set correctly
+2. Check variable names are exactly: DEV_USERNAME and DEV_PASSWORD
+3. Check variables are enabled for Production environment
+4. Redeploy the application (variables require redeployment)
+5. Wait a few minutes after redeployment
+
+Problem: Variables not loading
+-------------------------------
+Solution:
+1. Verify file location: Must be in project root (same as package.json)
+2. Verify file name: Must be exactly .env.local
+3. Restart server: Environment variables load at startup
+4. Check for typos in variable names
+5. Check for hidden characters or encoding issues
+
+================================================================================
+PART 6: SECURITY NOTES
+================================================================================
+
+IMPORTANT SECURITY REMINDERS:
+-----------------------------
+- Never commit .env.local to git (already in .gitignore)
+- Never share credentials in chat, email, or public places
+- Use strong passwords in production
+- Use different credentials for dev/staging/production
+- Regularly rotate passwords
+
+FILE LOCATIONS:
+--------------
+Local:     .env.local (in project root, not committed to git)
+Production: Vercel Dashboard → Settings → Environment Variables
+
+================================================================================
+QUICK REFERENCE
+================================================================================
+
+Local Setup:
+1. Create .env.local in project root
+2. Add: DEV_USERNAME=your_username
+3. Add: DEV_PASSWORD=your_password
+4. Restart: npm run dev
+
+Vercel Setup:
+1. Dashboard → Project → Settings → Environment Variables
+2. Add DEV_USERNAME and DEV_PASSWORD
+3. Select Production environment
+4. Redeploy application
+
+================================================================================
+END OF GUIDE
+================================================================================
+

@@ -112,8 +112,8 @@ export default function DevelopersDocumentationPage() {
     }
   }, [selectedContent]);
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await logout();
     router.push("/documentation/developers/login");
   };
 

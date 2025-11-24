@@ -25,13 +25,16 @@ export default function DeveloperLoginPage() {
     setError("");
     setIsLoading(true);
 
-    // Simulate small delay for better UX
-    await new Promise((resolve) => setTimeout(resolve, 300));
-
-    if (authenticate(username, password)) {
-      router.push("/documentation/developers");
-    } else {
-      setError("Invalid username or password");
+    try {
+      const success = await authenticate(username, password);
+      if (success) {
+        router.push("/documentation/developers");
+      } else {
+        setError("Invalid username or password");
+        setIsLoading(false);
+      }
+    } catch (error) {
+      setError("An error occurred. Please try again.");
       setIsLoading(false);
     }
   };
